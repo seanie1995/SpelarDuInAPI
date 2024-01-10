@@ -1,0 +1,55 @@
+﻿Det första du ska skapa är en grundläggande applikation med en databas som klarar följande.
+
+- [ ]  Det ska gå att lagra användare med användarnamn
+- [ ]  Systemet ska kunna lagra genres. Varje genre behöver bara ha en titel.
+- [ ]  Systemet ska kunna lagra artister. Artister ska ha namn och en valfri beskrivning
+- [ ]  Varje person ska kunna vara intresserad av valfritt antal genres, låtar och artister.
+- [ ]  Systemet ska kunna lagra låtar. Varje låt är kopplad till en genre och en artist
+- [ ]  Applikationen ska vara testbar och använda IoC
+- [ ]  Applikationen ska använda hjälpklasser/services för databas anrop och andra ställen där det passar. Dessa klasser ska ha enhetstester. Handlers för API anropen behöver inte ha tester.
+
+🗣 **Skapa ett REST-API**
+
+- [ ]  Använd minst ett externt API för att hjälpa till att hämta extra data eller populera databasen. T.ex. ge förslag på liknande artister, hämta populära låtar för en artist eller något annat ni tycker passar. På denna länk under “music” har ni flera alternativ [API list](https://github.com/public-apis/public-apis?tab=readme-ov-file#music). Här är några förslag men ni väljer själva:
+- [ ]  [The audio DB](https://www.theaudiodb.com/api_guide.php) - Kan ge låtar för en artist, beskrivningar, album, genre för album etc
+- [ ]  [Musixmatch](https://developer.musixmatch.com/) - Hämta låt texter för låtar
+- [ ]  [MusicBrainz API](https://musicbrainz.org/doc/MusicBrainz_API) - Väldigt mycket info om allt möjligt inom musik. Deras IDn används i vissa andra APIn t.ex. last.fm
+- [ ]  [last.fm](https://www.last.fm/api) - Massor av info, relaterade låtar, artister, mm.
+
+🎮 **En enkel klient**
+
+- [ ]  Skriv en enkel konsoll klient som använder ert API
+- [ ]  Vid start låt användaren välja en användare från API’t eller skapa en ny
+- [ ]  Lägg till alternativ för att lista och lägga till genre, artister och låtar
+- [ ]  Lägg till alternativ för eventuella endpoints ni skapat i erat API med rekommendationer eller annat
+
+Extra utmaning (gör om du vill)
+- [ ]  De möjlighet till den som anropar APIet och efterfrågar en person att direkt få ut alla genres och alla artister 
+	   för den personen direkt i en hierarkisk JSON-fil
+- [ ]  Ge möjlighet för den som anropar APIet att filtrera vad den får ut, som en sökning. 
+	   Exempelvis som jag skickar med “to” till hämtning av alla personer vill jag ha de som har ett “to” i namnet så som “tobias” eller “tomas”. 
+	   Detta kan du sen skapa för alla anropen om du vill.
+- [ ]  Skapa paginering av anropen. När jag anropar exempelvis låtar får jag kanske de första 100 låtarna 
+	   och får sen anropa ytterligare gånger för att få fler. Här kan det också vara snyggt att anropet avgör hur 
+	   många personer jag får i ett anrop så jag kan välja att få säg 10st om jag bara vill ha det.
+
+	   🕹️ Testa ditt API
+	   Det sista steget är att göra anrop mot ditt API genom programmet Insomnia eller Postman.
+- [ ]  Gör ett anrop för varje krav ovan för API:et
+- [ ]  I din readme-fil i Git lägger du in alla anrop med exempel du gjort för varje krav ovan kring APIet så vi kan se hur du tänker dig att anropen ska se ut
+
+	   👉  G-kriterier
+	   - Projektet ska byggas i Visual Studio med C# och .NET Core 6 som ett API med Minimal API.
+	   - Alla namn på filer, variabler, metoder etc ska vara på engelska
+	   - Projektet måste versionshanteras med Git. Ni ska ha sparat löpande till Github under arbetet
+	   - Det ska finnas en del kommentarer i koden. Dels som förklarar vad varje metod eller del av koden gör 
+	     (ex. de olika funktionerna i programmet) samt kommentarer för kodrader som inte är helt uppenbara vad de 
+		 gör eller hur de fungerar.
+
+	   👉  VG-kriterier
+	   - Se till att du har bra commit-meddelanden i din Git så det går att förstå vad du lagt till i varje version.
+	   - Lägga in grundläggande innehåll i den Readme-fil som finns i ditt Git-repository på Github så att någon som ser projektet för första gången får en kort introduktion till strukturen i koden.
+	   - (**individuell**) Skriv en reflektion/ett resonemang där du motiverar för hur du valt att bygga upp ditt 
+	     program. Du ska alltså resonera kring den lösning du valt, både när det gäller koden och databasen, 
+		 vilka andra val du övervägt och kritiskt granska ditt val och eventuellt motivera för bättre lösningar 
+		 som du ser men inte gjort. Denna motivering lämnas in separat.
