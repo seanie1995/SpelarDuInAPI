@@ -1,1 +1,1 @@
-![My Diagram](SpeladDuInDiagram.drawio.svg)
+![My Diagram](SpelarDuInAPIDiagram.drawio.svg)
