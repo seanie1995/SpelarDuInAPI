@@ -32,6 +32,11 @@ namespace SpelarDuInAPI
 
             // POST Calls
 
+            app.MapPost("/user"); //skapa ny user
+            app.MapPost("/genre"); //skapa ny genre
+            app.MapPost("/artist"); //skapa ny artist
+            app.MapPost("/track"); //skapa ny track
+
             app.MapPost("/user/{userId}/genre/{genreId}"); // Kopplar person till ny genre
 
             app.MapPost("/user/{userId}/artist/{artistId}"); //  Kopplar person till ny artist
