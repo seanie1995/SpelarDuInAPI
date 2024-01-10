@@ -44,5 +44,22 @@ namespace SpelarDuInAPI.Handlers
             context.SaveChanges();
             return Results.StatusCode((int)HttpStatusCode.OK);
         }
+
+        public static IResult ConnectPersonToOneArtist(ApplicationContext context, int userId, int artistId)
+        {
+            User? user = context.Users.Where(p => p.Id == userId).Include(p => p.Artists).SingleOrDefault();
+            if (user == null)
+            {
+                return Results.NotFound($"Person with id:{userId} not found!");
+            }
+            Artist? artist = context.Artists.SingleOrDefault(g => g.Id == artistId);
+            if (artist == null)
+            {
+                return Results.NotFound($"Genre with id:{artistId} not found!");
+            }
+            user.Artists.Add(artist);
+            context.SaveChanges();
+            return Results.StatusCode((int)HttpStatusCode.OK);
+        }
     }
 }
