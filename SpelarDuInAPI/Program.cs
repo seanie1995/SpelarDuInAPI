@@ -35,7 +35,7 @@ namespace SpelarDuInAPI
 
             //God luck, hawe fun!!!
 
-            app.MapGet("/user", UserHandler.GetAllUsers); // Hämta alla personer     Mojtaba
+            app.MapGet("/user", UserHandler.ShowAllUsers); // Hämta alla personer     Mojtaba
             app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
             app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserOneAGenre); // Kopplar person till ny genre  N/A
             app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A

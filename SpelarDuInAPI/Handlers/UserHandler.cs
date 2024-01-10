@@ -3,11 +3,33 @@ using SpelarDuInAPI.Data;
 using SpelarDuInAPI.Models.DTO;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
+using SpelarDuInAPI.Models.ViewModels;
+using System.Linq;
 
 namespace SpelarDuInAPI.Handlers
 {
     public class UserHandler
     {
+        public static IResult ShowAllUsers(ApplicationContext context)
+        {
+            User? user = context.Users
+                .Include(u => u.Artists)
+                .Include(u => u.Tracks)
+                .Include(u => u.Genres).SingleOrDefault();
+            if (user == null)
+            {
+                return Results.NotFound("No user in database");
+            }
+            var userView = new UserViewModel()
+            {
+                UserName = user.UserName,
+                Genres = user.Genres.Select(g => new GenreViewModel { GenreName = g.GenreName }).ToArray(),
+                Artists = user.Artists.Select(a => new ArtistViewModel { ArtistName = a.ArtistName, Description = a.Description }).ToArray(),
+                Tracks = user.Tracks.Select(t => new TrackViewModel { TrackTitle = t.TrackTitle }).ToArray()
+            };
+
+            return Results.Json(userView);
+        }
         public static IResult GetAllUsers(ApplicationContext context)
         {
             User? user = context.Users.SingleOrDefault();
