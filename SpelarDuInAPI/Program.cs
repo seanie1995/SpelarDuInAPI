@@ -20,6 +20,21 @@ namespace SpelarDuInAPI
 
             // Endpoints to be added here 
 
+            //The assignment is to create the methods designated to you, you will also create tests for your individual methods!
+            //If you feel that you hawe time over, the last 3 post calls are upp for grabs for the person who want to create them 
+
+            //Next checkup will be this monday where the time will be decided on slack later this week,
+
+            //Keep namestandards konsistent, Artist, Genre, Track and User. 
+
+            //Api connection vill be created after our methods are done and workload will be declared after next checkup,
+            //The Api decided on is The audio DB, more information about the api is in todo.txt
+
+            //Meny vill be created in console client where we will reuse Spelar du in bank meny functions. 
+
+            //God luck, hawe fun!!!
+
+
             // GET Calls
             /*
             app.MapGet("/user"); // Hämta alla personer     Mojtaba
