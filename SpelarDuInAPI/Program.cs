@@ -37,8 +37,9 @@ namespace SpelarDuInAPI
 
             app.MapGet("/user", UserHandler.GetAllUsers); // Hämta alla personer     Mojtaba
             app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
-            app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectPersonToAGenre); // Kopplar person till ny genre  N/A
-            app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectPersonToOneArtist); //  Kopplar person till ny artist  N/A
+            app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserOneAGenre); // Kopplar person till ny genre  N/A
+            app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
+            app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
             // GET Calls
             /*
            
@@ -56,7 +57,7 @@ namespace SpelarDuInAPI
 
 
 
-            app.MapPost("/user/{userId}/track/{trackId}"); // Kopplar person till ny track  N/A
+           
             */
             app.Run();
         }
