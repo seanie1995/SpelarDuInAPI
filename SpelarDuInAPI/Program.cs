@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using SpelarDuInAPI.Data;
+using SpelarDuInAPI.Handlers;
 
 namespace SpelarDuInAPI
 {
@@ -17,6 +18,7 @@ namespace SpelarDuInAPI
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
+
 
             // Endpoints to be added here 
 
@@ -37,15 +39,15 @@ namespace SpelarDuInAPI
 
             // GET Calls
             /*
-            app.MapGet("/user"); // Hämta alla personer     Mojtaba
-            app.MapGet("/user/{userId}/genre"); // Hämta alla genre kopplad till en specifik person     Sean
+            app.MapGet("/user"); // Hämta alla personer     Mojtaba           
+            app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres); // Hämta alla genre kopplad till en specifik person 
             app.MapGet("/user/{userId}/artist"); // Hämta alla artister kopplad till en specifik person     Jing
             app.MapGet("/user/{userId}/track"); // Hämta alla tracks kopplad till en specifik person        Jonny
 
             // POST Calls
 
             app.MapPost("/user"); //skapa ny user   Mojtaba
-            app.MapPost("/genre"); //skapa ny genre     Sean
+            app.MapPost("/genre", GenreHandler.CreateNewGenre); //skapa ny genre     Sean
             app.MapPost("/artist"); //skapa ny artist   Jing
             app.MapPost("/track"); //skapa ny track     jonny
 
@@ -53,6 +55,8 @@ namespace SpelarDuInAPI
             app.MapPost("/user/{userId}/artist/{artistId}"); //  Kopplar person till ny artist  N/A
             app.MapPost("/user/{userId}/track/{trackId}"); // Kopplar person till ny track  N/A
             */
+
+          
             app.Run();
         }
     }
