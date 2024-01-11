@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SpelarDuInAPI.Data;
-using SpelarDuInAPI.Models;
+
 using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Models.ViewModels;
+using SpelarDuInAPI.Services;
 using System.Net;
+using static SpelarDuInAPI.Services.IDbHelper;
 
 namespace SpelarDuInAPI.Handlers
 {
@@ -11,50 +12,22 @@ namespace SpelarDuInAPI.Handlers
     {
         // Hämta alla genre kopplad till en specifik person     Sean
 
-        public static IResult ListUsersGenres(ApplicationContext context, int userId)
+        public static IResult ListUsersGenres(IDbHelper dbHelper, int userId)
         {
-            GenreViewModel[] result = 
-                context.Genres
-                .Include(x => x.Users)
-                .Where(x => x.Users.Any(x => x.Id == userId))
-                .Select(x => new GenreViewModel()
-                {
-                    GenreName = x.GenreName,
-                }).ToArray();
+            var allGenres = dbHelper.ListUsersGenres(userId);
 
-            if (result == null)
+            if (allGenres == null)
             {
-                return Results.NotFound();
+                return Results.Conflict("No such user");
             }
 
-            return Results.Json(result);
-
+            return Results.Json(allGenres);
         }
 
-        public static IResult CreateNewGenre(ApplicationContext context, GenreDto newGenre)
+        public static IResult AddNewGenre(IDbHelper dbHelper, GenreDto newGenre)
         {
-            var allGenres = context.Genres
-                .ToArray();
-
-            if (allGenres.Any(x => x.GenreName == newGenre.GenreName))
-            {
-                return Results.Conflict($"{newGenre.GenreName} already exists.");
-            }
-
-            if (string.IsNullOrEmpty(newGenre.GenreName))
-            {
-                return Results.Conflict($"New genre name must not be empty.");
-            }
-
-            var genre = new Genre
-            {
-                GenreName = newGenre.GenreName
-            };
-
-            context.SaveChanges();
-
+            dbHelper.AddNewGenre(newGenre);
             return Results.StatusCode((int)HttpStatusCode.Created);
-             
         }
     }
 }
