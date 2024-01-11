@@ -23,9 +23,9 @@ namespace SpelarDuInAPI.Handlers
             var userView = new UserViewModel()
             {
                 UserName = user.UserName,
-                Genres = user.Genres.Select(g => new GenreViewModel { GenreName = g.GenreName }).ToArray(),
-                Artists = user.Artists.Select(a => new ArtistViewModel { ArtistName = a.ArtistName, Description = a.Description }).ToArray(),
-                Tracks = user.Tracks.Select(t => new TrackViewModel { TrackTitle = t.TrackTitle }).ToArray()
+                Genres = user.Genres.Select(g => new GenreViewModel { GenreName = g.GenreName }).ToList(),
+                Artists = user.Artists.Select(a => new ArtistViewModel { ArtistName = a.ArtistName, Description = a.Description }).ToList(),
+                Tracks = user.Tracks.Select(t => new TrackViewModel { TrackTitle = t.TrackTitle }).ToList()
             };
 
             return Results.Json(userView);
