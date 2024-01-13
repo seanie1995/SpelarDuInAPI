@@ -45,20 +45,22 @@ namespace SpelarDuInAPI
            
             app.MapGet("/user/{userId}/genre"); // Hämta alla genre kopplad till en specifik person     Sean
             app.MapGet("/user/{userId}/artist"); // Hämta alla artister kopplad till en specifik person     Jing
-            app.MapGet("/user/{userId}/track"); // Hämta alla tracks kopplad till en specifik person        Jonny
-
-
+            */
+            app.MapGet("/user/{userId}/track", TrackHandler.GetAllTracksFromSingleUser); // Hämta alla tracks kopplad till en specifik person        Jonny
+            //Questions are we supposted to view the ID? or shall we remove id from viewmodel? And should we connect the tracks to the artist when we show it? 
+            /*
             // POST Calls
 
             
 
             app.MapPost("/artist"); //skapa ny artist   Jing
-            app.MapPost("/track"); //skapa ny track     jonny
+            */
+            app.MapPost("/track", TrackHandler.AddNewTrack); //skapa ny track     jonny
 
 
 
            
-            */
+            
             app.Run();
         }
     }
