@@ -51,7 +51,7 @@ namespace SpelarDuInAPI.Handlers
                 GenreName = newGenre.GenreName
             };
 
-            allGenres.
+            context.Genres.Add(genre);
 
             context.SaveChanges();
 
