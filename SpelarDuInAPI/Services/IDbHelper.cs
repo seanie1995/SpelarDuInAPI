@@ -7,8 +7,7 @@ using System.Net;
 
 
 namespace SpelarDuInAPI.Services
-{  
-    
+{    
     public interface IDbHelper
     {
         void AddNewGenre(GenreDto newGenre);

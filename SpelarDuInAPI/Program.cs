@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SpelarDuInAPI.Data;
 using SpelarDuInAPI.Handlers;
 using SpelarDuInAPI.Services;
-using static SpelarDuInAPI.Services.IDbHelper;
+
 
 namespace SpelarDuInAPI
 {
