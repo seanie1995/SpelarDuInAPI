@@ -31,7 +31,7 @@ namespace SpelarDuInAPI.Handlers
 
         }
 
-        public static IResult CreateNewGenre(ApplicationContext context, GenreDto newGenre)
+        public static IResult AddNewGenre(ApplicationContext context, GenreDto newGenre)
         {
             var allGenres = context.Genres
                 .ToArray();
@@ -50,6 +50,8 @@ namespace SpelarDuInAPI.Handlers
             {
                 GenreName = newGenre.GenreName
             };
+
+            allGenres.
 
             context.SaveChanges();
 
