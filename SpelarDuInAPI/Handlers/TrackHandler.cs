@@ -9,9 +9,10 @@ namespace SpelarDuInAPI.Handlers
 {
     public class TrackHandler
     {
-        //Find or create genre
+        
         public static IResult AddNewTrack(ApplicationContext context, TrackDto trackDto)
         {
+            //Find or create genre
             var genre = context.Genres
                 .FirstOrDefault(g => g.GenreName == trackDto.Genre);
             if (genre == null)
@@ -46,7 +47,8 @@ namespace SpelarDuInAPI.Handlers
             return Results.StatusCode((int)HttpStatusCode.Created);
         }
         public static IResult GetAllTracksFromSingleUser(ApplicationContext context, int userId)
-        {
+        {   
+            //Find user
             var user = context.Users
                 .Include(u => u.Tracks)
                 .FirstOrDefault(u => u.Id == userId);
@@ -54,6 +56,7 @@ namespace SpelarDuInAPI.Handlers
             {
                 return Results.NotFound("User not found");
             }
+            //Show all tracktitles
             var result = user.Tracks
                 .Select(r => new TrackViewModel
                 {
