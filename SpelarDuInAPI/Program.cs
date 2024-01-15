@@ -41,27 +41,31 @@ namespace SpelarDuInAPI
 
             //God luck, hawe fun!!!
 
-
+            app.MapGet("/user", UserHandler.ShowAllUsers); // Hämta alla personer     Mojtaba
+            app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
+            app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserOneAGenre); // Kopplar person till ny genre  N/A
+            app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
+            app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
             // GET Calls
-            /*
-            app.MapGet("/user"); // Hämta alla personer     Mojtaba           
-            app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres); // Hämta alla genre kopplad till en specifik person  Sean
-            app.MapGet("/user/{userId}/artist"); // Hämta alla artister kopplad till en specifik person     Jing
-            app.MapGet("/user/{userId}/track"); // Hämta alla tracks kopplad till en specifik person        Jonny
-
+            
+           
+            app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres); // Hämta alla genre kopplad till en specifik person     Sean
+            app.MapGet("/user/{userId}/artist", ArtistHandler.ListUsersArtists); // Hämta alla artister kopplad till en specifik person     Jing
+            
+            app.MapGet("/user/{userId}/track", TrackHandler.GetAllTracksFromSingleUser); // Hämta alla tracks kopplad till en specifik person        Jonny
+            //Questions are we supposted to view the ID? or shall we remove id from viewmodel? And should we connect the tracks to the artist when we show it? 
+            
             // POST Calls
 
-            app.MapPost("/user"); //skapa ny user   Mojtaba
-            app.MapPost("/genre", GenreHandler.CreateNewGenre); //skapa ny genre Sean
-            app.MapPost("/artist"); //skapa ny artist   Jing
-            app.MapPost("/track"); //skapa ny track     jonny
+            
 
-            app.MapPost("/user/{userId}/genre/{genreId}"); // Kopplar person till ny genre  N/A
-            app.MapPost("/user/{userId}/artist/{artistId}"); //  Kopplar person till ny artist  N/A
-            app.MapPost("/user/{userId}/track/{trackId}"); // Kopplar person till ny track  N/A
-            */
+            app.MapPost("/artist", ArtistHandler.AddNewArtist); //skapa ny artist   Jing
+            app.MapPost("/track", TrackHandler.AddNewTrack); //skapa ny track     jonny
 
 
+
+           
+            
             app.Run();
         }
     }
