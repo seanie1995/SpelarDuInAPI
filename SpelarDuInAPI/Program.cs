@@ -56,6 +56,7 @@ namespace SpelarDuInAPI
 
             app.MapPost("/artist", ArtistHandler.AddNewArtist); //skapa ny artist   Jing
             app.MapPost("/track", TrackHandler.AddNewTrack); //skapa ny track     jonny
+            app.MapPost("/genre", GenreHandler.AddNewGenre);
 
 
 

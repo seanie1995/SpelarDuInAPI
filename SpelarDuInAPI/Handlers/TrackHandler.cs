@@ -60,6 +60,7 @@ namespace SpelarDuInAPI.Handlers
             var result = user.Tracks
                 .Select(r => new TrackViewModel
                 {
+                    Id = r.Id,
                     TrackTitle = r.TrackTitle
                 }).ToArray();
             return Results.Json(result);
