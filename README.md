@@ -17,9 +17,9 @@
     
 ### Post endpoints ###
 
-  - /track  **-Add new track:**
+- /track  **-Add new track:**
     
-  *Payload:*
+*Payload:*
   
 ```json
 {  
@@ -37,6 +37,20 @@
 	"UserName": "User name"
 }
 ```
+- /genre  **Adds new genre**
 
+*Payload:*
+
+```json
+{  
+	"GenreName":"Genre"
+}
+``` 
+
+- /user/{userId}/genre/{genreId}  **Connects user to a genre**
+
+- /user/{userId}/artist/{artistId}  **Connets user to a artist**
+
+- /user/{userId}/track/{trackId}  **Connects user to a track**
 
 ![My Diagram](SpelarDuInAPIDiagram.drawio.svg)
