@@ -19,6 +19,7 @@ namespace SpelarDuInAPI
 
             app.MapGet("/", () => "Hello World!");
 
+
             // Endpoints to be added here 
 
             //The assignment is to create the methods designated to you, you will also create tests for your individual methods!
