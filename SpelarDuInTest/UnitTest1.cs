@@ -25,7 +25,31 @@ namespace SpelarDuInTest
 
             // Assert
             Assert.AreEqual(1, context.Genres.Count());
+
+            var addedGenre = context.Genres.Where(x => x.GenreName == "Vegetarian Slamcore").First(); ;
+
+            Assert.AreEqual("Vegetarian Slamcore", addedGenre.GenreName);
         }
-        
+
+        [TestMethod]
+        public void AddNewGenre_AddGenreViaHandlerCheckName()
+        {
+            // Arrange
+            DbContextOptions<ApplicationContext> options = new DbContextOptionsBuilder<ApplicationContext>()
+                .UseInMemoryDatabase("TestDb")
+                .Options;
+            ApplicationContext context = new ApplicationContext(options);
+
+            // Act
+            GenreHandler.AddNewGenre(context, new GenreDto()
+            {
+                GenreName = "Vegetarian Slamcore"
+            });
+
+            var addedGenre = context.Genres.Where(x => x.GenreName == "Vegetarian Slamcore").First(); ;
+            // Assert
+            
+            Assert.AreEqual("Vegetarian Slamcore", addedGenre.GenreName);
+        }
     }
 }
