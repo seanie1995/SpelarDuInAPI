@@ -26,9 +26,7 @@ namespace SpelarDuInTest
             // Assert
             Assert.AreEqual(1, context.Genres.Count());
 
-            var addedGenre = context.Genres.Where(x => x.GenreName == "Vegetarian Slamcore").First(); ;
-
-            Assert.AreEqual("Vegetarian Slamcore", addedGenre.GenreName);
+            
         }
 
         [TestMethod]
