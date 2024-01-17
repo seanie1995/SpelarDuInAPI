@@ -6,7 +6,7 @@ using SpelarDuInAPI.Models;
 using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Services;
 using System.Security.Cryptography.X509Certificates;
-using static SpelarDuInAPI.Services.IDbHelper;
+using static SpelarDuInAPI.Services.IGenreDbHelper;
 
 namespace SpelarDuInTest
 {

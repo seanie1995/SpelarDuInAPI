@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
-using static SpelarDuInAPI.Services.IDbHelper;
+using static SpelarDuInAPI.Services.IGenreDbHelper;
 
 
 namespace SpelarDuInTest
@@ -19,8 +19,8 @@ namespace SpelarDuInTest
         [TestMethod]
         public void AddNewGenre_AddNewGenreToDb()
         {
-            var mockService = new Mock<IDbHelper>();
-            IDbHelper dbHelper = mockService.Object;
+            var mockService = new Mock<IGenreDbHelper>();
+            IGenreDbHelper dbHelper = mockService.Object;
 
             GenreDto genre = new GenreDto()
             {

@@ -8,13 +8,13 @@ using System.Net;
 
 namespace SpelarDuInAPI.Services
 {    
-    public interface IDbHelper
+    public interface IGenreDbHelper
     {
         void AddNewGenre(GenreDto newGenre);
         GenreViewModel[] ListUsersGenres(int userId);
     }
 
-    public class DbHelper : IDbHelper
+    public class DbHelper : IGenreDbHelper
     {
         private ApplicationContext _context;    
             

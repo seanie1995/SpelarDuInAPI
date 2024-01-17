@@ -16,7 +16,7 @@ namespace SpelarDuInAPI
             string connectionString = builder.Configuration.GetConnectionString("ApplicationContext");
 
             builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
-            builder.Services.AddScoped<IDbHelper, DbHelper>();
+            builder.Services.AddScoped<IGenreDbHelper, DbHelper>();
 
             var app = builder.Build();
 
