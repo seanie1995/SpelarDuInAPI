@@ -22,7 +22,7 @@ namespace SpelarDuInAPI
 
             app.MapGet("/", () => "Hello World!");
 
-            app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres);
+            
             app.MapPost("/genre", GenreHandler.AddNewGenre);
 
             // Endpoints to be added here 

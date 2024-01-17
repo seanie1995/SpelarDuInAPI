@@ -11,10 +11,11 @@ namespace SpelarDuInAPI.Handlers
     {
         // Hämta alla genre kopplad till en specifik person     Sean
 
-        public static void ListUsersGenres(IGenreDbHelper dbHelper, int userId)
+        public static GenreViewModel[] ListUsersGenres(IGenreDbHelper dbHelper, int userId)
         {
-            dbHelper.ListUsersGenres(userId);
+            GenreViewModel[] result = dbHelper.ListUsersGenres(userId);
 
+            return result;
         }
 
         public static void AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
