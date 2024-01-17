@@ -43,12 +43,15 @@ namespace SpelarDuInAPI
             app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserOneAGenre); // Kopplar person till ny genre  N/A
             app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
             app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
-                                                                                              // GET Calls
+            */                                                                                 // GET Calls
 
-
+            /*
             app.MapGet("/user/{userId}/genre"); // Hämta alla genre kopplad till en specifik person     Sean
+            */
             app.MapGet("/user/{userId}/artist", ArtistHandler.ListUsersArtists); // Hämta alla artister kopplad till en specifik person     Jing
+            /*
             app.MapGet("/user/{userId}/track"); // Hämta alla tracks kopplad till en specifik person        Jonny
+            */
 
 
             // POST Calls
@@ -56,10 +59,9 @@ namespace SpelarDuInAPI
 
 
             app.MapPost("/artist", ArtistHandler.AddNewArtist); //skapa ny artist   Jing
+            /*
             app.MapPost("/track"); //skapa ny track     jonny
-
-
-             */
+            */
 
 
             app.Run();
