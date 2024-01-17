@@ -50,6 +50,7 @@ namespace SpelarDuInAPI.Services
         }
         public GenreViewModel[] ListUsersGenres(int userId) 
         {
+            
             GenreViewModel[] result =
                 _context.Genres
                 .Include(x => x.Users)
@@ -60,6 +61,7 @@ namespace SpelarDuInAPI.Services
                     GenreName = x.GenreName,
                 }).ToArray();
 
+            
             return result;
         }
 

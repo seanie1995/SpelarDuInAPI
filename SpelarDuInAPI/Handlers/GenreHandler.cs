@@ -22,5 +22,5 @@ namespace SpelarDuInAPI.Handlers
         {
             dbHelper.AddNewGenre(newGenre);          
         }
-    }
+    }   
 }
