@@ -84,22 +84,6 @@ namespace SpelarDuInTest
             Assert.AreEqual(track.Artist, actual.Artist.ArtistName);
             Assert.AreEqual(track.Genre, actual.Genre.GenreName);
         }
-      /*  [TestMethod]
-        public void GetAllTracksFromSingleUser_WithNonExistingUserId_ReturnsNotFound()
-        {
-            // Arrange
-            DbContextOptions<ApplicationContext> options = new DbContextOptionsBuilder<ApplicationContext>()
-                .UseInMemoryDatabase("TestDb")
-                .Options;
-            ApplicationContext context = new ApplicationContext(options);
-            var httpContext = new DefaultHttpContext();
-
-            // Act
-            TrackHandler.GetAllTracksFromSingleUser(context, 3);
-
-            //Assert
-
-            Assert.AreEqual(StatusCodes.Status404NotFound, httpContext.Response.StatusCode);
-        }*/
+     
     }
 }
