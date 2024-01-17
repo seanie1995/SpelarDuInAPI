@@ -60,7 +60,6 @@ namespace SpelarDuInAPI.Services
         public void ConnectUserToOneTrack(int userId, int trackId)
         {
             User? user = _context.Users.Where(p => p.Id == userId).Include(p => p.Tracks).SingleOrDefault();
-            // User? user1 = _context.Users.Include(p=>p.Tracks).Where(u=> u.Id == userId).SingleOrDefault();
             if (user == null)
             {
                 Console.WriteLine($"Person with id:{userId} not found!");

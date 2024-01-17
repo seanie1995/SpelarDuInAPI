@@ -16,7 +16,7 @@ namespace SpelarDuInTest
     public class UserHandlerTests
     {
         [TestMethod]
-        public void CreateUser_Works()
+        public void CreateUser_CheckIfMethodReallyCreatesUser()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<ApplicationContext>().UseInMemoryDatabase(databaseName: "test-db").Options;
@@ -34,17 +34,33 @@ namespace SpelarDuInTest
         }
 
         [TestMethod]
-        public void CreateUser_CorrectName()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void CreateUser_ExistingName_Throws_Exception()
+        {
+            //Arrange
+            var options = new DbContextOptionsBuilder<ApplicationContext>().UseInMemoryDatabase(databaseName: "test-db").Options;
+            var context = new ApplicationContext(options);
+            UserDbHelper dbHelper = new UserDbHelper(context);
+            context.Users.Add(new User { UserName = "test-username" });
+            context.SaveChanges();
+
+            //Act & Assert
+            context.Users.Add(new User { UserName = "test-username" });
+            context.SaveChanges();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidDataException))]
+        public void CreateUser_EnterEmptyName_Throws_Exception()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<ApplicationContext>().UseInMemoryDatabase(databaseName: "test-db").Options;
             var context = new ApplicationContext(options);
             UserDbHelper dbHelper = new UserDbHelper(context);
 
-            //Act
-
-            //Assert
-
+            //Act & Assert
+            context.Users.Add(new User { UserName = "" });
+            context.SaveChanges();
         }
     }
 }
