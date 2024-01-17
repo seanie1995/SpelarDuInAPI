@@ -28,9 +28,9 @@ namespace SpelarDuInAPI.Handlers
             return Results.StatusCode((int)HttpStatusCode.Created);
         }
 
-        public static IResult ConnectUserOneAGenre(IUserDbHelper dbHelper, int userId, int genreId)
+        public static IResult ConnectUserToOneGenre(IUserDbHelper dbHelper, int userId, int genreId)
         {
-            dbHelper.ConnectUserOneAGenre(userId, genreId);
+            dbHelper.ConnectUserToOneGenre(userId, genreId);
             return Results.StatusCode((int)HttpStatusCode.OK);
         }
 

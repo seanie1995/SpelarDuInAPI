@@ -11,21 +11,11 @@ namespace SpelarDuInAPI.Services
     public interface IUserDbHelper
     {
         List<UserViewModelAllInfo> ShowAllUsersAllInfo();
-
         UserViewModel [] GetAllUsers();
-
-
         void CreateUser(UserDto user);
-
-
-        void ConnectUserOneAGenre(int userId, int genreId);
-
-
+        void ConnectUserToOneGenre(int userId, int genreId);
         void ConnectUserToOneArtist(int userId, int artistId);
-
-
         void ConnectUserToOneTrack(int userId, int trackId);
-
     }
     public class UserDbHelper : IUserDbHelper
     {
@@ -35,7 +25,7 @@ namespace SpelarDuInAPI.Services
             _context = context;
         }
 
-        public void ConnectUserOneAGenre(int userId, int genreId)
+        public void ConnectUserToOneGenre(int userId, int genreId)
         {
             User? user = _context.Users.Where(p => p.Id == userId).Include(p => p.Genres).SingleOrDefault();
             if (user == null)
