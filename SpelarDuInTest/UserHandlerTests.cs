@@ -41,12 +41,10 @@ namespace SpelarDuInTest
             var options = new DbContextOptionsBuilder<ApplicationContext>().UseInMemoryDatabase(databaseName: "test-db").Options;
             var context = new ApplicationContext(options);
             UserDbHelper dbHelper = new UserDbHelper(context);
-            context.Users.Add(new User { UserName = "test-username" });
-            context.SaveChanges();
+            dbHelper.CreateUser(new UserDto { UserName = "test-username" });
 
             //Act & Assert
-            context.Users.Add(new User { UserName = "test-username" });
-            context.SaveChanges();
+            dbHelper.CreateUser(new UserDto { UserName = "test-username" });
         }
 
         [TestMethod]
@@ -59,8 +57,7 @@ namespace SpelarDuInTest
             UserDbHelper dbHelper = new UserDbHelper(context);
 
             //Act & Assert
-            context.Users.Add(new User { UserName = "" });
-            context.SaveChanges();
+            dbHelper.CreateUser(new UserDto { UserName = "" });
         }
     }
 }
