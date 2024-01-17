@@ -21,7 +21,7 @@ namespace SpelarDuInTest
                 .UseInMemoryDatabase("TestDb")
                 .Options;
             ApplicationContext context = new ApplicationContext(options);
-            DbHelper dbHelper = new DbHelper(context);
+            GenreDbHelper dbHelper = new GenreDbHelper(context);
 
             // Act
             dbHelper.AddNewGenre(new GenreDto()

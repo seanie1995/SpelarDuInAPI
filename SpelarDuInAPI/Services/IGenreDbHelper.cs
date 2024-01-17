@@ -14,11 +14,11 @@ namespace SpelarDuInAPI.Services
         GenreViewModel[] ListUsersGenres(int userId);
     }
 
-    public class DbHelper : IGenreDbHelper
+    public class GenreDbHelper : IGenreDbHelper
     {
         private ApplicationContext _context;    
             
-        public DbHelper(ApplicationContext context)
+        public GenreDbHelper(ApplicationContext context)
         {
             _context = context;
         }
