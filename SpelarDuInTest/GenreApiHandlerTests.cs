@@ -14,7 +14,7 @@ using static SpelarDuInAPI.Services.IGenreDbHelper;
 namespace SpelarDuInTest
 {
     [TestClass]
-    public class ApiHandlerTests
+    public class GenreApiHandlerTests
     {
         [TestMethod]
         public void AddNewGenre_AddNewGenreToDb()
