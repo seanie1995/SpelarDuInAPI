@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using SpelarDuInAPI.Data;
 using SpelarDuInAPI.Handlers;
+using SpelarDuInAPI.Services;
+
 
 namespace SpelarDuInAPI
 {
@@ -14,11 +16,14 @@ namespace SpelarDuInAPI
             string connectionString = builder.Configuration.GetConnectionString("ApplicationContext");
 
             builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddScoped<IGenreDbHelper, GenreDbHelper>();
 
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
 
+            
+            app.MapPost("/genre", GenreHandler.AddNewGenre);
 
             // Endpoints to be added here 
 
