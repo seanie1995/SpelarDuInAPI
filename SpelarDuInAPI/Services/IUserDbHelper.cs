@@ -11,7 +11,7 @@ namespace SpelarDuInAPI.Services
     public interface IUserDbHelper
     {
         List<UserViewModelAllInfo> ShowAllUsersAllInfo();
-        UserViewModel [] GetAllUsers();
+        UserViewModel[] GetAllUsers();
         void CreateUser(UserDto user);
         void ConnectUserToOneGenre(int userId, int genreId);
         void ConnectUserToOneArtist(int userId, int artistId);
@@ -41,7 +41,7 @@ namespace SpelarDuInAPI.Services
             _context.SaveChanges();
         }
 
-        public void ConnectUserToOneArtist( int userId, int artistId)
+        public void ConnectUserToOneArtist(int userId, int artistId)
         {
             User? user = _context.Users.Where(p => p.Id == userId).Include(p => p.Artists).SingleOrDefault();
             if (user == null)
@@ -60,7 +60,7 @@ namespace SpelarDuInAPI.Services
         public void ConnectUserToOneTrack(int userId, int trackId)
         {
             User? user = _context.Users.Where(p => p.Id == userId).Include(p => p.Tracks).SingleOrDefault();
-           // User? user1 = _context.Users.Include(p=>p.Tracks).Where(u=> u.Id == userId).SingleOrDefault();
+            // User? user1 = _context.Users.Include(p=>p.Tracks).Where(u=> u.Id == userId).SingleOrDefault();
             if (user == null)
             {
                 Console.WriteLine($"Person with id:{userId} not found!");
@@ -76,11 +76,34 @@ namespace SpelarDuInAPI.Services
 
         public void CreateUser(UserDto user)
         {
-            _context.Users.Add(new User
+            try
             {
-                UserName = user.UserName
-            });
-            _context.SaveChanges();
+                _context.Users.Add(new User
+                {
+                    UserName = user.UserName
+                });
+                if (string.IsNullOrEmpty(user.UserName))
+                {
+                    Results.Json("You must enter a name!");
+                    throw new InvalidDataException("You must enter a name!");
+                }
+                if (_context.Users.Any(u => u.UserName == user.UserName))
+                {
+                    Results.Json("This username already exists!");
+                    throw new InvalidOperationException("This username already exists!");
+                }
+                _context.SaveChanges();
+            }
+            catch(InvalidDataException ex)
+            {
+                Results.Json("You must enter a name!");
+                throw;
+            }
+            catch(InvalidOperationException ex)
+            {
+                Results.Json("This username already exists!");
+                throw;
+            }
         }
 
         public UserViewModel[] GetAllUsers()
@@ -99,7 +122,7 @@ namespace SpelarDuInAPI.Services
             {
                 Console.WriteLine("No user in database");
             }
-            var userView = user.Select(u=> new UserViewModelAllInfo()
+            var userView = user.Select(u => new UserViewModelAllInfo()
             {
                 UserName = u.UserName,
                 Genres = u.Genres.Select(g => new GenreViewModel { GenreName = g.GenreName }).ToList(),
