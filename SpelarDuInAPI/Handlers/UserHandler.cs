@@ -32,12 +32,14 @@ namespace SpelarDuInAPI.Handlers
         }
         public static IResult GetAllUsers(ApplicationContext context)
         {
-            User? user = context.Users.SingleOrDefault();
-            if (user != null)
-            {
-                return Results.Json(context.Users.Select(p => new { p.Id, p.UserName }).ToArray());
-            }
-            return Results.Json("No user in database");
+            UserViewModel[] result = context.Users.Select(u => new UserViewModel { Id = u.Id, UserName = u.UserName }).ToArray();
+            //User? user = context.Users.SingleOrDefault();
+            //if (user != null)
+            //{
+            //    return Results.Json(context.Users.Select(p => new { p.Id, p.UserName }).ToArray());
+            //}
+            //return Results.Json("No user in database");
+            return Results.Json(result);
         }
 
         public static IResult CreateUser(ApplicationContext context, UserDto user)
