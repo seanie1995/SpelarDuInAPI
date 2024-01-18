@@ -16,7 +16,7 @@ namespace SpelarDuInTest
     public class UserHandlerTests
     {
         [TestMethod]
-        public void CreateUser_CheckIfMethodReallyCreatesUser()
+        public void CreateUser_Check_If_Method_Really_Creates_User()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<ApplicationContext>().UseInMemoryDatabase(databaseName: "test-db").Options;
