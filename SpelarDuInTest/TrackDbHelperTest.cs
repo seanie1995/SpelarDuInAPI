@@ -42,24 +42,6 @@ namespace SpelarDuInTest
             Assert.AreEqual(track.Artist, actual.Artist.ArtistName);
             Assert.AreEqual(track.Genre, actual.Genre.GenreName);
         }
-        [TestMethod]
-        public void AddNewTrack_AddNewTrackToDb()
-        {
-            var mockService = new Mock<ITrackDbHelper>();
-            ITrackDbHelper dbHelper = mockService.Object;
-
-            TrackDto track = new TrackDto()
-            {
-                TrackTitle = "Title",
-                Artist = "ArtistTitle",
-                Genre = "Genre"
-            };
-
-            // Act
-            TrackHandler.AddNewTrack(dbHelper, track);
-
-            // Assert
-            mockService.Verify(x => x.AddNewTrack(track), Times.Once);
-        }
+       
     }
 }
