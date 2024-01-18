@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using static SpelarDuInAPI.Services.IGenreDbHelper;
+using Microsoft.EntityFrameworkCore;
+using SpelarDuInAPI.Data;
 
 
 namespace SpelarDuInTest
@@ -24,7 +26,7 @@ namespace SpelarDuInTest
 
             GenreDto genre = new GenreDto()
             {
-                GenreName = "Vegeatarian Slamcore",
+                GenreName = "Vegetarian Slamcore",
             };
 
             // Act
@@ -34,6 +36,7 @@ namespace SpelarDuInTest
             mockService.Verify(x => x.AddNewGenre(genre), Times.Once);
         }
 
+       
 
     }
 }

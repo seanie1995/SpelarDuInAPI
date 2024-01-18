@@ -17,14 +17,13 @@ namespace SpelarDuInAPI
 
             builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
             builder.Services.AddScoped<IGenreDbHelper, GenreDbHelper>();
+            builder.Services.AddScoped<IUserDbHelper, UserDbHelper>();
             builder.Services.AddScoped<ITrackDbHelper, TrackDbHelper>();
 
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
-
-            
-            app.MapPost("/genre", GenreHandler.AddNewGenre);
+           
 
             // Endpoints to be added here 
 
@@ -42,32 +41,25 @@ namespace SpelarDuInAPI
 
             //God luck, hawe fun!!!
 
-            app.MapGet("/user", UserHandler.ShowAllUsers); // Hämta alla personer     Mojtaba
-            app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
-            app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserOneAGenre); // Kopplar person till ny genre  N/A
-            app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
-            app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
+
             // GET Calls
-            
-           
+            app.MapGet("/user/allinfo", UserHandler.ShowAllUsersAllInfo); // Hämta alla personer     Mojtaba
+            app.MapGet("/user", UserHandler.GetAllUsers); // Hämta alla personer     Mojtaba
             app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres); // Hämta alla genre kopplad till en specifik person     Sean
             app.MapGet("/user/{userId}/artist", ArtistHandler.ListUsersArtists); // Hämta alla artister kopplad till en specifik person     Jing
-            
             app.MapGet("/user/{userId}/track", TrackHandler.GetAllTracksFromSingleUser); // Hämta alla tracks kopplad till en specifik person        Jonny
             //Questions are we supposted to view the ID? or shall we remove id from viewmodel? And should we connect the tracks to the artist when we show it? 
             
-            // POST Calls
 
-            
-
+            // POST Calls           
             app.MapPost("/artist", ArtistHandler.AddNewArtist); //skapa ny artist   Jing
             app.MapPost("/track", TrackHandler.AddNewTrack); //skapa ny track     jonny
             app.MapPost("/genre", GenreHandler.AddNewGenre);
+            app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
+            app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserToOneGenre); // Kopplar person till ny genre  N/A
+            app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
+            app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
 
-
-
-           
-            
             app.Run();
         }
     }
