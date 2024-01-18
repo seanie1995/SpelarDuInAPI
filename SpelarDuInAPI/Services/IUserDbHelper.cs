@@ -32,7 +32,8 @@ namespace SpelarDuInAPI.Services
                .Include(u => u.Artists)
                .Include(u => u.Tracks)
                .Include(u => u.Genres).ToArray();
-            if (user == null)
+            //using .Length because with .ToArray it'll never be null.
+            if (user.Length == 0)
             {
                 throw new InvalidDataException();
             }
@@ -49,7 +50,7 @@ namespace SpelarDuInAPI.Services
         public UserViewModel[] GetAllUsers()
         {
             UserViewModel[] result = _context.Users.Select(u => new UserViewModel { Id = u.Id, UserName = u.UserName }).ToArray();
-            if (result == null) { throw new InvalidDataException(); }
+            if (result.Length == 0) { throw new InvalidDataException(); }
             return result;
         }
 
