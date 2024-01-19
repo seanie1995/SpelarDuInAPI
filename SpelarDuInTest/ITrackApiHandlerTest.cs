@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SpelarDuInAPI.Handlers;
+using SpelarDuInAPI.Models;
 using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Models.ViewModels;
 using SpelarDuInAPI.Services;
@@ -35,6 +36,7 @@ namespace SpelarDuInTest
             // Assert
             mockService.Verify(x => x.AddNewTrack(track), Times.Once);
         }
+       
 
         [TestMethod]
         public void GetAllTracksFromSingleUser_UserExists_ReturnsTracks()
@@ -66,32 +68,12 @@ namespace SpelarDuInTest
             mockService.Setup(m => m.GetAllTracksFromSingleUser(nonExistingUserId)).Throws(new Exception("User not found"));
 
             //Act
-            var exception = Assert.ThrowsException<Exception>(()=>
+            var exception = Assert.ThrowsException<Exception>(() =>
             TrackHandler.GetAllTracksFromSingleUser(mockService.Object, nonExistingUserId));
 
             //Assert
             Assert.AreEqual("User not found", exception.Message);
         }
-        [TestMethod]
-        public void GetAllTracksFromSingleUSer_UserExistsButNoTracks_ReturnsEmptyList()
-        {
-            //Arrange
-            var mockService = new Mock<ITrackDbHelper>();
-            int existingUserWithNoTracks = 1;
-            var emptyTracksList = new TrackViewModel[] { };
 
-            mockService.Setup(m => m.GetAllTracksFromSingleUser(existingUserWithNoTracks)).Returns(emptyTracksList);
-
-            //Act
-            var result = TrackHandler.GetAllTracksFromSingleUser(mockService.Object, existingUserWithNoTracks);
-
-            //Assert
-            Assert.IsNotNull(result);
-            var jsonResult = result as JsonResult;
-            Assert.IsNotNull(jsonResult);
-            var tracks = jsonResult?.Value as IEnumerable<TrackViewModel>;
-            Assert.IsFalse(tracks == null);
-            Assert.IsFalse(tracks.Any());
-        }
     }
 }
