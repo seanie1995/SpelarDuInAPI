@@ -10,7 +10,6 @@ namespace SpelarDuInAPI.Handlers
 {
     public class TrackHandler
     {
-        
         public static IResult AddNewTrack(ITrackDbHelper trackDbHelper, TrackDto trackDto)
         {
             trackDbHelper.AddNewTrack(trackDto);

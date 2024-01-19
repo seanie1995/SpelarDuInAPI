@@ -43,23 +43,37 @@ namespace SpelarDuInTest
             Assert.AreEqual(track.Genre, actual.Genre.GenreName);
         }
         [TestMethod]
-        public void AddNewTrack_AddNewTrackToDb()
+        public void AddNewTrack_WithExistingGenreAndArtist_ShouldReuseExisting()
         {
-            var mockService = new Mock<ITrackDbHelper>();
-            ITrackDbHelper dbHelper = mockService.Object;
+            // Arrange
+            DbContextOptions<ApplicationContext> options = new DbContextOptionsBuilder<ApplicationContext>()
+                 .UseInMemoryDatabase("SecondTestDb")
+                 .Options;
+            ApplicationContext context = new ApplicationContext(options);
+            TrackDbHelper dbHelper = new TrackDbHelper(context);
 
-            TrackDto track = new TrackDto()
+            TrackDto firstTrack = new TrackDto()
             {
                 TrackTitle = "Title",
                 Artist = "ArtistTitle",
                 Genre = "Genre"
             };
-
             // Act
-            TrackHandler.AddNewTrack(dbHelper, track);
+            TrackHandler.AddNewTrack(dbHelper, firstTrack);
 
-            // Assert
-            mockService.Verify(x => x.AddNewTrack(track), Times.Once);
+            //Arrange second track 
+            TrackDto secondTrack = new TrackDto()
+            {
+                TrackTitle = "SecondTitle",
+                Artist = "ArtistTitle",
+                Genre = "Genre"
+            };
+            //Act second track 
+            TrackHandler.AddNewTrack(dbHelper, secondTrack);
+            //Assert
+            Assert.AreEqual(2, context.Tracks.Count());
+            Assert.AreEqual(1, context.Artists.Count());
+            Assert.AreEqual(1, context.Genres.Count());
         }
     }
 }
