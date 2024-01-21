@@ -32,7 +32,7 @@ namespace SpelarDuInTest
             ArtistHandler.AddNewArtist(context, newArtist);
 
             //Assert
-            Assert.AreEqual(7, context.Artists.Count());
+            Assert.AreEqual(1, context.Artists.Count());
             Artist actual = context.Artists.Single();
             Assert.AreEqual(newArtist.ArtistName, actual.ArtistName);
             Assert.AreEqual(newArtist.Description, actual.Description);
