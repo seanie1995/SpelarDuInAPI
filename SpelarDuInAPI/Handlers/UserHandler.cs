@@ -5,104 +5,104 @@ using System.Net;
 using Microsoft.EntityFrameworkCore;
 using SpelarDuInAPI.Models.ViewModels;
 using System.Linq;
+using SpelarDuInAPI.Services;
 
 namespace SpelarDuInAPI.Handlers
 {
     public class UserHandler
     {
-        public static IResult ShowAllUsers(ApplicationContext context)
+        public static IResult ShowAllUsersAllInfo(IUserDbHelper dbHelper)
         {
-            User? user = context.Users
-                .Include(u => u.Artists)
-                .Include(u => u.Tracks)
-                .Include(u => u.Genres).SingleOrDefault();
-            if (user == null)
+            try
             {
-                return Results.NotFound("No user in database");
+                var users = dbHelper.ShowAllUsersAllInfo();
+                return Results.Json(users);
             }
-            var userView = new UserViewModel()
+            catch (InvalidDataException ex)
             {
-                UserName = user.UserName,
-                Genres = user.Genres.Select(g => new GenreViewModel { GenreName = g.GenreName }).ToList(),
-                Artists = user.Artists.Select(a => new ArtistViewModel { ArtistName = a.ArtistName, Description = a.Description }).ToList(),
-                Tracks = user.Tracks.Select(t => new TrackViewModel { TrackTitle = t.TrackTitle }).ToList()
-            };
-
-            return Results.Json(userView);
-        }
-        public static IResult GetAllUsers(ApplicationContext context)
-        {
-            UserViewModel[] result = context.Users.Select(u => new UserViewModel { Id = u.Id, UserName = u.UserName }).ToArray();
-            //User? user = context.Users.SingleOrDefault();
-            //if (user != null)
-            //{
-            //    return Results.Json(context.Users.Select(p => new { p.Id, p.UserName }).ToArray());
-            //}
-            //return Results.Json("No user in database");
-            return Results.Json(result);
+                return Results.Json("No user in database");
+            }
         }
 
-        public static IResult CreateUser(ApplicationContext context, UserDto user)
+        public static IResult GetAllUsers(IUserDbHelper dbHelper)
         {
-            context.Users.Add(new User
+            try
             {
-                UserName = user.UserName
-            });
-            context.SaveChanges();
-            return Results.StatusCode((int)HttpStatusCode.Created);
+                UserViewModel[] result = dbHelper.GetAllUsers();
+                return Results.Json(result);
+            }
+            catch (InvalidDataException ex)
+            {
+                return Results.Json("No user in database");
+            }
         }
 
-        public static IResult ConnectUserOneAGenre(ApplicationContext context, int userId, int genreId)
+        public static IResult CreateUser(IUserDbHelper dbHelper, UserDto user)
         {
-            User? user = context.Users.Where(p => p.Id == userId).Include(p=>p.Genres).SingleOrDefault();
-            if(user == null)
+            try
             {
-                return Results.NotFound($"Person with id:{userId} not found!");
+                dbHelper.CreateUser(user);
+                return Results.StatusCode((int)HttpStatusCode.Created);
             }
-            Genre? genre = context.Genres.SingleOrDefault(g => g.Id == genreId);
-            if(genre == null)
+            catch (InvalidDataException ex)
             {
-                return Results.NotFound($"Genre with id:{genreId} not found!");
+                return Results.BadRequest("You must enter a name!");
             }
-            user.Genres.Add(genre);
-            context.SaveChanges();
-            return Results.StatusCode((int)HttpStatusCode.OK);
+            catch (InvalidOperationException ex)
+            {
+                return Results.Conflict("This username already exists!");
+            }
         }
 
-        public static IResult ConnectUserToOneArtist(ApplicationContext context, int userId, int artistId)
+        public static IResult ConnectUserToOneGenre(IUserDbHelper dbHelper, int userId, int genreId)
         {
-            User? user = context.Users.Where(p => p.Id == userId).Include(p => p.Artists).SingleOrDefault();
-            if (user == null)
+            try
             {
-                return Results.NotFound($"Person with id:{userId} not found!");
+                dbHelper.ConnectUserToOneGenre(userId, genreId);
+                return Results.StatusCode((int)HttpStatusCode.OK);
             }
-            Artist? artist = context.Artists.SingleOrDefault(g => g.Id == artistId);
-            if (artist == null)
+            catch (InvalidDataException ex)
             {
-                return Results.NotFound($"Genre with id:{artistId} not found!");
+                return Results.NotFound($"Person with id:{userId} doesnt exist!");
             }
-            user.Artists.Add(artist);
-            context.SaveChanges();
-            return Results.StatusCode((int)HttpStatusCode.OK);
+            catch (InvalidOperationException ex)
+            {
+                return Results.NotFound($"Genre with id:{genreId} doesnt exist!");
+            }
         }
 
-        public static IResult ConnectUserToOneTrack(ApplicationContext context, int userId, int trackId)
+        public static IResult ConnectUserToOneArtist(IUserDbHelper dbHelper, int userId, int artistId)
         {
-            User? user = context.Users.Where(p => p.Id == userId).Include(p => p.Tracks).SingleOrDefault();
-            if (user == null)
+            try
             {
-                return Results.NotFound($"Person with id:{userId} not found!");
+                dbHelper.ConnectUserToOneArtist(userId, artistId);
+                return Results.StatusCode((int)HttpStatusCode.OK);
             }
-            Track? track = context.Tracks.SingleOrDefault(g => g.Id == trackId);
-            if (track == null)
+            catch (InvalidDataException ex)
             {
-                return Results.NotFound($"Genre with id:{trackId} not found!");
+                return Results.NotFound($"Person with id:{userId} doesnt exist!");
             }
-            user.Tracks.Add(track);
-            context.SaveChanges();
-            return Results.StatusCode((int)HttpStatusCode.OK);
+            catch (InvalidOperationException ex)
+            {
+                return Results.NotFound($"Artist with id:{artistId} doesnt exist!");
+            }
         }
 
-       
+        public static IResult ConnectUserToOneTrack(IUserDbHelper dbHelper, int userId, int trackId)
+        {
+            try
+            {
+                dbHelper.ConnectUserToOneTrack(userId, trackId);
+                return Results.StatusCode((int)HttpStatusCode.OK);
+            }
+            catch (InvalidDataException ex)
+            {
+                return Results.NotFound($"Person with id:{userId} doesnt exist!");
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Results.NotFound($"Track with id:{trackId} doesnt exist!");
+            }
+        }
     }
 }
