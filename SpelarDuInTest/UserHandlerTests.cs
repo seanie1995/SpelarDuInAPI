@@ -16,6 +16,8 @@ namespace SpelarDuInTest
     [TestClass]
     public class UserHandlerTests
     {
+        //(IUserDbHelper)
+        //Here we are testing to see if the changes in db goes through correctly!
     //--CreateUser tests
         [TestMethod]
         public void CreateUser_Check_If_Method_Really_Creates_User()

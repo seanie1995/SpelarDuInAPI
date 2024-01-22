@@ -13,8 +13,11 @@ namespace SpelarDuInTest
     [TestClass]
     public class UserApiHandlerTests
     {
+        //(UserHandler)
+        //Here we're testing to see if CreateUser in UserHandler
+        //calls the CreateUser in IUserDbHelper 
         [TestMethod]
-        public void CreateUser_AddsUser()
+        public void CreateUser_InUserHandler_CallsCreateUser_In_IUserDbHandler()
         {
             var mockService = new Mock<IUserDbHelper>();
             IUserDbHelper dbHelper = mockService.Object;
