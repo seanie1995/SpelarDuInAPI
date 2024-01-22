@@ -17,8 +17,10 @@ namespace SpelarDuInAPI
 
             builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
             builder.Services.AddScoped<IGenreDbHelper, GenreDbHelper>();
+            builder.Services.AddScoped<IArtistDbHelper, ArtistDbHelper>();
             builder.Services.AddScoped<IUserDbHelper, UserDbHelper>();
             builder.Services.AddScoped<ITrackDbHelper, TrackDbHelper>();
+
 
             var app = builder.Build();
 
