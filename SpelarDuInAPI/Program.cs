@@ -1,3 +1,6 @@
+using DiscographyViewerAPI.Models.Dto;
+using DiscographyViewerAPI.Models.ViewModels;
+using DiscographyViewerAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using SpelarDuInAPI.Data;
@@ -20,6 +23,7 @@ namespace SpelarDuInAPI
             builder.Services.AddScoped<IArtistDbHelper, ArtistDbHelper>();
             builder.Services.AddScoped<IUserDbHelper, UserDbHelper>();
             builder.Services.AddScoped<ITrackDbHelper, TrackDbHelper>();
+            builder.Services.AddScoped<IDiscographyService, DiscographyService>();
 
 
             var app = builder.Build();
@@ -61,6 +65,22 @@ namespace SpelarDuInAPI
             app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserToOneGenre); // Kopplar person till ny genre  N/A
             app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
             app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
+
+            app.MapGet("/{name}/albums", async (string name, IDiscographyService discographyClient) =>
+            {
+                DiscographyDto discography = await discographyClient.GetDiscographyAsync(name.ToLower());
+
+                DiscographyViewModel result = new DiscographyViewModel()
+                {
+                    Album = discography.Album.Select(a => new AlbumViewModel()
+                    {
+                        Name = a.StrAlbum,
+                        YearReleased = a.IntYearReleased,
+                    }).ToList(),
+                };
+
+                return Results.Json(result);
+            });
 
             app.Run();
         }
