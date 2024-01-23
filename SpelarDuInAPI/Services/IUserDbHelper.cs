@@ -27,7 +27,7 @@ namespace SpelarDuInAPI.Services
 
         //----------------------------------------Methods
         public List<UserViewModelAllInfo> ShowAllUsersAllInfo()
-        {
+        {   //fetching the user
             User[] user = _context.Users
                .Include(u => u.Artists)
                .Include(u => u.Tracks)
@@ -37,6 +37,7 @@ namespace SpelarDuInAPI.Services
             {
                 throw new InvalidDataException();
             }
+            //Showing the info of the user we fetched earlier with viewModel
             var userView = user.Select(u => new UserViewModelAllInfo()
             {
                 UserName = u.UserName,
