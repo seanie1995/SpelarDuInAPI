@@ -20,7 +20,7 @@ namespace SpelarDuInAPI.Handlers
             }
             catch (InvalidDataException ex)
             {
-                return Results.Json("No user in database");
+                return Results.Json(new { Error = "No user in database" });
             }
         }
 
@@ -33,7 +33,7 @@ namespace SpelarDuInAPI.Handlers
             }
             catch (InvalidDataException ex)
             {
-                return Results.Json("No user in database");
+                return Results.Json(new { Error = "No user in database" });
             }
         }
 
@@ -46,11 +46,11 @@ namespace SpelarDuInAPI.Handlers
             }
             catch (InvalidDataException ex)
             {
-                return Results.BadRequest("You must enter a name!");
+                return Results.BadRequest(new { Error = "You must enter a name!" });
             }
             catch (InvalidOperationException ex)
             {
-                return Results.Conflict("This username already exists!");
+                return Results.Conflict(new { Error = "This username already exists!" });
             }
         }
 
@@ -63,11 +63,11 @@ namespace SpelarDuInAPI.Handlers
             }
             catch (InvalidDataException ex)
             {
-                return Results.NotFound($"Person with id:{userId} doesnt exist!");
+                return Results.NotFound(new { Error = $"Person with id:{userId} doesnt exist!" });
             }
             catch (InvalidOperationException ex)
             {
-                return Results.NotFound($"Genre with id:{genreId} doesnt exist!");
+                return Results.NotFound(new { Error = $"Genre with id:{genreId} doesnt exist!" });
             }
         }
 
@@ -80,11 +80,11 @@ namespace SpelarDuInAPI.Handlers
             }
             catch (InvalidDataException ex)
             {
-                return Results.NotFound($"Person with id:{userId} doesnt exist!");
+                return Results.NotFound(new { Error = $"Person with id:{userId} doesnt exist!" });
             }
             catch (InvalidOperationException ex)
             {
-                return Results.NotFound($"Artist with id:{artistId} doesnt exist!");
+                return Results.NotFound(new { Error = $"Artist with id:{artistId} doesnt exist!" });
             }
         }
 
@@ -97,11 +97,11 @@ namespace SpelarDuInAPI.Handlers
             }
             catch (InvalidDataException ex)
             {
-                return Results.NotFound($"Person with id:{userId} doesnt exist!");
+                return Results.NotFound(new { Error = $"Person with id:{userId} doesnt exist!" });
             }
             catch (InvalidOperationException ex)
             {
-                return Results.NotFound($"Track with id:{trackId} doesnt exist!");
+                return Results.NotFound(new { Error = $"Track with id:{trackId} doesnt exist!" });
             }
         }
     }
