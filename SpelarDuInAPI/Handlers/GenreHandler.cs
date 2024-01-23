@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SpelarDuInAPI.Data;
-using SpelarDuInAPI.Models;
+using SpelarDuInAPI.Services;
 using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Models.ViewModels;
-using System.Net;
+
+using static SpelarDuInAPI.Services.IGenreDbHelper;
 
 namespace SpelarDuInAPI.Handlers
 {
@@ -11,52 +11,16 @@ namespace SpelarDuInAPI.Handlers
     {
         // Hämta alla genre kopplad till en specifik person     Sean
 
-        public static IResult ListUsersGenres(ApplicationContext context, int userId)
+        public static IResult ListUsersGenres(IGenreDbHelper dbHelper, int userId)
         {
-            GenreViewModel[] result = 
-                context.Genres
-                .Include(x => x.Users)
-                .Where(x => x.Users.Any(x => x.Id == userId))
-                .Select(x => new GenreViewModel()
-                {
-                    GenreName = x.GenreName,
-                }).ToArray();
-
-            if (result == null)
-            {
-                return Results.NotFound();
-            }
+            GenreViewModel[] result = dbHelper.ListUsersGenres(userId);
 
             return Results.Json(result);
-
         }
 
-        public static IResult AddNewGenre(ApplicationContext context, GenreDto newGenre)
+        public static void AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
         {
-            var allGenres = context.Genres
-                .ToArray();
-
-            if (allGenres.Any(x => x.GenreName == newGenre.GenreName))
-            {
-                return Results.Conflict($"{newGenre.GenreName} already exists.");
-            }
-
-            if (string.IsNullOrEmpty(newGenre.GenreName))
-            {
-                return Results.Conflict($"New genre name must not be empty.");
-            }
-
-            var genre = new Genre
-            {
-                GenreName = newGenre.GenreName
-            };
-
-            context.Genres.Add(genre);
-
-            context.SaveChanges();
-
-            return Results.StatusCode((int)HttpStatusCode.Created);
-             
+            dbHelper.AddNewGenre(newGenre);          
         }
-    }
+    }   
 }
