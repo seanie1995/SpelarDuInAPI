@@ -13,7 +13,6 @@ namespace DiscographyViewerAPI.Services
     public class DiscographyService : IDiscographyService
     {
         private HttpClient _client;
-
         public DiscographyService() : this(new HttpClient()) { }
         public DiscographyService(HttpClient client)
         {

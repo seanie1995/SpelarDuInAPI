@@ -13,9 +13,17 @@ namespace SpelarDuInAPI.Handlers
 
         public static IResult ListUsersGenres(IGenreDbHelper dbHelper, int userId)
         {
-            GenreViewModel[] result = dbHelper.ListUsersGenres(userId);
+            try
+            {
+                GenreViewModel[] result = dbHelper.ListUsersGenres(userId);
 
-            return Results.Json(result);
+                return Results.Json(result);
+            }
+            catch 
+            {
+                return Results.Json(new { Error = "No genres in database" });
+            }
+            
         }
 
         public static void AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
