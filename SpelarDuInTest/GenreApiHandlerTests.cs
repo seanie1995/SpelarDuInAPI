@@ -19,7 +19,7 @@ namespace SpelarDuInTest
     public class GenreApiHandlerTests
     {
         [TestMethod]
-        public void AddNewGenre_AddNewGenreToDb()
+        public void AddNewGenre_AddNewGenreWithApi()
         {
             var mockService = new Mock<IGenreDbHelper>();
             IGenreDbHelper dbHelper = mockService.Object;
