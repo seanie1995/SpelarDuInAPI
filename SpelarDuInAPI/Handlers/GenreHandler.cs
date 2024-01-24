@@ -27,8 +27,10 @@ namespace SpelarDuInAPI.Handlers
         }
 
         public static void AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
-        {
-            dbHelper.AddNewGenre(newGenre);          
+        {                    
+            dbHelper.AddNewGenre(newGenre);                                      
+
+            // Test comment
         }
     }   
 }
