@@ -4,6 +4,7 @@ using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Models.ViewModels;
 
 using static SpelarDuInAPI.Services.IGenreDbHelper;
+using System.Net;
 
 namespace SpelarDuInAPI.Handlers
 {
@@ -27,18 +28,20 @@ namespace SpelarDuInAPI.Handlers
         }
 
         public static IResult AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
-        {
+        {                    
             try
             {
                 dbHelper.AddNewGenre(newGenre);
-                return Results.Ok();
+                
             }
             catch
             {
-                return Results.Json(new { Error = "Invalid input" });
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
             }
 
-            
+            return Results.StatusCode((int)HttpStatusCode.Created);
+
+            // Test comment
         }
     }   
 }
