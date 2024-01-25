@@ -26,9 +26,19 @@ namespace SpelarDuInAPI.Handlers
             
         }
 
-        public static void AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
+        public static IResult AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
         {
-            dbHelper.AddNewGenre(newGenre);          
+            try
+            {
+                dbHelper.AddNewGenre(newGenre);
+                return Results.Ok();
+            }
+            catch
+            {
+                return Results.Json(new { Error = "Invalid input" });
+            }
+
+            
         }
     }   
 }
