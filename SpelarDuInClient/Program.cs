@@ -17,7 +17,7 @@ namespace SpelarDuInAPIClient
                 client.BaseAddress = new Uri("https://localhost:7107/");  // Connecting to the API
 
             repeat:
-
+                //show USER FAVORITS AS LIST WHEN CHOSING USER
                 await Console.Out.WriteLineAsync("Input [1] to list users or [2] create new user:");
 
                 string response = Console.ReadLine();
