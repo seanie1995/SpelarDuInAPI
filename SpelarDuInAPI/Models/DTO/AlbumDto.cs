@@ -4,10 +4,10 @@ namespace DiscographyViewerAPI.Models.Dto
 {
     public class AlbumDto
     {
-        [JsonPropertyName("strAlbum")]
+        [JsonPropertyName("strAlbum")] // album name
         public string StrAlbum { get; set; }
 
-        [JsonPropertyName("intYearReleased")]
+        [JsonPropertyName("intYearReleased")] // release date
         public string IntYearReleased { get; set; }
 
     }
