@@ -34,9 +34,7 @@ namespace SpelarDuInTest
 
             // Assert
             mockService.Verify(x => x.AddNewGenre(genre), Times.Once);
-        }
-
-       
+        }      
 
     }
 }
