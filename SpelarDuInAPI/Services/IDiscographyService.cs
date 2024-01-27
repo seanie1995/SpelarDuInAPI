@@ -19,12 +19,13 @@ namespace DiscographyViewerAPI.Services
             _client = client;
         }
 
-        public async Task<DiscographyDto> GetDiscographyAsync(string name)
+        public async Task<DiscographyDto> GetDiscographyAsync(string name) // Gets a list of albums from external API
 
         {
             var result = await _client.GetAsync($"https://www.theaudiodb.com/api/v1/json/2/discography.php?s={name}");
 
             result.EnsureSuccessStatusCode();
+
 
             DiscographyDto discography = JsonSerializer.Deserialize<DiscographyDto>(await result.Content.ReadAsStringAsync());
 
