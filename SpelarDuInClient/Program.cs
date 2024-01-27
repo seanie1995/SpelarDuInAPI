@@ -1,6 +1,7 @@
 ﻿using DiscographyViewerAPI.Models.ViewModels;
 using SpelarDuInAPIClient.Methods;
 using SpelarDuInAPIClient.Models;
+using SpelarDuInClient.Methods;
 using System.Text.Json;
 
 namespace SpelarDuInAPIClient
