@@ -36,7 +36,12 @@ namespace SpelarDuInAPIClient.Methods
         {
             await Console.Out.WriteLineAsync("Enter your name:");
 
-            string? name = Console.ReadLine();
+            string name = Console.ReadLine();
+
+            if (name == null)
+            {
+                await Console.Out.WriteLineAsync("Name cannot be empty");
+            }
 
             UserDto newUser = new UserDto()
             {
@@ -75,6 +80,11 @@ namespace SpelarDuInAPIClient.Methods
             UserViewModel selectedUser = allUsers
                 .Where(i => i.Id == userId)
                 .FirstOrDefault();
+
+            if (selectedUser != null)
+            {
+                await Console.Out.WriteLineAsync("Requested user not found");
+            }
 
             return selectedUser;
 
