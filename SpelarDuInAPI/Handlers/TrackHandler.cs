@@ -24,8 +24,16 @@ namespace SpelarDuInAPI.Handlers
             }
         }
         public static IResult GetAllTracksFromSingleUser(ITrackDbHelper trackDbHelper, int userId)
-        {   
-            return Results.Json(trackDbHelper.GetAllTracksFromSingleUser(userId));
+        {
+            try
+            {
+                return Results.Json(trackDbHelper.GetAllTracksFromSingleUser(userId));
+            }
+            catch
+            {
+                return Results.Json(new { Error = "No tracks connected to user in database" });                    
+            }
+
         }
     }
 }
