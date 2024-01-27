@@ -45,7 +45,7 @@ namespace SpelarDuInAPIClient.Methods
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Failed to list users {response.StatusCode}");
+                throw new Exception($"Failed to list genres connected to user {response.StatusCode}");
             }
 
             string content = await response.Content.ReadAsStringAsync();
