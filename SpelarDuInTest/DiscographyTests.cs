@@ -45,20 +45,48 @@ namespace SpelarDuInTest
             // Act
 
             var expectedResult = JsonSerializer.Deserialize<DiscographyDto>(jsonString);
-
-            var result = await service.GetDiscographyAsync("shadows+fall");
-            
+            var result = await service.GetDiscographyAsync("shadows+fall");           
             string strResult = result.ToString();
-
             string strExpResult = expectedResult.ToString();
-
-
-
             // Assert
 
             Assert.AreEqual(strResult, strExpResult);
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(HttpRequestException))]
+        public async Task GetCorrectDiscography_GetExceptionBadStatusCode()
 
+        {
+
+            string jsonString = "{\"album\":[{\"strAlbum\":\"The Fear of Fear\",\"intYearReleased\":\"2023\"},{\"strAlbum\":\"Rotoscope\",\"intYearReleased\":\"2022\"},{\"strAlbum\":\"Eternal Blue\",\"intYearReleased\":\"2021\"}]}";
+
+            // Arrange
+            var mockHandler = new Mock<HttpClientHandler>();
+            mockHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new StringContent(jsonString)
+                });
+            HttpClient mockClient = new HttpClient(mockHandler.Object);
+            DiscographyService service = new DiscographyService(mockClient);
+
+            // Act
+
+            var expectedResult = JsonSerializer.Deserialize<DiscographyDto>(jsonString);
+            var result = await service.GetDiscographyAsync("shadows+fall");
+            string strResult = result.ToString();
+            string strExpResult = expectedResult.ToString();
+            // Assert
+
+            Assert.AreEqual(strResult, strExpResult);
         }
     }
 }
