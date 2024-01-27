@@ -1,6 +1,7 @@
 ﻿using DiscographyViewerAPI.Models.ViewModels;
 using SpelarDuInAPIClient.Methods;
 using SpelarDuInAPIClient.Models;
+using SpelarDuInClient.Methods;
 using System.Text.Json;
 
 namespace SpelarDuInAPIClient
@@ -53,7 +54,7 @@ namespace SpelarDuInAPIClient
                 while (true)
                 {
 
-                    await Console.Out.WriteLineAsync($"Enter 1 to add genre, 2 to list your genres:");
+                    await Console.Out.WriteLineAsync($"Enter 1 to add genre, 2 to list your genres, 3 to add artist, 4 to list your artists: ");
                     string input = Console.ReadLine();
 
                     switch (input)
@@ -68,11 +69,14 @@ namespace SpelarDuInAPIClient
                             await GenreMethods.ListUserGenresAsync(client, userId);
 
                             break;
-                        case "3": // Add artist
+                        case "3": // Add new artist
+
+                            await ArtistMethods.AddNewArtist(client);
 
                             break;
 
-                        case "4": // list artist
+                        case "4": // list artists related to a specific user
+                            await ArtistMethods.ListUserArtistsAsync(client, userId);
 
                             break;
 

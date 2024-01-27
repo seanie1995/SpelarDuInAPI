@@ -5,7 +5,7 @@
         public string UserName { get; set; }
         public List<GenreViewModel> Genres { get; set; }
 
-        public List<ArtistViewModel> Artists { get; set; }
+        public List<ArtistListViewModel> Artists { get; set; }
 
         public List<TrackViewModel> Tracks { get; set; }
 

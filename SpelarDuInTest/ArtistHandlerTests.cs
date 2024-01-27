@@ -47,19 +47,17 @@ namespace SpelarDuInTest
             var mockService = new Mock<IArtistDbHelper>();
             IArtistDbHelper artistDbHelper = mockService.Object;
             int userId = 1;
-            var artists = new ArtistViewModel[]
+            var artists = new ArtistListViewModel[]
             {
-                new ArtistViewModel
+                new ArtistListViewModel
                 {
                     Id = 1,
                     ArtistName = "Test-Artist1",
-                    Description= "Test-Description1"
                 },
-                new ArtistViewModel
+                new ArtistListViewModel
                 { 
                     Id = 2,
                     ArtistName = "Test-Artist2",
-                    Description= "Test-Description2"
                 }
             };
             mockService.Setup(m => m.ListUsersArtists(userId)).Returns(artists);
