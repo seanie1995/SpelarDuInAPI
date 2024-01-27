@@ -58,5 +58,26 @@ namespace SpelarDuInAPIClient.Methods
             Console.ReadLine();
 
         }
+
+        public static async Task<UserViewModel> SelectUserAsync(HttpClient client, int userId)
+        {
+            HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to list users {response.StatusCode}");
+            }
+
+            string content = await response.Content.ReadAsStringAsync();
+
+            UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
+
+            UserViewModel selectedUser = allUsers
+                .Where(i => i.Id == userId)
+                .FirstOrDefault();
+
+            return selectedUser;
+
+        }
     }
 }
