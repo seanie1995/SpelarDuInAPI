@@ -57,6 +57,8 @@ namespace SpelarDuInAPIClient
                 while (true)
                 {
                     //egen metod där den visar användarens innehåll. samt alternativ att lägga 
+                    Console.Clear() ;
+                    await UserMethods.ShowAllUsersAllInfoOneUser(client, userId);
                     Console.WriteLine();
                     await Console.Out.WriteLineAsync($"Enter 1 to add genre, 2 to list your genres:");
                     string input = Console.ReadLine();

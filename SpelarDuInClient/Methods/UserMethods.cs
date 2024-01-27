@@ -1,4 +1,5 @@
-﻿using SpelarDuInAPIClient.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SpelarDuInAPIClient.Models;
 using SpelarDuInAPIClient.Models.DTO;
 using SpelarDuInClient.Models.ViewModels;
 using System;
@@ -66,8 +67,6 @@ namespace SpelarDuInAPIClient.Methods
 
         public static async Task ShowAllUsersAllInfo(HttpClient client)
         {
-            
-            {
                 HttpResponseMessage response = await client.GetAsync("/user/allinfo");
                 if (!response.IsSuccessStatusCode)
                 {
@@ -122,8 +121,64 @@ namespace SpelarDuInAPIClient.Methods
                     Console.WriteLine();
                     Console.WriteLine("-----------------------------");
                 }
+        }
+
+        public static async Task ShowAllUsersAllInfoOneUser(HttpClient client, int userId)
+        {
+            HttpResponseMessage response = await client.GetAsync($"/user/allinfo/{userId}");
+            if (!response.IsSuccessStatusCode)
+            {
+                await Console.Out.WriteLineAsync($"Failed to list users {response.StatusCode}");
+            }
+
+            string content = await response.Content.ReadAsStringAsync();
+            UserViewModelAllInfo[] allUserInfo = JsonSerializer.Deserialize<UserViewModelAllInfo[]>(content);
+
+            foreach (var user in allUserInfo)
+            {
+                Console.WriteLine($"User: \x1b[33m{user.UserName}\x1b[0m");
+
+                Console.WriteLine("Genres:");
+                if (user.Genres != null && user.Genres.Any())
+                {
+                    foreach (var genre in user.Genres)
+                    {
+                        Console.WriteLine($"\x1b[33m{genre.GenreName}\x1b[0m");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("  \x1b[31mNo genres available\x1b[0m");
+                }
+
+                Console.WriteLine("Artists:");
+                if (user.Artists != null && user.Artists.Any())
+                {
+                    foreach (var artist in user.Artists)
+                    {
+                        Console.WriteLine($"\x1b[33mArtist:{artist.ArtistName} \n Desciption:{artist.Description}\x1b[0m");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(" \x1b[31mNo artists available\x1b[0m");
+                }
+
+                Console.WriteLine("Tracks:");
+                if (user.Tracks != null && user.Tracks.Any())
+                {
+                    foreach (var track in user.Tracks)
+                    {
+                        Console.WriteLine($"\x1b[33m{track.TrackTitle}\x1b[0m");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("  \x1b[31mNo tracks available\x1b[0m");
+                }
+                Console.WriteLine();
+                Console.WriteLine("-----------------------------");
             }
         }
-         
     }
 }
