@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Methods
 {
     public class ArtistMethods
     {
-        public static async Task AddNewArtist(HttpClient client)
+        public static async Task AddNewArtistAysnc(HttpClient client)
         {
             Console.Clear();
             await Console.Out.WriteLineAsync("Enter artist name: ");

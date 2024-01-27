@@ -24,6 +24,7 @@ namespace SpelarDuInAPIClient
                 string response = Console.ReadLine();
 
                 int userId = 0;
+                UserViewModel selectedUser = null;
 
                 // Lists all users
 
@@ -36,6 +37,8 @@ namespace SpelarDuInAPIClient
                     string strUserId = Console.ReadLine();
 
                     userId = Convert.ToInt32(strUserId);
+
+                    selectedUser = await UserMethods.SelectUserAsync(client, userId);
 
                 }
 
@@ -54,7 +57,7 @@ namespace SpelarDuInAPIClient
                 while (true)
                 {
 
-                    await Console.Out.WriteLineAsync($"Enter 1 to add genre, 2 to list your genres, 3 to add artist, 4 to list your artists: ");
+                    await Console.Out.WriteLineAsync($"Hello {selectedUser.UserName}! Please Enter 1 to add genre, 2 to list your genres, 3 to add artist, 4 to list your artists: ");
                     string input = Console.ReadLine();
 
                     switch (input)
@@ -71,12 +74,12 @@ namespace SpelarDuInAPIClient
                             break;
                         case "3": // Add new artist
 
-                            await ArtistMethods.AddNewArtist(client);
+                            await ArtistMethods.AddNewArtistAysnc(client);
 
                             break;
 
                         case "4": // list artists related to a specific user
-                            await ArtistMethods.ListUserArtistsAsync(client, userId);
+                            await ArtistMethods.ListUserArtistsAsync(client, selectedUser.Id);
 
                             break;
 
