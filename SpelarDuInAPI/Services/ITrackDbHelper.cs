@@ -24,7 +24,7 @@ namespace SpelarDuInAPI.Services
         }
         public void AddNewTrack(TrackDto trackDto)
         {
-            try 
+            try
             {
                 //Find or create genre
                 var genre = _context.Genres
@@ -62,14 +62,15 @@ namespace SpelarDuInAPI.Services
             {
                 throw new DatabaseConnectionException(503, "An Error occured while tryiong to add new track to databse. Please try again later");
             };
-           
-          }
+
+        }
 
         public TrackViewModel[] GetAllTracksFromSingleUser(int userId)
         {
             //Find user
             var user = _context.Users
                 .Include(u => u.Tracks)
+                .ThenInclude(u => u.Artist)
                 .FirstOrDefault(u => u.Id == userId);
             if (user == null)
             {
@@ -80,7 +81,9 @@ namespace SpelarDuInAPI.Services
                 .Select(r => new TrackViewModel
                 {
                     Id = r.Id,
-                    TrackTitle = r.TrackTitle
+                    TrackTitle = r.TrackTitle,
+                   Artist = r.Artist?.ArtistName?? "Unknown Artist" //If track dont hawe artist linked to it throw exception Unknown artist
+                    
                 }).ToArray();
             return result;
         }
