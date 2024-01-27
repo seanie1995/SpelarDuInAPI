@@ -9,10 +9,10 @@ namespace SpelarDuInClient.Models
 {
     internal class ArtistListViewModel
     {
-        [JsonPropertyName("Id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("ArtistName")]
+        [JsonPropertyName("artistName")]
         public string ArtistName { get; set; }
     }
 }

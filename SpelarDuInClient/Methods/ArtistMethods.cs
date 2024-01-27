@@ -41,7 +41,7 @@ namespace SpelarDuInClient.Methods
         public static async Task ListUserArtistsAsync(HttpClient client, int userId)
         {
             Console.Clear();
-            HttpResponseMessage response = await client.GetAsync("/user/{userId}/artist");
+            HttpResponseMessage response = await client.GetAsync($"/user/{userId}/artist");
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"Failed to list artists {response.StatusCode}");
@@ -50,9 +50,30 @@ namespace SpelarDuInClient.Methods
             //pack up to a list of artists
             ArtistListViewModel[] artists = JsonSerializer.Deserialize<ArtistListViewModel[]>(content);
             // read through the list
-            foreach (var artist in artists)
+            foreach (var arts in artists)
             {
-                await Console.Out.WriteLineAsync($"{artist.Id}:\t{artist.ArtistName}");
+                await Console.Out.WriteLineAsync($"{arts.Id}:\t{arts.ArtistName}");
+            }
+            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+        public static async Task ListAllArtistsAsync(HttpClient client)
+        {
+            Console.Clear();
+            HttpResponseMessage response = await client.GetAsync("/artist");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to list artists {response.StatusCode}");
+            }
+            string content = await response.Content.ReadAsStringAsync();
+            //pack up to a list of artists
+            ArtistListViewModel[] artists = JsonSerializer.Deserialize<ArtistListViewModel[]>(content);
+            // read through the list
+            foreach (var a in artists)
+            {
+                await Console.Out.WriteLineAsync($"{a.Id}:\t{a.ArtistName}");
             }
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();

@@ -57,7 +57,7 @@ namespace SpelarDuInAPIClient
                 while (true)
                 {
 
-                    await Console.Out.WriteLineAsync($"Hello {selectedUser.UserName}! Please Enter 1 to add genre, 2 to list your genres, 3 to add artist, 4 to list your artists: ");
+                    await Console.Out.WriteLineAsync($"Hello {selectedUser.UserName}! Please Enter 1 to add genre, 2 to list your genres, 3 to add artist, 4 to list your artists, 7 to list all artists: ");
                     string input = Console.ReadLine();
 
                     switch (input)
@@ -88,6 +88,11 @@ namespace SpelarDuInAPIClient
 
                         case "6": // list track
                             break;
+
+                        case "7": //list all artists
+                            await ArtistMethods.ListAllArtistsAsync(client);
+                            break;
+
                         default:
                             Console.WriteLine("Invalid input. Please enter 1, 2, or 3.");
 

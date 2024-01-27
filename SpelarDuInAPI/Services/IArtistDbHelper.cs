@@ -55,6 +55,7 @@ namespace SpelarDuInAPI.Services
             var result = _context.Artists
                 .Select(a => new ArtistListViewModel()
                 {
+                    Id = a.Id,
                     ArtistName = a.ArtistName,
                 }).ToArray();
             return result;
