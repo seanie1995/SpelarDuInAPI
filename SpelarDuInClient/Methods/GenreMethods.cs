@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SpelarDuInAPIClient.Methods
 {
-    internal class GenreMethods
+    public class GenreMethods
     {
         public static async Task AddGenreAsync(HttpClient client)
         {
@@ -39,22 +40,23 @@ namespace SpelarDuInAPIClient.Methods
 
         public static async Task ListUserGenresAsync(HttpClient client, int userId)
         {
-           
-            HttpResponseMessage response = await client.GetAsync($"/user/{userId}/genre");
+
+            HttpResponseMessage response = await client.GetAsync($"/user/{userId}/genre"); // Anropar API endpoint som vi skapat i vår API.
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Failed to list genres {response.StatusCode}");
+                throw new Exception($"Failed to list users {response.StatusCode}");
             }
 
             string content = await response.Content.ReadAsStringAsync();
 
-            GenreViewModel[] allGenres = JsonSerializer.Deserialize<GenreViewModel[]>(content);
+            GenreViewModel[] allGenres = JsonSerializer.Deserialize<GenreViewModel[]>(content); // Deserialize JSON object retrieved from API
 
             foreach (var genre in allGenres)
             {
-                await Console.Out.WriteLineAsync($"{genre.GenreName}");
+                await Console.Out.WriteLineAsync($"{genre.Id}:\t{genre.GenreName}");
             }
+
         }
     }
 }
