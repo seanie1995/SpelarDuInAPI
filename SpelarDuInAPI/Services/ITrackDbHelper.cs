@@ -3,6 +3,7 @@ using SpelarDuInAPI.Data;
 using SpelarDuInAPI.Models;
 using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Models.ViewModels;
+using SpelarDuInAPI.Services.ExceptionRepository;
 using System;
 using System.Net;
 
@@ -23,39 +24,45 @@ namespace SpelarDuInAPI.Services
         }
         public void AddNewTrack(TrackDto trackDto)
         {
-            //Find or create genre
-            var genre = _context.Genres
-                .FirstOrDefault(g => g.GenreName == trackDto.Genre);
-            if (genre == null)
+            try 
             {
-                genre = new Genre
+                //Find or create genre
+                var genre = _context.Genres
+                    .FirstOrDefault(g => g.GenreName == trackDto.Genre);
+                if (genre == null)
                 {
-                    GenreName = trackDto.Genre
-                };
-                _context.Genres.Add(genre);
-            }
-            //Find or create artist
-            var artist = _context.Artists
-                .FirstOrDefault(a => a.ArtistName == trackDto.Artist);
-            if (artist == null)
-            {
-                artist = new Artist
+                    genre = new Genre
+                    {
+                        GenreName = trackDto.Genre
+                    };
+                    _context.Genres.Add(genre);
+                }
+                //Find or create artist
+                var artist = _context.Artists
+                    .FirstOrDefault(a => a.ArtistName == trackDto.Artist);
+                if (artist == null)
                 {
-                    ArtistName = trackDto.Artist
+                    artist = new Artist
+                    {
+                        ArtistName = trackDto.Artist
+                    };
+                    _context.Artists.Add(artist);
+                }
+                //create new track 
+                var newTrack = new Track
+                {
+                    TrackTitle = trackDto.TrackTitle,
+                    Artist = artist,
+                    Genre = genre,
                 };
-                _context.Artists.Add(artist);
+                _context.Tracks.Add(newTrack);
+                _context.SaveChanges();
             }
-            //create new track 
-            var newTrack = new Track
+            catch (Exception ex)
             {
-                TrackTitle = trackDto.TrackTitle,
-                Artist = artist,
-                Genre = genre,
+                throw new DatabaseConnectionException(503, "An Error occured while tryiong to add new track to databse. Please try again later");
             };
-            _context.Tracks.Add(newTrack);
-            _context.SaveChanges();
-
-            
+           
           }
 
         public TrackViewModel[] GetAllTracksFromSingleUser(int userId)

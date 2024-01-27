@@ -4,6 +4,7 @@ using SpelarDuInAPI.Models;
 using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Models.ViewModels;
 using SpelarDuInAPI.Services;
+using SpelarDuInAPI.Services.ExceptionRepository;
 using System.Net;
 
 namespace SpelarDuInAPI.Handlers
@@ -12,8 +13,15 @@ namespace SpelarDuInAPI.Handlers
     {
         public static IResult AddNewTrack(ITrackDbHelper trackDbHelper, TrackDto trackDto)
         {
-            trackDbHelper.AddNewTrack(trackDto);
-            return Results.StatusCode((int)HttpStatusCode.Created);
+            try
+            {
+                trackDbHelper.AddNewTrack(trackDto);
+                return Results.StatusCode((int)HttpStatusCode.Created);
+            }
+            catch (Exception ex)
+            {
+                return Results.StatusCode((int)(int)HttpStatusCode.InternalServerError);
+            }
         }
         public static IResult GetAllTracksFromSingleUser(ITrackDbHelper trackDbHelper, int userId)
         {   
