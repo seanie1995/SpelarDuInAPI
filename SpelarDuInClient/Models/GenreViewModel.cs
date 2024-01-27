@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInAPIClient.Models
 {
-    internal class GenreViewModel
+    public class GenreViewModel
     {
         [JsonPropertyName("Id")]
         public string Id { get; set; }

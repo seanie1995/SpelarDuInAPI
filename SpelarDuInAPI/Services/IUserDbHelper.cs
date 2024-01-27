@@ -10,6 +10,7 @@ namespace SpelarDuInAPI.Services
 {
     public interface IUserDbHelper
     {
+        public List<UserViewModelAllInfo> ShowAllUsersAllInfoOneUser(int userId);
         List<UserViewModelAllInfo> ShowAllUsersAllInfo();
         UserViewModel[] GetAllUsers();
         void CreateUser(UserDto user);
@@ -26,6 +27,28 @@ namespace SpelarDuInAPI.Services
         }
 
         //----------------------------------------Methods
+        public List<UserViewModelAllInfo> ShowAllUsersAllInfoOneUser(int userId)
+        {
+            //fetching the user
+            User[] user = _context.Users.Where(u=>u.Id == userId)
+               .Include(u => u.Artists)
+               .Include(u => u.Tracks)
+               .Include(u => u.Genres).ToArray();
+            //using .Length because with .ToArray it'll never be null.
+            if (user.Length == 0)
+            {
+                throw new InvalidDataException();
+            }
+            //Showing the info of the user we fetched earlier with viewModel
+            var userView2 = user.Select(u => new UserViewModelAllInfo()
+            {
+                UserName = u.UserName,
+                Genres = u.Genres.Select(g => new GenreViewModel { GenreName = g.GenreName }).ToList(),
+                Artists = u.Artists.Select(a => new ArtistViewModel { ArtistName = a.ArtistName, Description = a.Description }).ToList(),
+                Tracks = u.Tracks.Select(t => new TrackViewModel { TrackTitle = t.TrackTitle }).ToList()
+            }).ToList();
+            return userView2;
+        }
         public List<UserViewModelAllInfo> ShowAllUsersAllInfo()
         {   //fetching the user
             User[] user = _context.Users
