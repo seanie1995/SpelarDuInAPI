@@ -30,7 +30,7 @@ namespace SpelarDuInAPIClient.Methods
 
             foreach (var user in allUsers)
             {
-                await Console.Out.WriteLineAsync($"{user.Id}:\t{user.UserName}");
+                await Console.Out.WriteLineAsync($"\u001b[33mId:{user.Id}:\t{user.UserName}\u001b[0m");
             }
 
         }
@@ -65,7 +65,7 @@ namespace SpelarDuInAPIClient.Methods
 
         }
 
-        public static async Task ShowAllUsersAllInfo(HttpClient client)
+        public static async Task ShowAllUsersAllInfoAsync(HttpClient client)
         {
                 HttpResponseMessage response = await client.GetAsync("/user/allinfo");
                 if (!response.IsSuccessStatusCode)
@@ -123,7 +123,7 @@ namespace SpelarDuInAPIClient.Methods
                 }
         }
 
-        public static async Task ShowAllUsersAllInfoOneUser(HttpClient client, int userId)
+        public static async Task ShowAllUsersAllInfoOneUserAsync(HttpClient client, int userId)
         {
             HttpResponseMessage response = await client.GetAsync($"/user/allinfo/{userId}");
             if (!response.IsSuccessStatusCode)
@@ -178,6 +178,92 @@ namespace SpelarDuInAPIClient.Methods
                 }
                 Console.WriteLine();
                 Console.WriteLine("-----------------------------");
+            }
+        }
+
+        public static async Task<UserViewModel> SelectUserAsync(HttpClient client, int userId)
+        {
+            HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to list users {response.StatusCode}");
+            }
+
+            string content = await response.Content.ReadAsStringAsync();
+
+            UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
+
+            UserViewModel selectedUser = allUsers
+                .Where(i => i.Id == userId)
+                .FirstOrDefault();
+
+            if (selectedUser != null)
+            {
+                await Console.Out.WriteLineAsync("Requested user not found");
+            }
+
+            return selectedUser;
+
+        }
+
+        public static async Task ConnectUserToOneGenreAsync(HttpClient client, int userId)
+        {
+            Console.Clear();
+            await Console.Out.WriteLineAsync("Adding Genre to user");
+            await Console.Out.WriteLineAsync("----------------------");
+            Console.WriteLine($"\u001b[33mEnter genre ID\u001b[0m");
+            string genreId = Console.ReadLine();
+            HttpResponseMessage response = await client.PostAsync($"/user/{userId}/genre/{genreId}", null);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.Clear();
+                Console.WriteLine($"\x1b[32mUser connected to the genre successfully!\x1b[0m");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
+            }
+        }
+
+        public static async Task ConnectUserToOneArtistAsync(HttpClient client, int userId)
+        {
+            Console.Clear();
+            await Console.Out.WriteLineAsync("Adding Artist to user");
+            await Console.Out.WriteLineAsync("----------------------");
+            Console.WriteLine($"\u001b[33mEnter artist ID\u001b[0m");
+            string artistId = Console.ReadLine();
+            HttpResponseMessage response = await client.PostAsync($"/user/{userId}/artist/{artistId}", null);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.Clear();
+                Console.WriteLine($"\x1b[32mUser connected to the artist successfully!\x1b[0m");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
+            }
+        }
+
+        public static async Task ConnectUserToOneTrackAsync(HttpClient client, int userId)
+        {
+            Console.Clear();
+            await Console.Out.WriteLineAsync("Adding Track to user");
+            await Console.Out.WriteLineAsync("----------------------");
+            Console.WriteLine($"\u001b[33mEnter track ID\u001b[0m");
+            string trackId = Console.ReadLine();
+            HttpResponseMessage response = await client.PostAsync($"/user/{userId}/track/{trackId}", null);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.Clear();
+                Console.WriteLine($"\x1b[32mUser connected to the track successfully!\x1b[0m");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
             }
         }
     }
