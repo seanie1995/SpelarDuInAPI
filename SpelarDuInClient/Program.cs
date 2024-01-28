@@ -40,7 +40,6 @@ namespace SpelarDuInAPIClient
                     userId = Convert.ToInt32(strUserId);
 
                     selectedUser = await UserMethods.SelectUserAsync(client, userId);
-
                 }
 
                 // Create new user
@@ -89,14 +88,16 @@ namespace SpelarDuInAPIClient
                         case "6": // list track
                             await ClientTrackHandler.GetAlltracksFromSingleUserAsync(client, userId);
                             break;
+
+                        case "7": // List artist's albums
+                            await DiscographyMethods.ListAlbumsAsync(client);
+                            break;
                         default:
                             Console.WriteLine("Invalid input. Please enter 1, 2, or 3.");
 
                             break;
                     }
-
                 }
-
             }
         }
     }
