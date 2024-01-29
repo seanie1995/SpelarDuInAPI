@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Menu
         public static void LoadingScreen(CancellationToken cancellationToken)
         {
             Console.CursorVisible = false;  //hide cursor
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Loading: ");
 
             char[] spinnerAnimationFrames = { '|', '/', '-', '\\' };
@@ -19,7 +19,7 @@ namespace SpelarDuInClient.Menu
 
             while (!cancellationToken.IsCancellationRequested)  //Continue the animation untill a cancellation is requested, thsi comes from cancellationtoken 
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Thread.Sleep(100);
 
                 var originalX = Console.CursorLeft; //record the current cursor possition 
@@ -38,7 +38,7 @@ namespace SpelarDuInClient.Menu
                 //break;
             }
         }
-        public static int RunMeny(string[] options, bool alignment, bool vertical, int position1, int position2)
+        public static int RunMenu(string[] options, bool alignment, bool vertical, int position1, int position2)
         {
             Console.CursorVisible = false;
             int selectedIndex = 0;
@@ -52,7 +52,7 @@ namespace SpelarDuInClient.Menu
                 }
                 else if (alignment == false)
                 {
-                    Console.SetCursorPosition(position1, position2);
+                   Console.SetCursorPosition(position1, position2);
                 }
 
                 for (int i = 0; i < options.Length; i++)
@@ -64,14 +64,14 @@ namespace SpelarDuInClient.Menu
                     {
                         prefix = " ";
 
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.BackgroundColor = ConsoleColor.Black;
                     }
                     else
                     {
                         prefix = " ";
 
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.BackgroundColor = ConsoleColor.Black;
                     }
                     if (vertical == true)

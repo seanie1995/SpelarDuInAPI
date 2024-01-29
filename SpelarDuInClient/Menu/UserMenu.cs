@@ -55,8 +55,8 @@ namespace SpelarDuInClient.Menu
 
                     }
                 }
-                await Console.Out.WriteLineAsync("Press enter to go back to main menu!!");
-                Console.ReadKey();
+                //await Console.Out.WriteLineAsync("Press enter to go back!!");
+                //Console.ReadKey();
             }
         }
     }
