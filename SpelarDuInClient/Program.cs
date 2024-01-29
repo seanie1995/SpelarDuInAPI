@@ -1,7 +1,7 @@
 ﻿using DiscographyViewerAPI.Models.ViewModels;
 using SpelarDuInAPIClient.Methods;
 using SpelarDuInAPIClient.Models;
-using SpelarDuInClient.Methods;
+using SpelarDuInClient.Menu;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
@@ -23,7 +23,7 @@ namespace SpelarDuInAPIClient
                     Console.WriteLine("\x1b[31;5mW\x1b[32;5me\x1b[33;5ml\x1b[34;5mc\x1b[35;5mo\x1b[36;5mm\x1b[37;5me \x1b[1;31;5mt\x1b[1;32;5mo \x1b[1;31;5mS\x1b[1;34;5mD\x1b[1;35;5mI-\x1b[1;36;5mA\x1b[1;37;5mP\x1b[1;31;5mI\x1b[0m");
                     await Console.Out.WriteLineAsync("-----------------------------------------------------------------");
                     await Console.Out.WriteLineAsync("Chose one of the options:");
-                    await Console.Out.WriteLineAsync("\x1b[33m[1].List all users \n[2].Create new user:\n[3].ShowAllUsersAllInfoOneUser\n[4].ShowAllUsersAllInfo\u001b[0m");
+                    await Console.Out.WriteLineAsync("\x1b[33m[1].List all users \n[2].Create new user:\n\u001b[0m");
 
                     string response = Console.ReadLine();
                     UserViewModel selectedUser = null;

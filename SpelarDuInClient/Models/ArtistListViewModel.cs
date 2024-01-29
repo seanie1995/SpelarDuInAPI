@@ -14,5 +14,7 @@ namespace SpelarDuInClient.Models
 
         [JsonPropertyName("artistName")]
         public string ArtistName { get; set; }
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
     }
 }

@@ -57,6 +57,7 @@ namespace SpelarDuInAPI.Services
                 {
                     Id = a.Id,
                     ArtistName = a.ArtistName,
+                    Description= a.Description,
                 }).ToArray();
             return result;
         }
@@ -83,6 +84,7 @@ namespace SpelarDuInAPI.Services
                 {
                     Id = r.Id,
                     ArtistName = r.ArtistName,
+                    Description = r.Description
                 }).ToArray();
             return result;
         }
