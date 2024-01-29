@@ -10,12 +10,12 @@ namespace SpelarDuInClient.Models
     internal class TrackViewModel
     {
 
-        [JsonPropertyName("Id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("TrackTitle")]
+        [JsonPropertyName("trackTitle")]
         public string TrackTitle { get; set; }
-        [JsonPropertyName("Artist")]
+        [JsonPropertyName("artist")]
         public string Artist { get; set; }
     }
 }
