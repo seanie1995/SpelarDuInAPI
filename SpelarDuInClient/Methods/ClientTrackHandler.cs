@@ -22,7 +22,7 @@ namespace SpelarDuInClient.Methods
             await Console.Out.WriteLineAsync("What genre does the track belong to?:");
             string trackGenre = Console.ReadLine();
 
-            TrackDto newTrack = new TrackDto() 
+            TrackDto newTrack = new TrackDto()
             {
                 TrackTitle = trackName,
                 Artist = trackArtist,
@@ -30,7 +30,38 @@ namespace SpelarDuInClient.Methods
             };
             string json = JsonSerializer.Serialize(newTrack);
 
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json" );
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("/track", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                await Console.Out.WriteLineAsync($"Failed to create track (statuscode {response.StatusCode})");
+            }
+
+            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
+        }
+
+        public static async Task AddtrackConnectedToSingleUserAsync(HttpClient client)
+        {
+            await Console.Out.WriteLineAsync("Enter new track name:");
+            string trackName = Console.ReadLine();
+
+            await Console.Out.WriteLineAsync("What artist does the track belong to:");
+            string trackArtist = Console.ReadLine();
+
+            await Console.Out.WriteLineAsync("What genre does the track belong to?:");
+            string trackGenre = Console.ReadLine();
+
+            TrackDto newTrack = new TrackDto()
+            {
+                TrackTitle = trackName,
+                Artist = trackArtist,
+                Genre = trackGenre
+            };
+            string json = JsonSerializer.Serialize(newTrack);
+
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("/track", content);
 

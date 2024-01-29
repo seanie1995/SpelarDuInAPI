@@ -60,6 +60,7 @@ namespace SpelarDuInAPI
             // POST Calls           
             app.MapPost("/artist", ArtistHandler.AddNewArtist); //skapa ny artist   Jing
             app.MapPost("/track", TrackHandler.AddNewTrack); //skapa ny track     jonny
+            app.MapPost("/track/{userId}", )
             app.MapPost("/genre", GenreHandler.AddNewGenre);
             app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
             app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserToOneGenre); // Kopplar person till ny genre  N/A

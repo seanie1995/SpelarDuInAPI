@@ -56,6 +56,51 @@ namespace SpelarDuInAPI.Services
                     Genre = genre,
                 };
                 _context.Tracks.Add(newTrack);
+                //_context.Users.Single().Tracks.Add(newTrack);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseConnectionException(503, "An Error occured while tryiong to add new track to databse. Please try again later");
+            };
+
+        }
+
+        public void AddNewTrackConnectedToSingleUser(TrackDto trackDto)
+        {
+            try
+            {
+                //Find or create genre
+                var genre = _context.Genres
+                    .FirstOrDefault(g => g.GenreName == trackDto.Genre);
+                if (genre == null)
+                {
+                    genre = new Genre
+                    {
+                        GenreName = trackDto.Genre
+                    };
+                    _context.Genres.Add(genre);
+                }
+                //Find or create artist
+                var artist = _context.Artists
+                    .FirstOrDefault(a => a.ArtistName == trackDto.Artist);
+                if (artist == null)
+                {
+                    artist = new Artist
+                    {
+                        ArtistName = trackDto.Artist
+                    };
+                    _context.Artists.Add(artist);
+                }
+                //create new track 
+                var newTrack = new Track
+                {
+                    TrackTitle = trackDto.TrackTitle,
+                    Artist = artist,
+                    Genre = genre,
+                };
+                _context.Tracks.Add(newTrack);
+                //_context.Users.Single().Tracks.Add(newTrack);
                 _context.SaveChanges();
             }
             catch (Exception ex)
