@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string TrackTitle { get; set; }
+        public string Artist { get; set; }
        
     }
 }

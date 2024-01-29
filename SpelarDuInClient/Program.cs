@@ -83,9 +83,11 @@ namespace SpelarDuInAPIClient
                             break;
 
                         case "5": // add track
+                            await ClientTrackHandler.AddtrackAsync(client);
                             break;
 
                         case "6": // list track
+                            await ClientTrackHandler.GetAlltracksFromSingleUserAsync(client, userId);
                             break;
                         default:
                             Console.WriteLine("Invalid input. Please enter 1, 2, or 3.");
