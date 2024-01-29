@@ -14,29 +14,57 @@ namespace SpelarDuInAPI.Handlers
         //List all artists
         public static IResult ListAllArtists(IArtistDbHelper artistDbHelper)
         {
-            ArtistListViewModel[] result = artistDbHelper.ListAllArtists();
-            return Results.Json(result);
+            try
+            {
+                ArtistListViewModel[] result = artistDbHelper.ListAllArtists();
+                return Results.Json(result);
+            }
+            catch
+            {
+                return Results.Json(new { Error = "No artists in database" });
+            }
         }
 
         //List all artists linked to a specific user 
         public static IResult ListUsersArtists(IArtistDbHelper artistDbHelper, int userId)
         {
-            ArtistListViewModel[] result = artistDbHelper.ListUsersArtists(userId);
-
-            return Results.Json(result);
+            try
+            {
+                ArtistListViewModel[] result = artistDbHelper.ListUsersArtists(userId);
+                return Results.Json(result);
+            }
+            catch
+            {
+                return Results.Json(new { Error = "No such user's artists in database" });
+            }
         }
 
         //Show a specific artist
-        public static IResult ViewArtist(IArtistDbHelper artistDbHelper, int artistId) 
-        { 
-            ArtistViewModel result = artistDbHelper.ViewAnArtist(artistId);
-            return Results.Json(result);
+        public static IResult ViewArtist(IArtistDbHelper artistDbHelper, int artistId)
+        {
+            try
+            {
+                ArtistViewModel result = artistDbHelper.ViewAnArtist(artistId);
+                return Results.Json(result);
+            }
+            catch
+            {
+                return Results.Json(new { Error = "No such artist in database" });
+            }
         }
 
         //Add an new artist
-        public static void AddNewArtist(IArtistDbHelper artistDbHelper, ArtistDto artistDto)
+        public static IResult AddNewArtist(IArtistDbHelper artistDbHelper, ArtistDto artistDto)
         {
-            artistDbHelper.AddNewArtist(artistDto);
+            try
+            {
+                artistDbHelper.AddNewArtist(artistDto);
+            }
+            catch
+            {
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+            return Results.StatusCode((int)HttpStatusCode.Created);
         }
     }
 }
