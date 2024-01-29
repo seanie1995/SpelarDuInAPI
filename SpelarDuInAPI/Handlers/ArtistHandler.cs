@@ -27,9 +27,9 @@ namespace SpelarDuInAPI.Handlers
         }
 
         //Show a specific artist
-        public static IResult ViewArtist(IArtistDbHelper artistDbHelper, string artistName) 
+        public static IResult ViewArtist(IArtistDbHelper artistDbHelper, int artistId) 
         { 
-            ArtistViewModel result = artistDbHelper.ViewAnArtist(artistName);
+            ArtistViewModel result = artistDbHelper.ViewAnArtist(artistId);
             return Results.Json(result);
         }
 
