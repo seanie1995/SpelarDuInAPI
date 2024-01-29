@@ -32,7 +32,7 @@ namespace SpelarDuInClient.Menu
                         UserMenu.UsersMenuAsync(client, userId, user);
                         break;
                     case 1:
-                        //Genre methods;
+                        GenreMenu.GenreMenuAsync(client, userId, user);
                         break;
                     case 2:
                         ArtistMenu.ArtistMenuAsync(client, userId, user);
@@ -41,7 +41,7 @@ namespace SpelarDuInClient.Menu
                         //Track methods
                         break;
                     case 4:
-                        //Discography methods
+                        DiscographyMenu.DiscographyMenuAsync(client, user);
                         break;
                     case 5:
                         ExitProgram();

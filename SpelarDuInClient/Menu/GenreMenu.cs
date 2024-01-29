@@ -1,5 +1,6 @@
 ﻿using SpelarDuInAPIClient.Methods;
 using SpelarDuInAPIClient.Models;
+using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInClient.Menu
 {
-    internal class GenreMenu
+    public class GenreMenu
     {
         public static async Task GenreMenuAsync(HttpClient client, int userId, UserViewModel user)
         {
