@@ -4,6 +4,7 @@ using SpelarDuInAPI.Models.DTO;
 using SpelarDuInAPI.Models.ViewModels;
 
 using static SpelarDuInAPI.Services.IGenreDbHelper;
+using System.Net;
 
 namespace SpelarDuInAPI.Handlers
 {
@@ -13,14 +14,34 @@ namespace SpelarDuInAPI.Handlers
 
         public static IResult ListUsersGenres(IGenreDbHelper dbHelper, int userId)
         {
-            GenreViewModel[] result = dbHelper.ListUsersGenres(userId);
+            try
+            {
+                GenreViewModel[] result = dbHelper.ListUsersGenres(userId);
 
-            return Results.Json(result);
+                return Results.Json(result);
+            }
+            catch 
+            {
+                return Results.Json(new { Error = "No genres in database" });
+            }
+            
         }
 
-        public static void AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
-        {
-            dbHelper.AddNewGenre(newGenre);          
+        public static IResult AddNewGenre(IGenreDbHelper dbHelper, GenreDto newGenre)
+        {                    
+            try
+            {
+                dbHelper.AddNewGenre(newGenre);
+                
+            }
+            catch
+            {
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
+            return Results.StatusCode((int)HttpStatusCode.Created);
+
+            // Test comment
         }
     }   
 }

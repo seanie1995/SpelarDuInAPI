@@ -50,7 +50,17 @@ namespace SpelarDuInAPI.Services
         }
         public GenreViewModel[] ListUsersGenres(int userId) 
         {
-            
+
+            User? user =
+                _context.Users
+                .Where(x => x.Id == userId)
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("No such user");
+            }
+
             GenreViewModel[] result =
                 _context.Genres
                 .Include(x => x.Users)
@@ -60,8 +70,7 @@ namespace SpelarDuInAPI.Services
                     Id = x.Id,
                     GenreName = x.GenreName,
                 }).ToArray();
-
-            
+                    
             return result;
         }
 
