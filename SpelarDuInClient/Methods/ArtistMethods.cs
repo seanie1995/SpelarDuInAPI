@@ -1,5 +1,5 @@
-﻿using SpelarDuInClient.Models;
-using SpelarDuInClient.Models.DTO;
+﻿using SpelarDuInClient.Models.DTO;
+using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +89,7 @@ namespace SpelarDuInClient.Methods
                 throw new Exception($"Error fetching artist {response.StatusCode}");
             }
             string content = await response.Content.ReadAsStringAsync();
-            ArtistViewModel artist = JsonSerializer.Deserialize<ArtistViewModel>(content);
+            ArtistViewModel2 artist = JsonSerializer.Deserialize<ArtistViewModel2>(content);
 
             await Console.Out.WriteLineAsync(artist.ArtistName);
             await Console.Out.WriteLineAsync(artist.Description);

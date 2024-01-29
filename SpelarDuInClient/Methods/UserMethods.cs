@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SpelarDuInAPIClient.Models;
 using SpelarDuInAPIClient.Models.DTO;
 using SpelarDuInClient.Models.ViewModels;
 using System;

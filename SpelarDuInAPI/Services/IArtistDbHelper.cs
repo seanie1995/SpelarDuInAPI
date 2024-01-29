@@ -12,7 +12,7 @@ namespace SpelarDuInAPI.Services
         void AddNewArtist(ArtistDto newArtist);
         ArtistListViewModel[] ListAllArtists();
         ArtistListViewModel[] ListUsersArtists(int userId);
-        ArtistViewModel ViewAnArtist(string artistName);
+        ArtistViewModel ViewAnArtist(int artistId);
     }
 
     public class ArtistDbHelper : IArtistDbHelper
@@ -90,17 +90,17 @@ namespace SpelarDuInAPI.Services
         }
 
         //Show a specific artist
-        public ArtistViewModel ViewAnArtist(string artistName)
+        public ArtistViewModel ViewAnArtist(int artistId)
         {
             //find the specific artist with name
             Artist? artist = _context.Artists
-                .Where(a => a.ArtistName == artistName)
+                .Where(a => a.Id == artistId)
                 .Include(a => a.Tracks)
                 .SingleOrDefault();
 
             if (artist == null)
             {
-                Results.NotFound("No such artist with this name!"); //not sure if it can work????
+                throw new InvalidOperationException("No such artist with the Id!");
             }
             ArtistViewModel result = new ArtistViewModel()
             {
