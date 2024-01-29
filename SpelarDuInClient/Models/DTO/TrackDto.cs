@@ -12,5 +12,6 @@ namespace SpelarDuInClient.Models.DTO
         public string TrackTitle { get; set; }
         public string Artist { get; set; }
         public string Genre { get; set; }
+   
     }
 }
