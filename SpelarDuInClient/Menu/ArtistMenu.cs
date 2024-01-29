@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInClient.Menu
 {
-    internal class UserMenu
+    internal class ArtistMenu
     {
-        public static async Task UsersMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task ArtistMenuAsync(HttpClient client, int userId, UserViewModel user)
         {
+            Console.Clear();
             bool run = true;
             while (run)
             {
                 Console.Clear();
                 await Console.Out.WriteLineAsync($"Welcome {user.UserName}");
                 await Console.Out.WriteLineAsync("-----------------------------");
-                await Console.Out.WriteLineAsync("Choose one of the following:\n\u001b[33m[1] Add genre to user\n[2] Add artist to user\n[3] Add track to user\n[4] Go back\u001b[0m");
+                await Console.Out.WriteLineAsync("Choose one of the following:\n\u001b[33m[1] Add new artist\n[2] List user's artists\n[3] List all artists\n[4] Go back\u001b[0m");
                 string choice = Console.ReadLine();
                 if (choice != "1" && choice != "2" && choice != "3" && choice != "4")
                 {
@@ -31,28 +32,18 @@ namespace SpelarDuInClient.Menu
                 {
                     switch (choice)
                     {
-                        case "1":
-                            await UserMethods.ConnectUserToOneGenreAsync(client, userId);
+                        case "1":// Add new artist
+                            await ArtistMethods.AddNewArtistAysnc(client);
                             break;
-                        case "2":
-                            await UserMethods.ConnectUserToOneArtistAsync(client, userId);
+                        case "2":// list artists related to a specific user
+                            await ArtistMethods.ListUserArtistsAsync(client, userId);
                             break;
-                        case "3":
-                            await UserMethods.ConnectUserToOneTrackAsync(client, userId);
+                        case "3"://list all artists
+                            await ArtistMethods.ListAllArtistsAsync(client);
                             break;
                         case "4":
                             run = false;
                             break;
-                        //case "5": // Add new artist
-                        //    await ArtistMethods.AddNewArtistAysnc(client);
-                        //    break;
-                        //case "6":// list artists related to a specific user
-                        //    await ArtistMethods.ListUserArtistsAsync(client, userId);
-                        //    break;
-                        //case "7"://list all artists
-                        //    await ArtistMethods.ListAllArtistsAsync(client);
-                        //    break;
-
                     }
                 }
                 await Console.Out.WriteLineAsync("Press enter to go back to main menu!!");

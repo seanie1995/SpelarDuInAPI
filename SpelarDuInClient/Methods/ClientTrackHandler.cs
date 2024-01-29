@@ -1,5 +1,5 @@
-﻿using SpelarDuInClient.Models;
-using SpelarDuInClient.Models.DTO;
+﻿using SpelarDuInClient.Models.DTO;
+using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,7 @@ namespace SpelarDuInClient.Methods
             await Console.Out.WriteLineAsync("What genre does the track belong to?:");
             string trackGenre = Console.ReadLine();
 
-            TrackDto newTrack = new TrackDto()
+            TrackDto newTrack = new TrackDto() 
             {
                 TrackTitle = trackName,
                 Artist = trackArtist,
@@ -30,7 +30,7 @@ namespace SpelarDuInClient.Methods
             };
             string json = JsonSerializer.Serialize(newTrack);
 
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json" );
 
             var response = await client.PostAsync("/track", content);
 
@@ -94,7 +94,7 @@ namespace SpelarDuInClient.Methods
             TrackViewModel[] alltracksLinkedToUser = JsonSerializer.Deserialize<TrackViewModel[]>(content);
             foreach (var tracks in alltracksLinkedToUser)
             {
-                await Console.Out.WriteLineAsync($"Id: {tracks.Id,-3}:\t Artist- {tracks.Artist}:\t Song- {tracks.TrackTitle,-30}");
+                await Console.Out.WriteLineAsync($"{tracks.Id}:\t {tracks.TrackTitle}:\t {tracks.Artist}");
             }
         }
     }

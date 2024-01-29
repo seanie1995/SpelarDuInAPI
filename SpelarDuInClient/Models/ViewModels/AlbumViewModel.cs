@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace DiscographyViewerAPI.Models.ViewModels
+namespace SpelarDuInClient.Models.ViewModels
 {
     public class AlbumViewModel
     {
