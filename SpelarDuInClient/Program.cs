@@ -75,7 +75,7 @@ namespace SpelarDuInAPIClient
                 //    {
                 //        case "1": // AddGenre
 
-                //            await GenreMethods.AddGenreAsync(client); 
+                //            await GenreMethods.AddGenreAsync(client);
 
                 //            break;
                 //        case "2": // List Genres
@@ -116,9 +116,9 @@ namespace SpelarDuInAPIClient
                 //            break;
                 //    }
 
-                
 
-            }
+
+                }
         }
     }
 }
