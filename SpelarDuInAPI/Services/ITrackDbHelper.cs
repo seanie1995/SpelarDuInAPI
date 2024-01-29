@@ -13,6 +13,7 @@ namespace SpelarDuInAPI.Services
     {
         void AddNewTrack(TrackDto trackDto);
         TrackViewModel[] GetAllTracksFromSingleUser(int userId);
+        TrackViewModel[] ListAllTracks();
     }
     public class TrackDbHelper : ITrackDbHelper
     {
@@ -102,6 +103,7 @@ namespace SpelarDuInAPI.Services
                 _context.Tracks.Add(newTrack);
                 //_context.Users.Single().Tracks.Add(newTrack);
                 _context.SaveChanges();
+
             }
             catch (Exception ex)
             {
@@ -130,6 +132,18 @@ namespace SpelarDuInAPI.Services
                    Artist = r.Artist?.ArtistName?? "Unknown Artist" //If track dont hawe artist linked to it throw exception Unknown artist
                     
                 }).ToArray();
+            return result;
+        }
+
+        public TrackViewModel[] ListAllTracks()
+        {
+            TrackViewModel[] result = _context.Tracks
+                .Select(r => new TrackViewModel 
+            { 
+                Id = r.Id, 
+                TrackTitle = r.TrackTitle, 
+                Artist = r.Artist.ArtistName
+            }).ToArray();
             return result;
         }
     }

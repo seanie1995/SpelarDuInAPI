@@ -42,36 +42,36 @@ namespace SpelarDuInClient.Methods
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
         }
 
-        public static async Task AddtrackConnectedToSingleUserAsync(HttpClient client)
-        {
-            await Console.Out.WriteLineAsync("Enter new track name:");
-            string trackName = Console.ReadLine();
+        //public static async Task AutoAddingtrackToConnectToSingleUserAsync(HttpClient client, int userID)
+        //{
+        //   HttpRequestMessage response = await
 
-            await Console.Out.WriteLineAsync("What artist does the track belong to:");
-            string trackArtist = Console.ReadLine();
+        //    TrackDto newTrack = new TrackDto()
+        //    {
+                
+        //        TrackTitle = trackName,
+        //        Artist = trackArtist,
+        //        Genre = trackGenre
+        //    };
+        //    string json = JsonSerializer.Serialize(newTrack);
 
-            await Console.Out.WriteLineAsync("What genre does the track belong to?:");
-            string trackGenre = Console.ReadLine();
+        //    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            TrackDto newTrack = new TrackDto()
-            {
-                TrackTitle = trackName,
-                Artist = trackArtist,
-                Genre = trackGenre
-            };
-            string json = JsonSerializer.Serialize(newTrack);
+        //    var response = await client.PostAsync("/track", content);
 
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+        //    /* app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserToOneGenre); // Kopplar person till ny genre  N/A
+        //    app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
+        //    app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
 
-            var response = await client.PostAsync("/track", content);
+        //     */
 
-            if (!response.IsSuccessStatusCode)
-            {
-                await Console.Out.WriteLineAsync($"Failed to create track (statuscode {response.StatusCode})");
-            }
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        await Console.Out.WriteLineAsync($"Failed to create track (statuscode {response.StatusCode})");
+        //    }
 
-            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
-        }
+        //    await Console.Out.WriteLineAsync("Press enter to go back to main menu");
+        //}
 
         public static async Task GetAlltracksFromSingleUserAsync(HttpClient client, int userId)
         {
