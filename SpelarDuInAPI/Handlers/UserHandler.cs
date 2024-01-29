@@ -11,6 +11,19 @@ namespace SpelarDuInAPI.Handlers
 {
     public class UserHandler
     {
+        public static IResult ShowAllUsersAllInfoOneUser(IUserDbHelper dbHelper, int userId)
+        {
+            try
+            {
+                List<UserViewModelAllInfo> users = dbHelper.ShowAllUsersAllInfoOneUser(userId);
+                return Results.Json(users);
+            }
+            catch (InvalidDataException ex)
+            {
+                return Results.Json(new { Error = "No user in database" });
+            }
+        }
+
         public static IResult ShowAllUsersAllInfo(IUserDbHelper dbHelper)
         {
             try

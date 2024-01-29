@@ -29,7 +29,7 @@ namespace SpelarDuInAPI
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
-           
+
 
             // Endpoints to be added here 
 
@@ -49,6 +49,7 @@ namespace SpelarDuInAPI
 
 
             // GET Calls
+            app.MapGet("/user/allinfo/{userId}", UserHandler.ShowAllUsersAllInfoOneUser); // Hämta all info om en person     Mojtaba
             app.MapGet("/user/allinfo", UserHandler.ShowAllUsersAllInfo); // Hämta alla personer     Mojtaba
             app.MapGet("/user", UserHandler.GetAllUsers); // Hämta alla personer     Mojtaba
             app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres); // Hämta alla genre kopplad till en specifik person     Sean
