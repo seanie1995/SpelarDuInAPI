@@ -272,30 +272,30 @@ namespace SpelarDuInAPIClient.Methods
             }
         }
 
-        public static async Task<UserViewModel> SelectUserAsync(HttpClient client, int userId)
-        {
-            HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
+        //public static async Task<UserViewModel> SelectUserAsync(HttpClient client, int userId)
+        //{
+        //    HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Failed to list users {response.StatusCode}");
-            }
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception($"Failed to list users {response.StatusCode}");
+        //    }
 
-            string content = await response.Content.ReadAsStringAsync();
+        //    string content = await response.Content.ReadAsStringAsync();
 
-            UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
+        //    UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
 
-            UserViewModel selectedUser = allUsers
-                .Where(i => i.Id == userId)
-                .FirstOrDefault();
+        //    UserViewModel selectedUser = allUsers
+        //        .Where(i => i.Id == userId)
+        //        .FirstOrDefault();
 
-            if (selectedUser != null)
-            {
-                await Console.Out.WriteLineAsync("Requested user not found");
-            }
+        //    if (selectedUser != null)
+        //    {
+        //        await Console.Out.WriteLineAsync("Requested user not found");
+        //    }
 
-            return selectedUser;
+        //    return selectedUser;
 
-        }
+        //}
     }
 }
