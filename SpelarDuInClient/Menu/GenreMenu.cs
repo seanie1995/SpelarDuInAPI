@@ -34,7 +34,7 @@ namespace SpelarDuInClient.Menu
                             await GenreMethods.ListUserGenresAsync(client, userId);
                             break;
                         case "2":
-                            await GenreMethods.AddGenreAsync(client, userId);
+                            await GenreMethods.CreateNewGenreAsync(client, userId);
                             
                            
                             break;                      

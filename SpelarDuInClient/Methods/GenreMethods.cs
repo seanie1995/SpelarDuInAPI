@@ -12,7 +12,7 @@ namespace SpelarDuInAPIClient.Methods
 {
     public class GenreMethods
     {
-        public static async Task AddGenreAsync(HttpClient client, int userId)
+        public static async Task CreateNewGenreAsync(HttpClient client, int userId)
         {
             // Adding new genre into database
 
