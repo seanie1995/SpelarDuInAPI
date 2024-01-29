@@ -10,7 +10,7 @@ namespace SpelarDuInAPIClient
     {
         static async Task Main(string[] args)
         {
-            await MenuAction.MainMenu();
+            await WelcomeMenu.WelcomeSignMenu();
         }
     }
 }
