@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInClient.Menu
 {
-    internal class menuMethodRepository
+    internal class MenuRepositoryHandler
     {
     }
 }
