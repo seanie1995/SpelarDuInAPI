@@ -12,7 +12,7 @@ namespace SpelarDuInAPI.Services
         void AddNewArtist(ArtistDto newArtist);
         ArtistListViewModel[] ListAllArtists();
         ArtistListViewModel[] ListUsersArtists(int userId);
-        ArtistViewModel ShowArtist(string artistName);
+        ArtistViewModel ViewAnArtist(string artistName);
     }
 
     public class ArtistDbHelper : IArtistDbHelper
@@ -88,9 +88,9 @@ namespace SpelarDuInAPI.Services
         }
 
         //Show a specific artist
-        public ArtistViewModel ShowArtist(string artistName)
+        public ArtistViewModel ViewAnArtist(string artistName)
         {
-            //find the specific artist with id
+            //find the specific artist with name
             Artist? artist = _context.Artists
                 .Where(a => a.ArtistName == artistName)
                 .Include(a => a.Tracks)

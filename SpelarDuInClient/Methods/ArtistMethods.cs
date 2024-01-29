@@ -79,5 +79,24 @@ namespace SpelarDuInClient.Methods
             Console.ReadLine();
             Console.Clear();
         }
+
+        public static async Task ViewAnArtistAsync(HttpClient client, string artistName)
+        {
+            Console.Clear();
+            HttpResponseMessage response = await client.GetAsync($"/artist/{artistName}");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error fetching artist {response.StatusCode}");
+            }
+            string content = await response.Content.ReadAsStringAsync();
+            ArtistViewModel artist = JsonSerializer.Deserialize<ArtistViewModel>(content);
+
+            await Console.Out.WriteLineAsync(artist.ArtistName);
+            await Console.Out.WriteLineAsync(artist.Description);
+
+
+            //not finish yet here
+
+        }
     }
 }

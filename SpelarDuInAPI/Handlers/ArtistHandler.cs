@@ -29,7 +29,7 @@ namespace SpelarDuInAPI.Handlers
         //Show a specific artist
         public static IResult ViewArtist(IArtistDbHelper artistDbHelper, string artistName) 
         { 
-            ArtistViewModel result = artistDbHelper.ShowArtist(artistName);
+            ArtistViewModel result = artistDbHelper.ViewAnArtist(artistName);
             return Results.Json(result);
         }
 

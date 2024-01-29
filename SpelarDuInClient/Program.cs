@@ -93,6 +93,10 @@ namespace SpelarDuInAPIClient
                             await ArtistMethods.ListAllArtistsAsync(client);
                             break;
 
+                        //case "8":
+                        //    await ArtistMethods.ViewAnArtistAsync(client, artistName);
+                        //    break;
+
                         default:
                             Console.WriteLine("Invalid input. Please enter 1, 2, or 3.");
 
