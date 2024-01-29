@@ -11,7 +11,7 @@ namespace SpelarDuInAPIClient.Methods
 {
     public class GenreMethods
     {
-        public static async Task AddGenreAsync(HttpClient client)
+        public static async Task AddGenreAsync(HttpClient client, int userId)
         {
             await Console.Out.WriteLineAsync("Enter new genre name:");
 
@@ -32,6 +32,29 @@ namespace SpelarDuInAPIClient.Methods
             {
                 await Console.Out.WriteLineAsync($"Failed to create genre (status code {response.StatusCode})");
             }
+
+            // Finding created genre within database to connect with user
+
+            HttpResponseMessage response2 = await client.GetAsync($"/user/{userId}/genre");
+
+            string content = await response2.Content.ReadAsStringAsync();
+
+            GenreViewModel[] allGenres = JsonSerializer.Deserialize<GenreViewModel[]>(content);
+
+            GenreViewModel specificGenre = allGenres.Where(i => name == i.GenreName).FirstOrDefault();
+
+            int genreId = specificGenre.Id;
+
+            // Using Mojtabas method to connect new genre to user
+
+            HttpResponseMessage response3 = await client.PostAsync($"/user/{userId}/genre/{genreId}", null);
+
+            if (!response3.IsSuccessStatusCode)
+            {
+                await Console.Out.WriteLineAsync($"Failed to connect genre (status code {response.StatusCode})");
+            }
+
+
 
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();

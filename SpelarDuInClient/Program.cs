@@ -45,7 +45,7 @@ namespace SpelarDuInAPIClient
                             Console.ReadKey();
                             continue;
                         }
-                        await UserMenu.UsersMenuAsync(client, userId, selectedUser);
+                        await UserMenuScratchClass.SeansUsersMenuAsync(client, userId, selectedUser);
                         //break;
 
                     }// Create new user

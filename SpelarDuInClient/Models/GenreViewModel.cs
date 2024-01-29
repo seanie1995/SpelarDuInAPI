@@ -12,7 +12,7 @@ namespace SpelarDuInAPIClient.Models
         [JsonPropertyName("Id")]
         public int Id { get; set; }
         
-        [JsonPropertyName("genreName")]
+        [JsonPropertyName("GenreName")]
         public string GenreName { get; set; }
     }
 }
