@@ -1,5 +1,4 @@
-﻿using SpelarDuInAPIClient.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +15,10 @@ namespace SpelarDuInClient.Models.ViewModels
         public List<GenreViewModel> Genres { get; set; }
         [JsonPropertyName("artists")]
 
-        public List<ArtistViewModel> Artists { get; set; }
+        public List<ArtistViewModel2> Artists { get; set; }
         [JsonPropertyName("tracks")]
 
-        public List<TrackViewModel> Tracks { get; set; }
+        public List<TrackViewModel2> Tracks { get; set; }
 
     }
 }

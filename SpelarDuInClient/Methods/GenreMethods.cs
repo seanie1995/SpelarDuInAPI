@@ -1,4 +1,5 @@
 ﻿using SpelarDuInAPIClient.Models;
+using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace SpelarDuInAPIClient.Methods
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Failed to list genres connected to user {response.StatusCode}");
+                throw new Exception($"Failed to list users {response.StatusCode}");
             }
 
             string content = await response.Content.ReadAsStringAsync();
