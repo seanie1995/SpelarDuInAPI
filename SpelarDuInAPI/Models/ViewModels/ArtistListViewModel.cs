@@ -1,9 +1,10 @@
 ﻿namespace SpelarDuInAPI.Models.ViewModels
 {
-    public class ArtistViewModel
+    public class ArtistListViewModel
     {
+        public int Id { get; set; }
         public string ArtistName { get; set; }
         public string? Description { get; set; }
-        public TrackViewModel[] Tracks { get; set; }
+
     }
 }

@@ -23,6 +23,17 @@ namespace SpelarDuInAPI.Handlers
                 return Results.StatusCode((int)(int)HttpStatusCode.InternalServerError);
             }
         }
+        //public static IResult addNewTrackConnectedToSingleUser(ITrackDbHelper trackDbHelper, TrackDto trackDto, UserDto userId)
+        //{
+        //    try
+        //    {
+        //        trackDbHelper.GetAllTracksFromSingleUser(trackDto, userId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //}
         public static IResult GetAllTracksFromSingleUser(ITrackDbHelper trackDbHelper, int userId)
         {
             try

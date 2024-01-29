@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInClient.Models
 {
-    internal class TrackViewModel
+    internal class ArtistListViewModel
     {
-
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("trackTitle")]
-        public string TrackTitle { get; set; }
-        [JsonPropertyName("artist")]
-        public string Artist { get; set; }
+        [JsonPropertyName("artistName")]
+        public string ArtistName { get; set; }
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
     }
 }
