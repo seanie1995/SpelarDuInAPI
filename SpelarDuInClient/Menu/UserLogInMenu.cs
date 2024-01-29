@@ -38,7 +38,7 @@ namespace SpelarDuInClient.Menu
                         ArtistMenu.ArtistMenuAsync(client, userId, user);
                         break;
                     case 3:
-                        //Track methods
+                        TrackMenu.TrackMenuAsync(client, userId, user);
                         break;
                     case 4:
                         //Discography methods
