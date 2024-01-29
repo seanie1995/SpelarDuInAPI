@@ -43,5 +43,18 @@ namespace SpelarDuInAPI.Handlers
 
             // Test comment
         }
+
+        public static IResult ListAllGenres(IGenreDbHelper dbHelper)
+        {
+            try
+            {
+                GenreViewModel[] result = dbHelper.ListAllGenres();
+                return Results.Json(result);
+            }
+            catch (InvalidDataException ex)
+            {
+                return Results.Json(new { Error = "No genres in database" });
+            }
+        }
     }   
 }

@@ -35,6 +35,8 @@ namespace SpelarDuInClient.Menu
                             break;
                         case "2":
                             await GenreMethods.AddGenreAsync(client, userId);
+                            
+                           
                             break;                      
                         case "3":
                             run = false;
