@@ -42,7 +42,7 @@ namespace SpelarDuInAPI.Services
             {
                 UserName = u.UserName,
                 Genres = u.Genres.Select(g => new GenreViewModel { GenreName = g.GenreName }).ToList(),
-                Artists = u.Artists.Select(a => new ArtistViewModel { ArtistName = a.ArtistName, Description = a.Description }).ToList(),
+                Artists = u.Artists.Select(a => new ArtistListViewModel { ArtistName = a.ArtistName }).ToList(),
                 Tracks = u.Tracks.Select(t => new TrackViewModel { TrackTitle = t.TrackTitle }).ToList()
             }).ToList();
             return userView;

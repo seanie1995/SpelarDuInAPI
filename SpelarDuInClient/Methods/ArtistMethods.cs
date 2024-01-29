@@ -40,7 +40,7 @@ namespace SpelarDuInClient.Methods
 
         public static async Task ListUserArtistsAsync(HttpClient client, int userId)
         {
-            //Console.Clear();
+            Console.Clear();
             HttpResponseMessage response = await client.GetAsync($"/user/{userId}/artist");
             if (!response.IsSuccessStatusCode)
             {
@@ -61,7 +61,7 @@ namespace SpelarDuInClient.Methods
 
         public static async Task ListAllArtistsAsync(HttpClient client)
         {
-            //Console.Clear();
+            Console.Clear();
             HttpResponseMessage response = await client.GetAsync("/artist");
             if (!response.IsSuccessStatusCode)
             {
@@ -78,6 +78,25 @@ namespace SpelarDuInClient.Methods
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
             Console.Clear();
+        }
+
+        public static async Task ViewAnArtistAsync(HttpClient client, string artistName)
+        {
+            Console.Clear();
+            HttpResponseMessage response = await client.GetAsync($"/artist/{artistName}");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error fetching artist {response.StatusCode}");
+            }
+            string content = await response.Content.ReadAsStringAsync();
+            ArtistViewModel artist = JsonSerializer.Deserialize<ArtistViewModel>(content);
+
+            await Console.Out.WriteLineAsync(artist.ArtistName);
+            await Console.Out.WriteLineAsync(artist.Description);
+
+
+            //not finish yet here
+
         }
     }
 }

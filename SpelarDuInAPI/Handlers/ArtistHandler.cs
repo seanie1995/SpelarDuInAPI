@@ -9,17 +9,31 @@ using System.Net;
 
 namespace SpelarDuInAPI.Handlers
 {
-    public class ArtistHandler
+    public class ArtistHandler //--- Jing
     {
-        //Get all artists linked to a specific person --- Jing
+        //List all artists
+        public static IResult ListAllArtists(IArtistDbHelper artistDbHelper)
+        {
+            ArtistListViewModel[] result = artistDbHelper.ListAllArtists();
+            return Results.Json(result);
+        }
+
+        //List all artists linked to a specific user 
         public static IResult ListUsersArtists(IArtistDbHelper artistDbHelper, int userId)
         {
-            ArtistViewModel[] result = artistDbHelper.ListUsersArtists(userId);
+            ArtistListViewModel[] result = artistDbHelper.ListUsersArtists(userId);
 
             return Results.Json(result);
         }
 
-        //Add an new artist --- Jing
+        //Show a specific artist
+        public static IResult ViewArtist(IArtistDbHelper artistDbHelper, string artistName) 
+        { 
+            ArtistViewModel result = artistDbHelper.ViewAnArtist(artistName);
+            return Results.Json(result);
+        }
+
+        //Add an new artist
         public static void AddNewArtist(IArtistDbHelper artistDbHelper, ArtistDto artistDto)
         {
             artistDbHelper.AddNewArtist(artistDto);

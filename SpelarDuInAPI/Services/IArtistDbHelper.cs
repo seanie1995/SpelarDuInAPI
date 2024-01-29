@@ -10,7 +10,9 @@ namespace SpelarDuInAPI.Services
     public interface IArtistDbHelper                      // ---- Jing
     {
         void AddNewArtist(ArtistDto newArtist);
-        ArtistViewModel[] ListUsersArtists(int userId);
+        ArtistListViewModel[] ListAllArtists();
+        ArtistListViewModel[] ListUsersArtists(int userId);
+        ArtistViewModel ViewAnArtist(string artistName);
     }
 
     public class ArtistDbHelper : IArtistDbHelper
@@ -47,7 +49,20 @@ namespace SpelarDuInAPI.Services
             }
         }
 
-        public ArtistViewModel[] ListUsersArtists(int userId)
+        //List all artists in the database
+        public ArtistListViewModel[] ListAllArtists()
+        {
+            var result = _context.Artists
+                .Select(a => new ArtistListViewModel()
+                {
+                    Id = a.Id,
+                    ArtistName = a.ArtistName,
+                }).ToArray();
+            return result;
+        }
+
+        //List all artists linked to a specific user 
+        public ArtistListViewModel[] ListUsersArtists(int userId)
         {
             //find the speicific user
             User? user =
@@ -63,14 +78,39 @@ namespace SpelarDuInAPI.Services
 
             // show all artists
 
-            ArtistViewModel[] result = user.Artists
-                .Select(r => new ArtistViewModel
+            ArtistListViewModel[] result = user.Artists
+                .Select(r => new ArtistListViewModel
                 {
-                    Id = r.Id,                      
+                    Id = r.Id,
                     ArtistName = r.ArtistName,
-                    Description = r.Description
                 }).ToArray();
+            return result;
+        }
 
+        //Show a specific artist
+        public ArtistViewModel ViewAnArtist(string artistName)
+        {
+            //find the specific artist with name
+            Artist? artist = _context.Artists
+                .Where(a => a.ArtistName == artistName)
+                .Include(a => a.Tracks)
+                .SingleOrDefault();
+
+            if (artist == null)
+            {
+                Results.NotFound("No such artist with this name!"); //not sure if it can work????
+            }
+            ArtistViewModel result = new ArtistViewModel()
+            {
+                ArtistName = artist.ArtistName,
+                Description = artist.Description,
+                Tracks = artist.Tracks
+                    .Select(t => new TrackViewModel()
+                    {
+                        Id = t.Id,
+                        TrackTitle = t.TrackTitle,
+                    }).ToArray()
+            };
             return result;
         }
     }
