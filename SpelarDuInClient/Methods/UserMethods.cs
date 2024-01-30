@@ -32,6 +32,31 @@ namespace SpelarDuInAPIClient.Methods
             }
         }
 
+        public static async Task<string[]> GetAllUsersForMeny(HttpClient client)
+        {
+
+            HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
+
+            if (!response.IsSuccessStatusCode)
+            {
+                await Console.Out.WriteLineAsync($"Failed to list users {response.StatusCode}");
+                return Array.Empty<string>();
+            }
+
+            string content = await response.Content.ReadAsStringAsync();
+
+            UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
+
+            List<string>userStrings = new List<string>();
+
+            foreach (var user in allUsers)
+            {
+                string userString = $"\u001b[33mId:{user.Id}:\t{user.UserName}\u001b[0m";
+                userStrings.Add(userString);
+            }
+            return userStrings.ToArray();
+        }
+
         public static async Task CreateNewUserAsync(HttpClient client)
         {
             await Console.Out.WriteLineAsync("CREATING NEW USER");
