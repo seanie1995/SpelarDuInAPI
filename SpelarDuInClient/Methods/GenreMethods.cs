@@ -37,12 +37,26 @@ namespace SpelarDuInAPIClient.Methods
                 await Console.Out.WriteLineAsync($"Failed to create genre (status code {response.StatusCode})");
             }
 
-            await AutoConnectGenreAsync(client, userId, name);
+            await Console.Out.WriteLineAsync("Would you like to add this new genre to your list of genres? Y/N");
 
-            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
-            Console.ReadLine();
-            
-            
+            string answer = Console.ReadLine().ToLower();
+
+            AddOrNot:
+
+            if(answer == "y")
+            {
+                await AutoConnectGenreAsync(client, userId, name);
+            }
+            else if (answer == "n")
+            {
+                await Console.Out.WriteLineAsync("Press enter to go back to main menu");
+                Console.ReadLine();
+            }
+            else
+            {
+                await Console.Out.WriteLineAsync("Please input a valid answer:");
+                goto AddOrNot;
+            }                                    
         }
 
         public static async Task ListUserGenresAsync(HttpClient client, int userId)
