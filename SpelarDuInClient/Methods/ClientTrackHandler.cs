@@ -97,7 +97,8 @@ namespace SpelarDuInClient.Methods
             TrackViewModel[] alltracksLinkedToUser = JsonSerializer.Deserialize<TrackViewModel[]>(content);
             foreach (var tracks in alltracksLinkedToUser)
             {
-                await Console.Out.WriteLineAsync($"{tracks.Id}: {tracks.TrackTitle, 4}:\t {tracks.Artist,30}");
+                string formattedOutput = String.Format("{0, -5} : {1,-30} : {2}", tracks.Id, tracks.TrackTitle, tracks.Artist);
+                await Console.Out.WriteLineAsync(formattedOutput);
             }
 
             Console.ReadLine();
