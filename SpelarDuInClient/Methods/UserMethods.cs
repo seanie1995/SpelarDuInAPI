@@ -49,7 +49,7 @@ namespace SpelarDuInAPIClient.Methods
                 //UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
 
                 //Deserialize json directly to list
-                List<UserViewModel> allUsers = JsonSerializer.Deserialize<List<UserViewModel>>(content)
+                List<UserViewModel> allUsers = JsonSerializer.Deserialize<List<UserViewModel>>(content);
 
                 return allUsers;
             }
