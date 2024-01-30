@@ -45,16 +45,6 @@ namespace SpelarDuInClient.Menu
                         case 3:
                             run = false;
                             break;
-                        //case "5": // Add new artist
-                        //    await ArtistMethods.AddNewArtistAysnc(client);
-                        //    break;
-                        //case "6":// list artists related to a specific user
-                        //    await ArtistMethods.ListUserArtistsAsync(client, userId);
-                        //    break;
-                        //case "7"://list all artists
-                        //    await ArtistMethods.ListAllArtistsAsync(client);
-                        //    break;
-
                     }
                 }
                 //await Console.Out.WriteLineAsync("Press enter to go back!!");
