@@ -43,7 +43,7 @@ namespace SpelarDuInClient.Menu
                                 List<string> userStrings = new List<string>();
                                 foreach (UserViewModel user in userList)
                                 {
-                                    userStrings.Add($"Username: {user.UserName}");
+                                    userStrings.Add($"{user.UserName}");
                                     //await Console.Out.WriteLineAsync($"Username: {user.UserName}");
                                 }
 
