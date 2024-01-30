@@ -91,8 +91,6 @@ namespace SpelarDuInClient.Methods
 
             string content = await response.Content.ReadAsStringAsync();
 
-            await Console.Out.WriteLineAsync();
-            await Console.Out.WriteLineAsync();
             TrackViewModel[] alltracksLinkedToUser = JsonSerializer.Deserialize<TrackViewModel[]>(content);
             foreach (var tracks in alltracksLinkedToUser)
             {

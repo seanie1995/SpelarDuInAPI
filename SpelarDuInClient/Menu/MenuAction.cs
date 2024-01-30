@@ -56,7 +56,7 @@ namespace SpelarDuInClient.Menu
                                 {
                                     //Get the selected user 
                                     selectedUser = userList[selecteduserIndex];
-                                    selectedUser = await UserMethods.SelectUserAsync(client, selectedUser.Id);
+                                    //selectedUser = await UserMethods.SelectUserAsync(client, selectedUser.Id);
                                 }
                                 if (selectedUser == null)
                                 {
@@ -64,7 +64,7 @@ namespace SpelarDuInClient.Menu
                                     Console.ReadKey();
                                     continue;
                                 }
-                                await UserLogInMenu.UsersLogInMenuAsync(client, userId, selectedUser);
+                                await UserLogInMenu.UsersLogInMenuAsync(client, selectedUser.Id, selectedUser);
                                 
                             }
                             break;
