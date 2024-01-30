@@ -11,9 +11,10 @@ namespace SpelarDuInClient.Menu
     {
         public static async Task WelcomeSignMenu()
         {
-           var cts = new CancellationTokenSource();
+            Console.CursorVisible = false;
+            var cts = new CancellationTokenSource();
             var welcomeSignTask = Task.Run(()=> MenuRepositoryHandler.WelcomeSign(cts.Token));
-
+       
             while (true)
             {
                
@@ -21,13 +22,10 @@ namespace SpelarDuInClient.Menu
                 {
                    cts.Cancel();
                     break;
-                }
-                
+                }                
             }
             await welcomeSignTask;
             await MenuAction.MainMenu();
-
-
         }
     }
 }

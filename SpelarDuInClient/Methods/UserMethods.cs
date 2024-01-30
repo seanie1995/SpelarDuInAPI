@@ -32,6 +32,35 @@ namespace SpelarDuInAPIClient.Methods
             }
         }
 
+        public static async Task<List<UserViewModel>> GetAllUsersForMenyAsync(HttpClient client)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    await Console.Out.WriteLineAsync($"Failed to list users {response.StatusCode}");
+                    return new List<UserViewModel>();
+                }
+
+                string content = await response.Content.ReadAsStringAsync();
+
+                //UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
+
+                //Deserialize json directly to list
+                List<UserViewModel> allUsers = JsonSerializer.Deserialize<List<UserViewModel>>(content);
+
+                return allUsers;
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync($"An error occured: {ex.Message}");
+                return new List<UserViewModel>();
+            }
+
+        }
+
         public static async Task CreateNewUserAsync(HttpClient client)
         {
             await Console.Out.WriteLineAsync("CREATING NEW USER");
@@ -68,60 +97,60 @@ namespace SpelarDuInAPIClient.Methods
 
         public static async Task ShowAllUsersAllInfoAsync(HttpClient client)
         {
-                HttpResponseMessage response = await client.GetAsync("/user/allinfo");
-                if (!response.IsSuccessStatusCode)
+            HttpResponseMessage response = await client.GetAsync("/user/allinfo");
+            if (!response.IsSuccessStatusCode)
+            {
+                await Console.Out.WriteLineAsync($"Failed to list users {response.StatusCode}");
+            }
+
+            string content = await response.Content.ReadAsStringAsync();
+            UserViewModelAllInfo[] allInfoUsers = JsonSerializer.Deserialize<UserViewModelAllInfo[]>(content);
+
+            foreach (var user in allInfoUsers)
+            {
+                Console.WriteLine($"User: \x1b[33m{user.UserName}\x1b[0m");
+
+                Console.WriteLine("Genres:");
+                if (user.Genres != null && user.Genres.Any())
                 {
-                    await Console.Out.WriteLineAsync($"Failed to list users {response.StatusCode}");
+                    foreach (var genre in user.Genres)
+                    {
+                        Console.WriteLine($"\x1b[33m{genre.GenreName}\x1b[0m");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("  \x1b[31mNo genres available\x1b[0m");
                 }
 
-                string content = await response.Content.ReadAsStringAsync();
-                UserViewModelAllInfo[] allInfoUsers = JsonSerializer.Deserialize<UserViewModelAllInfo[]>(content);
-
-                foreach (var user in allInfoUsers)
+                Console.WriteLine("Artists:");
+                if (user.Artists != null && user.Artists.Any())
                 {
-                    Console.WriteLine($"User: \x1b[33m{user.UserName}\x1b[0m");
-
-                    Console.WriteLine("Genres:");
-                    if (user.Genres != null && user.Genres.Any())
+                    foreach (var artist in user.Artists)
                     {
-                        foreach (var genre in user.Genres)
-                        {
-                            Console.WriteLine($"\x1b[33m{genre.GenreName}\x1b[0m");
-                        }
+                        Console.WriteLine($"\x1b[33mArtist:{artist.ArtistName} \n Desciption:{artist.Description}\x1b[0m");
                     }
-                    else
-                    {
-                        Console.WriteLine("  \x1b[31mNo genres available\x1b[0m");
-                    }
-
-                    Console.WriteLine("Artists:");
-                    if (user.Artists != null && user.Artists.Any())
-                    {
-                        foreach (var artist in user.Artists)
-                        {
-                            Console.WriteLine($"\x1b[33mArtist:{artist.ArtistName} \n Desciption:{artist.Description}\x1b[0m");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine(" \x1b[31mNo artists available\x1b[0m");
-                    }
-
-                    Console.WriteLine("Tracks:");
-                    if (user.Tracks != null && user.Tracks.Any())
-                    {
-                        foreach (var track in user.Tracks)
-                        {
-                            Console.WriteLine($"\x1b[33m{track.TrackTitle}\x1b[0m");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("  \x1b[31mNo tracks available\x1b[0m");
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine("-----------------------------");
                 }
+                else
+                {
+                    Console.WriteLine(" \x1b[31mNo artists available\x1b[0m");
+                }
+
+                Console.WriteLine("Tracks:");
+                if (user.Tracks != null && user.Tracks.Any())
+                {
+                    foreach (var track in user.Tracks)
+                    {
+                        Console.WriteLine($"\x1b[33m{track.TrackTitle}\x1b[0m");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("  \x1b[31mNo tracks available\x1b[0m");
+                }
+                Console.WriteLine();
+                Console.WriteLine("-----------------------------");
+            }
         }
 
         public static async Task ShowAllUsersAllInfoOneUserAsync(HttpClient client, int userId)
