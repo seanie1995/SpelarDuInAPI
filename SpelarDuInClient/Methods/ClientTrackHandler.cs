@@ -1,5 +1,5 @@
-﻿using SpelarDuInClient.Models;
-using SpelarDuInClient.Models.DTO;
+﻿using SpelarDuInClient.Models.DTO;
+using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Methods
 {
     internal class ClientTrackHandler
     {
-        public static async Task AddtrackAsync(HttpClient client)
+        public static async Task AddtrackAsync(HttpClient client, int userId)
         {
             await Console.Out.WriteLineAsync("Enter new track name:");
             string trackName = Console.ReadLine();
@@ -22,7 +22,7 @@ namespace SpelarDuInClient.Methods
             await Console.Out.WriteLineAsync("What genre does the track belong to?:");
             string trackGenre = Console.ReadLine();
 
-            TrackDto newTrack = new TrackDto()
+            TrackDto newTrack = new TrackDto() 
             {
                 TrackTitle = trackName,
                 Artist = trackArtist,
@@ -30,7 +30,7 @@ namespace SpelarDuInClient.Methods
             };
             string json = JsonSerializer.Serialize(newTrack);
 
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json" );
 
             var response = await client.PostAsync("/track", content);
 
@@ -39,42 +39,51 @@ namespace SpelarDuInClient.Methods
                 await Console.Out.WriteLineAsync($"Failed to create track (statuscode {response.StatusCode})");
             }
 
+            await AutoAddingtrackToSingleUserAsync(client, userId, trackName);
+
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
+
         }
 
-        public static async Task AddtrackConnectedToSingleUserAsync(HttpClient client)
+        public static async Task AutoAddingtrackToSingleUserAsync(HttpClient client, int userId, string trackName)
         {
-            await Console.Out.WriteLineAsync("Enter new track name:");
-            string trackName = Console.ReadLine();
+            //Finding track 
+            HttpResponseMessage response = await client.GetAsync("/track");
 
-            await Console.Out.WriteLineAsync("What artist does the track belong to:");
-            string trackArtist = Console.ReadLine();
+            string content = await response.Content.ReadAsStringAsync();
 
-            await Console.Out.WriteLineAsync("What genre does the track belong to?:");
-            string trackGenre = Console.ReadLine();
+            TrackViewModel[] allTracks = JsonSerializer.Deserialize<TrackViewModel[]>(content);
 
-            TrackDto newTrack = new TrackDto()
+            TrackViewModel newtrack = allTracks
+                .Where(i => i.TrackTitle == trackName)
+                .FirstOrDefault();
+
+            int newTrackId = newtrack.Id;
+
+            if (newTrackId == 0)
             {
-                TrackTitle = trackName,
-                Artist = trackArtist,
-                Genre = trackGenre
-            };
-            string json = JsonSerializer.Serialize(newTrack);
+                await Console.Out.WriteLineAsync($"Failed to find the track with naem '{trackName}' in the database.");
+            }
+            //Connecting track to user 
+            HttpResponseMessage connectUserToTrack = await client.PostAsync($"/user/{userId}/track/{newTrackId}", null);
 
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync("/track", content);
-
-            if (!response.IsSuccessStatusCode)
+            if (connectUserToTrack.IsSuccessStatusCode)
             {
-                await Console.Out.WriteLineAsync($"Failed to create track (statuscode {response.StatusCode})");
+                Console.Clear();
+                await Console.Out.WriteLineAsync("\x1b[32mUser connected to track succefully!\x1b[0m");
+            }
+            else
+            {
+                Console.Clear();
+                await Console.Out.WriteLineAsync($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
             }
 
-            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
         }
 
         public static async Task GetAlltracksFromSingleUserAsync(HttpClient client, int userId)
         {
+            await Task.Run(() => Console.Clear());
+            
             //Calling API endpoint
             HttpResponseMessage response = await client.GetAsync($"/user/{userId}/track");
 
@@ -88,8 +97,10 @@ namespace SpelarDuInClient.Methods
             TrackViewModel[] alltracksLinkedToUser = JsonSerializer.Deserialize<TrackViewModel[]>(content);
             foreach (var tracks in alltracksLinkedToUser)
             {
-                await Console.Out.WriteLineAsync($"Id: {tracks.Id,-3}:\t Artist- {tracks.Artist}:\t Song- {tracks.TrackTitle,-30}");
+                await Console.Out.WriteLineAsync($"{tracks.Id,5}: {tracks.TrackTitle, 7}:\t {tracks.Artist,30}");
             }
+
+            Console.ReadLine();
         }
     }
 }
