@@ -32,16 +32,16 @@ namespace SpelarDuInClient.Menu
                         await UserMenu.UsersMenuAsync(client, userId, user);
                         break;
                     case 1:
-                        GenreMenu.GenreMenuAsync(client, userId, user);
+                        await GenreMenu.GenreMenuAsync(client, userId, user);
                         break;
                     case 2:
-                        ArtistMenu.ArtistMenuAsync(client, userId, user);
+                        await ArtistMenu.ArtistMenuAsync(client, userId, user);
                         break;
                     case 3:
                         //Track methods
                         break;
                     case 4:
-                        DiscographyMenu.DiscographyMenuAsync(client, user);
+                        await DiscographyMenu.DiscographyMenuAsync(client, user);
                         break;
                     case 5:
                         run = false;
