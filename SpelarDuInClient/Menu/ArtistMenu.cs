@@ -33,21 +33,20 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case "1":// Add new artist
-                            await ArtistMethods.AddNewArtistAysnc(client);
+                            await ArtistMethods.AddNewArtistAysnc(client, userId, user);
                             break;
                         case "2":// list artists related to a specific user
-                            await ArtistMethods.ListUserArtistsAsync(client, userId);
+                            await ArtistMethods.ListUserArtistsAsync(client, userId, user);
                             break;
                         case "3"://list all artists
-                            await ArtistMethods.ListAllArtistsAsync(client);
+                            await ArtistMethods.ListAllArtistsAsync(client, userId, user);
                             break;
                         case "4":
-                            run = false;
+                            await UserLogInMenu.UsersLogInMenuAsync(client, userId, user);
                             break;
                     }
                 }
-                await Console.Out.WriteLineAsync("Press enter to go back to main menu!!");
-                Console.ReadKey();
+                
             }
         }
     }
