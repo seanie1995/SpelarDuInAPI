@@ -33,7 +33,8 @@ namespace SpelarDuInClient.Methods
             DiscographyViewModel discography = JsonSerializer.Deserialize<DiscographyViewModel>(content);
 
             await Task.Run(() => Console.Clear());
-
+            await Console.Out.WriteLineAsync($"{bandName}s albums");
+            await MenuAesthetics.UnderLineHeaderAsync();
             foreach (var album in discography.Album)
             {
                 Console.WriteLine($"{album.Name}: {album.YearReleased}");

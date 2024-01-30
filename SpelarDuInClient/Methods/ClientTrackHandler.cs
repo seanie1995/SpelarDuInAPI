@@ -18,8 +18,6 @@ namespace SpelarDuInClient.Methods
             Console.CursorVisible = true;
             await Console.Out.WriteLineAsync("Adding new track");
             await MenuAesthetics.UnderLineHeaderAsync();
-            await Console.Out.WriteLineAsync("Adding new track");
-            await MenuAesthetics.UnderLineHeaderAsync();
             await Console.Out.WriteLineAsync("Enter new track name:");
             string trackName = Console.ReadLine();
 

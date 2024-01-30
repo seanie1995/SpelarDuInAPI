@@ -66,7 +66,7 @@ namespace SpelarDuInAPIClient.Methods
         {
             Console.CursorVisible = true;
             await Console.Out.WriteLineAsync("CREATING NEW USER");
-            await Console.Out.WriteLineAsync("------------------------\n");
+            await MenuAesthetics.UnderLineHeaderAsync();
             await Console.Out.WriteLineAsync("Enter desired username:");
 
             string name = Console.ReadLine();
@@ -93,8 +93,7 @@ namespace SpelarDuInAPIClient.Methods
             }
             Console.Clear();
             await Console.Out.WriteLineAsync($"\x1b[32mUsername[{name}] was created!\x1b[0m");
-            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
-            Console.ReadLine();
+            await MenuAesthetics.EnterBackToMenuAsync();
         }
 
         public static async Task ShowAllUsersAllInfoAsync(HttpClient client)

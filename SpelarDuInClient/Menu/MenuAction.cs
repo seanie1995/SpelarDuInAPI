@@ -72,7 +72,6 @@ namespace SpelarDuInClient.Menu
                         case 1:
                             Console.Clear();
                             await UserMethods.CreateNewUserAsync(client);
-                            //continue;
                             break;
                         case 2:
                             Environment.Exit(0);
@@ -81,8 +80,6 @@ namespace SpelarDuInClient.Menu
                             Console.Clear();
                             await Console.Out.WriteLineAsync("\x1b[31mYa doin something wrong\u001b[0m");
                             await MenuAesthetics.EnterBackToMenuAsync();
-                            Console.ReadLine();
-                            //continue;
                             break;
                     }                 
                 }
