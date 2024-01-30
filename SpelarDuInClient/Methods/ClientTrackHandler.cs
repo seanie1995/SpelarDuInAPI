@@ -42,6 +42,7 @@ namespace SpelarDuInClient.Methods
             await AutoAddingtrackToSingleUserAsync(client, userId, trackName);
 
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
+
         }
 
         public static async Task AutoAddingtrackToSingleUserAsync(HttpClient client, int userId, string trackName)
@@ -81,6 +82,8 @@ namespace SpelarDuInClient.Methods
 
         public static async Task GetAlltracksFromSingleUserAsync(HttpClient client, int userId)
         {
+            await Task.Run(() => Console.Clear());
+            
             //Calling API endpoint
             HttpResponseMessage response = await client.GetAsync($"/user/{userId}/track");
 
@@ -96,6 +99,8 @@ namespace SpelarDuInClient.Methods
             {
                 await Console.Out.WriteLineAsync($"{tracks.Id}:\t {tracks.TrackTitle}:\t {tracks.Artist}");
             }
+
+            Console.ReadLine();
         }
     }
 }

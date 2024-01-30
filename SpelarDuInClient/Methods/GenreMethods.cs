@@ -48,7 +48,6 @@ namespace SpelarDuInAPIClient.Methods
 
             await GenreMenu.GenreMenuAsync(client, userId, user);
 
-
         }
 
         public static async Task ListUserGenresAsync(HttpClient client, int userId, UserViewModel user)
@@ -66,10 +65,7 @@ namespace SpelarDuInAPIClient.Methods
             string content = await response.Content.ReadAsStringAsync();
 
             GenreViewModel[] allGenres = JsonSerializer.Deserialize<GenreViewModel[]>(content); // Deserialize JSON object retrieved from API
-
-            //await Console.Out.WriteLineAsync();
-            //await Console.Out.WriteLineAsync();
-
+         
             foreach (var genre in allGenres)
             {
                 await Console.Out.WriteLineAsync($"{genre.Id}:\t{genre.GenreName}");
