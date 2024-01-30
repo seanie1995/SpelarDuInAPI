@@ -19,7 +19,6 @@ namespace SpelarDuInAPIClient.Methods
 
             if (!response.IsSuccessStatusCode)
             {
-                //throw new Exception($"Failed to list users {response.StatusCode}");
                 await Console.Out.WriteLineAsync($"Failed to list users {response.StatusCode}");
             }
 
@@ -31,7 +30,6 @@ namespace SpelarDuInAPIClient.Methods
             {
                 await Console.Out.WriteLineAsync($"\u001b[33mId:{user.Id}:\t{user.UserName}\u001b[0m");
             }
-
         }
 
         public static async Task CreateNewUserAsync(HttpClient client)
@@ -66,7 +64,6 @@ namespace SpelarDuInAPIClient.Methods
             await Console.Out.WriteLineAsync($"\x1b[32mUsername[{name}] was created!\x1b[0m");
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
-
         }
 
         public static async Task ShowAllUsersAllInfoAsync(HttpClient client)
@@ -208,7 +205,6 @@ namespace SpelarDuInAPIClient.Methods
             }
 
             return selectedUser;
-
         }
 
         public static async Task ConnectUserToOneGenreAsync(HttpClient client, int userId)
@@ -270,31 +266,5 @@ namespace SpelarDuInAPIClient.Methods
                 Console.WriteLine($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
             }
         }
-
-        //public static async Task<UserViewModel> SelectUserAsync(HttpClient client, int userId)
-        //{
-        //    HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
-
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        throw new Exception($"Failed to list users {response.StatusCode}");
-        //    }
-
-        //    string content = await response.Content.ReadAsStringAsync();
-
-        //    UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
-
-        //    UserViewModel selectedUser = allUsers
-        //        .Where(i => i.Id == userId)
-        //        .FirstOrDefault();
-
-        //    if (selectedUser != null)
-        //    {
-        //        await Console.Out.WriteLineAsync("Requested user not found");
-        //    }
-
-        //    return selectedUser;
-
-        //}
     }
 }
