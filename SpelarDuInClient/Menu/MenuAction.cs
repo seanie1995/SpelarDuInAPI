@@ -39,21 +39,51 @@ namespace SpelarDuInClient.Menu
                             Console.Clear();
                             await Console.Out.WriteLineAsync(" All users in the system:");
                             await Console.Out.WriteLineAsync(" --------------------------------");
-                            await UserMethods.ListAllUsersAsync(client);
-                            //await UserMethods.ShowAllUsersAllInfo(client);
-                            await Console.Out.WriteLineAsync("Select user by ID");
-                            Console.CursorVisible = true;
-                            string strUserId = Console.ReadLine();
-                            userId = Convert.ToInt32(strUserId);
-                            selectedUser = await UserMethods.SelectUserAsync(client, userId);
-                            if (selectedUser == null)
+                            List<UserViewModel> userList = await UserMethods.GetAllUsersForMenyAsync(client);
+                            if (userList != null)
                             {
-                                await Console.Out.WriteLineAsync($"\u001b[31mUser:[{userId}] not found! Press enter to try again.\u001b[0m");
-                                Console.ReadKey();
-                                continue;
+                                List<string> userStrings = new List<string>();
+                                foreach(UserViewModel user in userList)
+                                {
+                                    userStrings.Add($"Username: {user.UserName}");
+                                    //await Console.Out.WriteLineAsync($"Username: {user.UserName}");
+                                }
+
+                                string[] userOption = userStrings.ToArray();
+                                int selecteduserIndex = MenuHelper.RunMenu(userOption, false, false, 0, 3);
+
+                                if (selecteduserIndex >= 0 && selecteduserIndex < userList.Count())
+                                {
+                                    //Get the selected user 
+                                    selectedUser = userList[selecteduserIndex];
+                                    //selectedUser = await UserMethods.SelectUserAsync(client, selectedUser.Id);
+                                }
+                                if (selectedUser == null)
+                                {
+                                    await Console.Out.WriteLineAsync($"\u001b[31mUser:[{userId}] not found! Press enter to try again.\u001b[0m");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                await UserLogInMenu.UsersLogInMenuAsync(client, selectedUser.Id, selectedUser);
+                                
                             }
-                            await UserLogInMenu.UsersLogInMenuAsync(client, userId, selectedUser);
                             break;
+
+                        //await UserMethods.ListAllUsersAsync(client);
+                        ////await UserMethods.ShowAllUsersAllInfo(client);
+                        //await Console.Out.WriteLineAsync("Select user by ID");
+                        //Console.CursorVisible = true;
+                        //string strUserId = Console.ReadLine();
+                        //userId = Convert.ToInt32(strUserId);
+                        //selectedUser = await UserMethods.SelectUserAsync(client, userId);
+                        //if (selectedUser == null)
+                        //{
+                        //    await Console.Out.WriteLineAsync($"\u001b[31mUser:[{userId}] not found! Press enter to try again.\u001b[0m");
+                        //    Console.ReadKey();
+                        //    continue;
+                        //}
+                        //await UserLogInMenu.UsersLogInMenuAsync(client, userId, selectedUser);
+                        //break;
                         case 1:
                             Console.Clear();
                             await UserMethods.CreateNewUserAsync(client);
