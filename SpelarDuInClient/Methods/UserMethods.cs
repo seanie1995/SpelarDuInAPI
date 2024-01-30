@@ -156,6 +156,7 @@ namespace SpelarDuInAPIClient.Methods
 
         public static async Task ShowAllUsersAllInfoOneUserAsync(HttpClient client, int userId)
         {
+            Console.Clear();
             HttpResponseMessage response = await client.GetAsync($"/user/allinfo/{userId}");
             if (!response.IsSuccessStatusCode)
             {
@@ -167,48 +168,48 @@ namespace SpelarDuInAPIClient.Methods
 
             foreach (var user in allUserInfo)
             {
-                Console.WriteLine($"User: \x1b[33m{user.UserName}\x1b[0m");
+                await Console.Out.WriteLineAsync($"{user.UserName}'s favorites:");
+                await MenuAesthetics.UnderLineHeaderAsync();
 
-                Console.WriteLine("Genres:");
-                if (user.Genres != null && user.Genres.Any())
+                await Console.Out.WriteLineAsync("Genres:");
+                if (user.Genres != null)
                 {
                     foreach (var genre in user.Genres)
                     {
-                        Console.WriteLine($"\x1b[33m{genre.GenreName}\x1b[0m");
+                        await Console.Out.WriteLineAsync($"\x1b[37m[{genre.Id}].\x1b[33m{genre.GenreName}\x1b[0m");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("  \x1b[31mNo genres available\x1b[0m");
+                    await Console.Out.WriteLineAsync("  \x1b[31mNo genres available\x1b[0m");
                 }
 
-                Console.WriteLine("Artists:");
-                if (user.Artists != null && user.Artists.Any())
+                await Console.Out.WriteLineAsync("\nArtists:");
+                if (user.Artists != null)
                 {
                     foreach (var artist in user.Artists)
                     {
-                        Console.WriteLine($"\x1b[33mArtist:{artist.ArtistName} \n Desciption:{artist.Description}\x1b[0m");
+                        await Console.Out.WriteLineAsync($"\x1b[37m[{artist.Id}].\x1b[33m{artist.ArtistName} \n    \x1b[33;2m{artist.Description}\x1b[0m");
                     }
                 }
                 else
                 {
-                    Console.WriteLine(" \x1b[31mNo artists available\x1b[0m");
+                    await Console.Out.WriteLineAsync(" \x1b[31mNo artists available\x1b[0m");
                 }
-
-                Console.WriteLine("Tracks:");
-                if (user.Tracks != null && user.Tracks.Any())
+                
+                await Console.Out.WriteLineAsync("\nTracks:");
+                if (user.Tracks != null)
                 {
                     foreach (var track in user.Tracks)
                     {
-                        Console.WriteLine($"\x1b[33m{track.TrackTitle}\x1b[0m");
+                        await Console.Out.WriteLineAsync($"\x1b[37m[{track.Id}].\x1b[33m{track.TrackTitle}\x1b[0m");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("  \x1b[31mNo tracks available\x1b[0m");
+                    await Console.Out.WriteLineAsync("  \x1b[31mNo tracks available\x1b[0m");
                 }
-                Console.WriteLine();
-                Console.WriteLine("-----------------------------");
+                await MenuAesthetics.EnterBackToMenuAsync();
             }
         }
 
@@ -241,7 +242,7 @@ namespace SpelarDuInAPIClient.Methods
         {
             Console.Clear();
             Console.CursorVisible = true;
-            await Console.Out.WriteLineAsync("Adding Genre to user");
+            await Console.Out.WriteLineAsync("Adding Genre to favorites❤️");
             await MenuAesthetics.UnderLineHeaderAsync();
             Console.WriteLine($"\u001b[33mEnter genre ID\u001b[0m");
             string genreId = Console.ReadLine();
@@ -264,7 +265,7 @@ namespace SpelarDuInAPIClient.Methods
         {
             Console.Clear();
             Console.CursorVisible = true;
-            await Console.Out.WriteLineAsync("Adding Artist to user");
+            await Console.Out.WriteLineAsync("Adding Artist to favorites❤️");
             await MenuAesthetics.UnderLineHeaderAsync();
             Console.WriteLine($"\u001b[33mEnter artist ID\u001b[0m");
             string artistId = Console.ReadLine();
@@ -287,7 +288,7 @@ namespace SpelarDuInAPIClient.Methods
         {
             Console.Clear();
             Console.CursorVisible = true;
-            await Console.Out.WriteLineAsync("Adding Track to user");
+            await Console.Out.WriteLineAsync("Adding Track to favorites❤️");
             await MenuAesthetics.UnderLineHeaderAsync();
             Console.WriteLine($"\u001b[33mEnter track ID\u001b[0m");
             string trackId = Console.ReadLine();
