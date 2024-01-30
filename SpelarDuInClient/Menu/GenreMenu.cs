@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Menu
 {
     public class GenreMenu
     {
-        public static async Task GenreMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task GenreMenuAsync(HttpClient client, UserViewModel user)
         {
             bool run = true;
             while (run)
@@ -32,16 +32,16 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case "1":
-                            await GenreMethods.ListUserGenresAsync(client, userId, user);
+                            await GenreMethods.ListUserGenresAsync(client, user);
                             break;
                         case "2":
-                            await GenreMethods.CreateNewGenreAsync(client, userId, user);                                                      
+                            await GenreMethods.CreateNewGenreAsync(client,  user);                                                      
                             break;
                         case "3":
-                            await GenreMethods.ListAllGenresAsync(client, userId, user);
+                            await GenreMethods.ListAllGenresAsync(client, user);
                             break;
                         case "4":
-                            await UserLogInMenu.UsersLogInMenuAsync(client, userId, user);
+                            await UserLogInMenu.UsersLogInMenuAsync(client,  user);
                             break;
                     }
                 }

@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Menu
 {
     internal class UserMenu
     {
-        public static async Task UsersMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task UsersMenuAsync(HttpClient client, UserViewModel user)
         {
             bool run = true;
             while (run)
@@ -34,13 +34,13 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case 0:
-                            await UserMethods.ConnectUserToOneGenreAsync(client, userId);
+                            await UserMethods.ConnectUserToOneGenreAsync(client, user.Id);
                             break;
                         case 1:
-                            await UserMethods.ConnectUserToOneArtistAsync(client, userId);
+                            await UserMethods.ConnectUserToOneArtistAsync(client, user.Id);
                             break;
                         case 2:
-                            await UserMethods.ConnectUserToOneTrackAsync(client, userId);
+                            await UserMethods.ConnectUserToOneTrackAsync(client, user.Id);
                             break;
                         case 3:
                             run = false;

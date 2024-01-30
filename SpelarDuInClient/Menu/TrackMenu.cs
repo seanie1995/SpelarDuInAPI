@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Menu
 {
     internal class TrackMenu
     {
-        public static async Task TrackMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task TrackMenuAsync(HttpClient client, UserViewModel user)
         {
             bool run = true;
             while (run)
@@ -32,13 +32,13 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case "1":
-                           await ClientTrackHandler.AddtrackAsync(client, userId);
+                           await ClientTrackHandler.AddtrackAsync(client, user);
                             break;
                         case "2":
-                           await ClientTrackHandler.GetAlltracksFromSingleUserAsync(client, userId);
+                           await ClientTrackHandler.GetAlltracksFromSingleUserAsync(client, user);
                             break;                      
                         case "3":
-                            await UserLogInMenu.UsersLogInMenuAsync(client, userId, user);
+                            await UserLogInMenu.UsersLogInMenuAsync(client, user);
                             break;
                            
 

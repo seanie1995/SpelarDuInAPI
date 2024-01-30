@@ -12,7 +12,7 @@ namespace SpelarDuInClient.Menu
 {
     public class UserLogInMenu
     {
-        public static async Task UsersLogInMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task UsersLogInMenuAsync(HttpClient client, UserViewModel user)
         {
             bool run = true;
             while (run)
@@ -29,19 +29,19 @@ namespace SpelarDuInClient.Menu
                 switch (selectedIndex)
                 {
                     case 0:
-                        await UserMenu.UsersMenuAsync(client, userId, user);
+                        await UserMenu.UsersMenuAsync(client, user);
                         break;
                     case 1:
-                        await GenreMenu.GenreMenuAsync(client, userId, user);
+                        await GenreMenu.GenreMenuAsync(client, user);
                         break;
                     case 2:
-                        await ArtistMenu.ArtistMenuAsync(client, userId, user);
+                        await ArtistMenu.ArtistMenuAsync(client, user);
                         break;
                     case 3:
-                        await TrackMenu.TrackMenuAsync(client, userId, user);
+                        await TrackMenu.TrackMenuAsync(client, user);
                         break;
                     case 4:
-                        await DiscographyMenu.DiscographyMenuAsync(client, userId, user);
+                        await DiscographyMenu.DiscographyMenuAsync(client, user);
                         break;
                     case 5:
                         await MenuAction.MainMenu();

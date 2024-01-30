@@ -14,7 +14,7 @@ namespace SpelarDuInAPIClient.Methods
 {
     public class GenreMethods
     {
-        public static async Task CreateNewGenreAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task CreateNewGenreAsync(HttpClient client,  UserViewModel user)
         {
             // Adding new genre into database
 
@@ -40,22 +40,22 @@ namespace SpelarDuInAPIClient.Methods
                 await Console.Out.WriteLineAsync($"Failed to create genre (status code {response.StatusCode})");
             }
 
-            await ConnectGenreAsync(client, userId, name);
+            await ConnectGenreAsync(client, name, user);
 
             await Console.Out.WriteLineAsync("Press enter to return to menu");
 
             Console.ReadLine();
 
-            await GenreMenu.GenreMenuAsync(client, userId, user);
+            await GenreMenu.GenreMenuAsync(client, user);
 
         }
 
-        public static async Task ListUserGenresAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task ListUserGenresAsync(HttpClient client, UserViewModel user)
         {
 
             Console.Clear();
 
-            HttpResponseMessage response = await client.GetAsync($"/user/{userId}/genre"); // Anropar API endpoint som vi skapat i vår API.
+            HttpResponseMessage response = await client.GetAsync($"/user/{user.Id}/genre"); // Anropar API endpoint som vi skapat i vår API.
 
             if (!response.IsSuccessStatusCode)
             {
@@ -75,11 +75,11 @@ namespace SpelarDuInAPIClient.Methods
 
             Console.ReadKey();
 
-            await GenreMenu.GenreMenuAsync(client, userId, user);
+            await GenreMenu.GenreMenuAsync(client, user);
 
         }
 
-        public static async Task ConnectGenreAsync(HttpClient client, int userId, string name)
+        public static async Task ConnectGenreAsync(HttpClient client, string name, UserViewModel user)
         {
 
             // Finding created genre within database to connect with user            
@@ -106,7 +106,7 @@ namespace SpelarDuInAPIClient.Methods
 
             // Using method to connect new genre to user
 
-            HttpResponseMessage response2 = await client.PostAsync($"/user/{userId}/genre/{newGenreId}", null);
+            HttpResponseMessage response2 = await client.PostAsync($"/user/{user.Id}/genre/{newGenreId}", null);
 
             if (response2.IsSuccessStatusCode)
             {
@@ -121,7 +121,7 @@ namespace SpelarDuInAPIClient.Methods
 
         }
 
-        public static async Task ListAllGenresAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task ListAllGenresAsync(HttpClient client, UserViewModel user)
         {
             await Task.Run(() => Console.Clear());
             HttpResponseMessage response = await client.GetAsync("/genre");
@@ -140,7 +140,7 @@ namespace SpelarDuInAPIClient.Methods
             await Console.Out.WriteLineAsync("Press enter to go continue");
             Console.ReadLine();
 
-            await GenreMenu.GenreMenuAsync(client, userId, user);
+            await GenreMenu.GenreMenuAsync(client, user);
         }
     }
 }

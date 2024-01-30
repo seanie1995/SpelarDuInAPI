@@ -13,7 +13,7 @@ namespace SpelarDuInClient.Methods
 {
     public class ArtistMethods
     {
-        public static async Task AddNewArtistAysnc(HttpClient client, int userId, UserViewModel user)
+        public static async Task AddNewArtistAysnc(HttpClient client, UserViewModel user)
         {
             Console.Clear();
             await Console.Out.WriteLineAsync("Enter artist name: ");
@@ -35,16 +35,16 @@ namespace SpelarDuInClient.Methods
             {
                 await Console.Out.WriteLineAsync($"Failed to add new artist(status code: {response.StatusCode} )");
             }
-            await ConnectArtistAsync(client, userId, artistName);
+            await ConnectArtistAsync(client, artistName, user);
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
-            await ArtistMenu.ArtistMenuAsync(client, userId, user);
+            await ArtistMenu.ArtistMenuAsync(client, user);
         }
 
-        public static async Task ListUserArtistsAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task ListUserArtistsAsync(HttpClient client, UserViewModel user)
         {
             Console.Clear();
-            HttpResponseMessage response = await client.GetAsync($"/user/{userId}/artist");
+            HttpResponseMessage response = await client.GetAsync($"/user/{user.Id}/artist");
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"Failed to list artists {response.StatusCode}");
@@ -59,10 +59,10 @@ namespace SpelarDuInClient.Methods
             }
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
-            await ArtistMenu.ArtistMenuAsync(client, userId, user);
+            await ArtistMenu.ArtistMenuAsync(client, user);
         }
 
-        public static async Task ListAllArtistsAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task ListAllArtistsAsync(HttpClient client, UserViewModel user)
         {
             Console.Clear();
             HttpResponseMessage response = await client.GetAsync("/artist");
@@ -80,10 +80,10 @@ namespace SpelarDuInClient.Methods
             }
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
-            await ArtistMenu.ArtistMenuAsync(client, userId, user);
+            await ArtistMenu.ArtistMenuAsync(client, user);
         }
 
-        public static async Task ViewAnArtistAsync(HttpClient client, string artistName, int userId, UserViewModel user)
+        public static async Task ViewAnArtistAsync(HttpClient client, string artistName, UserViewModel user)
         {
             Console.Clear();
             HttpResponseMessage response = await client.GetAsync($"/artist/{artistName}");
@@ -98,11 +98,11 @@ namespace SpelarDuInClient.Methods
             await Console.Out.WriteLineAsync(artist.Description);
 
             Console.ReadLine();
-            await ArtistMenu.ArtistMenuAsync(client, userId, user);
+            await ArtistMenu.ArtistMenuAsync(client, user);
             //not finish yet here
         }
 
-        public static async Task ConnectArtistAsync(HttpClient client, int userId, string artistName)
+        public static async Task ConnectArtistAsync(HttpClient client, string artistName, UserViewModel user)
         {
 
             // Finding created artist within database to connect with user            
@@ -129,7 +129,7 @@ namespace SpelarDuInClient.Methods
 
             // Using method to connect new artist to user
 
-            HttpResponseMessage response2 = await client.PostAsync($"/user/{userId}/artist/{newArtistId}", null);
+            HttpResponseMessage response2 = await client.PostAsync($"/user/{user.Id}/artist/{newArtistId}", null);
 
             if (response2.IsSuccessStatusCode)
             {

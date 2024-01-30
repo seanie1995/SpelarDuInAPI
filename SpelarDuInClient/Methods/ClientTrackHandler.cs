@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Methods
 {
     internal class ClientTrackHandler
     {
-        public static async Task AddtrackAsync(HttpClient client, int userId)
+        public static async Task AddtrackAsync(HttpClient client, UserViewModel user)
         {
             await Console.Out.WriteLineAsync("Enter new track name:");
             string trackName = Console.ReadLine();
@@ -39,13 +39,13 @@ namespace SpelarDuInClient.Methods
                 await Console.Out.WriteLineAsync($"Failed to create track (statuscode {response.StatusCode})");
             }
 
-            await AutoAddingtrackToSingleUserAsync(client, userId, trackName);
+            await AutoAddingtrackToSingleUserAsync(client, trackName, user);
 
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
 
         }
 
-        public static async Task AutoAddingtrackToSingleUserAsync(HttpClient client, int userId, string trackName)
+        public static async Task AutoAddingtrackToSingleUserAsync(HttpClient client, string trackName, UserViewModel user)
         {
             //Finding track 
             HttpResponseMessage response = await client.GetAsync("/track");
@@ -65,7 +65,7 @@ namespace SpelarDuInClient.Methods
                 await Console.Out.WriteLineAsync($"Failed to find the track with naem '{trackName}' in the database.");
             }
             //Connecting track to user 
-            HttpResponseMessage connectUserToTrack = await client.PostAsync($"/user/{userId}/track/{newTrackId}", null);
+            HttpResponseMessage connectUserToTrack = await client.PostAsync($"/user/{user.Id}/track/{newTrackId}", null);
 
             if (connectUserToTrack.IsSuccessStatusCode)
             {
@@ -80,12 +80,12 @@ namespace SpelarDuInClient.Methods
 
         }
 
-        public static async Task GetAlltracksFromSingleUserAsync(HttpClient client, int userId)
+        public static async Task GetAlltracksFromSingleUserAsync(HttpClient client, UserViewModel user)
         {
             await Task.Run(() => Console.Clear());
             
             //Calling API endpoint
-            HttpResponseMessage response = await client.GetAsync($"/user/{userId}/track");
+            HttpResponseMessage response = await client.GetAsync($"/user/{user.Id}/track");
 
             if (!response.IsSuccessStatusCode)
             {

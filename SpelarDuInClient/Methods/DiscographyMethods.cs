@@ -1,4 +1,5 @@
-﻿using SpelarDuInClient.Models.ViewModels;
+﻿using SpelarDuInClient.Menu;
+using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SpelarDuInClient.Methods
 {
     internal class DiscographyMethods
     {
-        public static async Task ListAlbumsAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task ListAlbumsAsync(HttpClient client, UserViewModel user)
         {
             await Console.Out.WriteLineAsync("Enter band name:");
 
@@ -35,6 +36,8 @@ namespace SpelarDuInClient.Methods
             }
 
             Console.ReadKey();
+
+            await DiscographyMenu.DiscographyMenuAsync(client, user);
         }
     }
 }

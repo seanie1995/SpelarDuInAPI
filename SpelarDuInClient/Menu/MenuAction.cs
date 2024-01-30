@@ -64,7 +64,7 @@ namespace SpelarDuInClient.Menu
                                     Console.ReadKey();
                                     continue;
                                 }
-                                await UserLogInMenu.UsersLogInMenuAsync(client, selectedUser.Id, selectedUser);
+                                await UserLogInMenu.UsersLogInMenuAsync(client, selectedUser);
                                 
                             }
                             break;

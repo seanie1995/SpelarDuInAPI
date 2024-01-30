@@ -11,7 +11,7 @@ namespace SpelarDuInClient.Menu
 {
     internal class ArtistMenu
     {
-        public static async Task ArtistMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task ArtistMenuAsync(HttpClient client, UserViewModel user)
         {
             Console.Clear();
             bool run = true;
@@ -33,16 +33,16 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case "1":// Add new artist
-                            await ArtistMethods.AddNewArtistAysnc(client, userId, user);
+                            await ArtistMethods.AddNewArtistAysnc(client, user);
                             break;
                         case "2":// list artists related to a specific user
-                            await ArtistMethods.ListUserArtistsAsync(client, userId, user);
+                            await ArtistMethods.ListUserArtistsAsync(client, user);
                             break;
                         case "3"://list all artists
-                            await ArtistMethods.ListAllArtistsAsync(client, userId, user);
+                            await ArtistMethods.ListAllArtistsAsync(client, user);
                             break;
                         case "4":
-                            await UserLogInMenu.UsersLogInMenuAsync(client, userId, user);
+                            await UserLogInMenu.UsersLogInMenuAsync(client, user);
                             break;
                     }
                 }
