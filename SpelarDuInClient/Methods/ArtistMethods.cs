@@ -1,4 +1,5 @@
-﻿using SpelarDuInClient.Models.DTO;
+﻿using SpelarDuInClient.Menu;
+using SpelarDuInClient.Models.DTO;
 using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace SpelarDuInClient.Methods
 {
     public class ArtistMethods
     {
-        public static async Task AddNewArtistAysnc(HttpClient client)
+        public static async Task AddNewArtistAysnc(HttpClient client, int userId, UserViewModel user)
         {
             Console.Clear();
             await Console.Out.WriteLineAsync("Enter artist name: ");
@@ -35,10 +36,10 @@ namespace SpelarDuInClient.Methods
             }
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
-            Console.Clear();
+            await ArtistMenu.ArtistMenuAsync(client, userId, user);
         }
 
-        public static async Task ListUserArtistsAsync(HttpClient client, int userId)
+        public static async Task ListUserArtistsAsync(HttpClient client, int userId, UserViewModel user)
         {
             Console.Clear();
             HttpResponseMessage response = await client.GetAsync($"/user/{userId}/artist");
@@ -56,10 +57,10 @@ namespace SpelarDuInClient.Methods
             }
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
-            Console.Clear();
+            await ArtistMenu.ArtistMenuAsync(client, userId, user);
         }
 
-        public static async Task ListAllArtistsAsync(HttpClient client)
+        public static async Task ListAllArtistsAsync(HttpClient client, int userId, UserViewModel user)
         {
             Console.Clear();
             HttpResponseMessage response = await client.GetAsync("/artist");
@@ -77,10 +78,10 @@ namespace SpelarDuInClient.Methods
             }
             await Console.Out.WriteLineAsync("Press enter to go back to main menu");
             Console.ReadLine();
-            Console.Clear();
+            await ArtistMenu.ArtistMenuAsync(client, userId, user);
         }
 
-        public static async Task ViewAnArtistAsync(HttpClient client, string artistName)
+        public static async Task ViewAnArtistAsync(HttpClient client, string artistName, int userId, UserViewModel user)
         {
             Console.Clear();
             HttpResponseMessage response = await client.GetAsync($"/artist/{artistName}");
@@ -94,7 +95,8 @@ namespace SpelarDuInClient.Methods
             await Console.Out.WriteLineAsync(artist.ArtistName);
             await Console.Out.WriteLineAsync(artist.Description);
 
-
+            Console.ReadLine();
+            await ArtistMenu.ArtistMenuAsync(client, userId, user);
             //not finish yet here
 
         }
