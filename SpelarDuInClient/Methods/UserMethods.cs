@@ -228,7 +228,7 @@ namespace SpelarDuInAPIClient.Methods
                 .Where(i => i.Id == userId)
                 .FirstOrDefault();
 
-            if (selectedUser != null)
+            if (selectedUser == null)
             {
                 await Console.Out.WriteLineAsync("Requested user not found");
             }

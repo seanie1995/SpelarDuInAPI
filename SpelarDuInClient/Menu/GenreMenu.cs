@@ -1,5 +1,5 @@
 ﻿using SpelarDuInAPIClient.Methods;
-using SpelarDuInClient.Methods;
+using SpelarDuInAPIClient.Models;
 using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInClient.Menu
 {
-    internal class TrackMenu
+    public class GenreMenu
     {
-        public static async Task TrackMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task GenreMenuAsync(HttpClient client, int userId, UserViewModel user)
         {
             bool run = true;
             while (run)
@@ -19,7 +19,7 @@ namespace SpelarDuInClient.Menu
                 Console.Clear();
                 await Console.Out.WriteLineAsync($"Welcome {user.UserName}");
                 await Console.Out.WriteLineAsync("-----------------------------");
-                await Console.Out.WriteLineAsync("Choose one of the following:\n\u001b[33m[1] Add track\n[2] Show all tracks connected to user\n[3] Go back\u001b[0m");
+                await Console.Out.WriteLineAsync("Choose one of the following:\n\u001b[33m[1] List your genres \n[2] Create new genre\n[3] List all genres\n[4] Return to main menu\u001b[0m");
                 string choice = Console.ReadLine();
                 if (choice != "1" && choice != "2" && choice != "3" && choice != "4")
                 {
@@ -32,16 +32,17 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case "1":
-                           await ClientTrackHandler.AddtrackAsync(client, userId);
+                            await GenreMethods.ListUserGenresAsync(client, userId, user);
                             break;
                         case "2":
-                           await ClientTrackHandler.GetAlltracksFromSingleUserAsync(client, userId);
-                            break;                      
+                            await GenreMethods.CreateNewGenreAsync(client, userId, user);                                                      
+                            break;
                         case "3":
+                            await GenreMethods.ListAllGenresAsync(client, userId, user);
+                            break;
+                        case "4":
                             await UserLogInMenu.UsersLogInMenuAsync(client, userId, user);
                             break;
-                           
-
                     }
                 }
                 

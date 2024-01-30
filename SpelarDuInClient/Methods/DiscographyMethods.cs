@@ -10,7 +10,7 @@ namespace SpelarDuInClient.Methods
 {
     internal class DiscographyMethods
     {
-        public static async Task ListAlbumsAsync(HttpClient client)
+        public static async Task ListAlbumsAsync(HttpClient client, int userId, UserViewModel user)
         {
             await Console.Out.WriteLineAsync("Enter band name:");
 
@@ -27,10 +27,14 @@ namespace SpelarDuInClient.Methods
 
             DiscographyViewModel discography = JsonSerializer.Deserialize<DiscographyViewModel>(content);
 
+            await Task.Run(() => Console.Clear());
+
             foreach (var album in discography.Album)
             {
                 Console.WriteLine($"{album.Name}: {album.YearReleased}");
             }
+
+            Console.ReadKey();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using SpelarDuInAPIClient.Methods;
-using SpelarDuInClient.Methods;
+﻿using SpelarDuInClient.Methods;
 using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInClient.Menu
 {
-    internal class TrackMenu
+    internal class DiscographyMenu
     {
-        public static async Task TrackMenuAsync(HttpClient client, int userId, UserViewModel user)
+        public static async Task DiscographyMenuAsync(HttpClient client, int userId, UserViewModel user)
         {
             bool run = true;
             while (run)
@@ -19,7 +18,7 @@ namespace SpelarDuInClient.Menu
                 Console.Clear();
                 await Console.Out.WriteLineAsync($"Welcome {user.UserName}");
                 await Console.Out.WriteLineAsync("-----------------------------");
-                await Console.Out.WriteLineAsync("Choose one of the following:\n\u001b[33m[1] Add track\n[2] Show all tracks connected to user\n[3] Go back\u001b[0m");
+                await Console.Out.WriteLineAsync("Choose one of the following:\n\u001b[33m[1] List some albums by an artist \n[2] Go back\u001b[0m");
                 string choice = Console.ReadLine();
                 if (choice != "1" && choice != "2" && choice != "3" && choice != "4")
                 {
@@ -32,16 +31,11 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case "1":
-                           await ClientTrackHandler.AddtrackAsync(client, userId);
-                            break;
-                        case "2":
-                           await ClientTrackHandler.GetAlltracksFromSingleUserAsync(client, userId);
+                            await DiscographyMethods.ListAlbumsAsync(client, userId, user);
                             break;                      
-                        case "3":
+                        case "2":
                             await UserLogInMenu.UsersLogInMenuAsync(client, userId, user);
                             break;
-                           
-
                     }
                 }
                 

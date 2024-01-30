@@ -12,6 +12,7 @@ namespace SpelarDuInAPI.Services
     {
         void AddNewGenre(GenreDto newGenre);
         GenreViewModel[] ListUsersGenres(int userId);
+        GenreViewModel[] ListAllGenres();
     }
 
     public class GenreDbHelper : IGenreDbHelper
@@ -71,6 +72,13 @@ namespace SpelarDuInAPI.Services
                     GenreName = x.GenreName,
                 }).ToArray();
                     
+            return result;
+        }
+
+        public GenreViewModel[] ListAllGenres()
+        {
+            GenreViewModel[] result = _context.Genres.Select(u => new GenreViewModel { Id = u.Id, GenreName = u.GenreName }).ToArray();
+            if (result.Length == 0) { throw new InvalidDataException(); }
             return result;
         }
 
