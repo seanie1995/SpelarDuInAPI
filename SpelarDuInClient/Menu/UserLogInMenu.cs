@@ -38,7 +38,7 @@ namespace SpelarDuInClient.Menu
                         await ArtistMenu.ArtistMenuAsync(client, userId, user);
                         break;
                     case 3:
-                        TrackMenu.TrackMenuAsync(client, userId, user);
+                        await TrackMenu.TrackMenuAsync(client, userId, user);
                         break;
                     case 4:
                         await DiscographyMenu.DiscographyMenuAsync(client, user);
