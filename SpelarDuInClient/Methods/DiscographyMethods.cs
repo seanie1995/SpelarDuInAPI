@@ -17,7 +17,7 @@ namespace SpelarDuInClient.Methods
             Console.CursorVisible = true;
             await Console.Out.WriteLineAsync($"Search for artist albums:");
             await MenuAesthetics.UnderLineHeaderAsync();
-            await Console.Out.WriteLineAsync("Enter band name:");
+            await Console.Out.WriteLineAsync("Enter artist name:");
 
             string bandName = Console.ReadLine();
 
@@ -37,7 +37,7 @@ namespace SpelarDuInClient.Methods
             await MenuAesthetics.UnderLineHeaderAsync();
             foreach (var album in discography.Album)
             {
-                Console.WriteLine($"{album.Name}: {album.YearReleased}");
+                Console.WriteLine($"\x1b[33m{ album.Name}.\x1b[37m{ album.YearReleased}\x1b[0m");
             }
 
             await MenuAesthetics.EnterBackToMenuAsync();

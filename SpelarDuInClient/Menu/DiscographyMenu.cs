@@ -18,7 +18,7 @@ namespace SpelarDuInClient.Menu
                 Console.Clear();
                 await Console.Out.WriteLineAsync($" Welcome {user.UserName}");
                 await MenuAesthetics.UnderLineHeaderButtonsAsync();
-                string[] options = { "[List some albums by an artist]", "[Back]" };
+                string[] options = { "[Discover Artist Albums]", "[Back]" };
                 int selectedIndex = MenuHelper.RunMenu(options, false, true, 0, 4);
                 switch (selectedIndex)
                 {
