@@ -95,10 +95,16 @@ namespace SpelarDuInClient.Methods
             string content = await response.Content.ReadAsStringAsync();
 
             TrackViewModel[] alltracksLinkedToUser = JsonSerializer.Deserialize<TrackViewModel[]>(content);
+            string formatedTitles = string.Format("{0, -5} : {1,-30} : {2}", "Id:", "Track title:", "Artist");
+            Console.ForegroundColor = ConsoleColor.White;
+            await Console.Out.WriteLineAsync(formatedTitles);
+            await Console.Out.WriteLineAsync("________________________________________________________________________________");
             foreach (var tracks in alltracksLinkedToUser)
             {
+                Console.ForegroundColor= ConsoleColor.DarkYellow;
                 string formattedOutput = String.Format("{0, -5} : {1,-30} : {2}", tracks.Id, tracks.TrackTitle, tracks.Artist);
                 await Console.Out.WriteLineAsync(formattedOutput);
+                Console.ResetColor();
             }
 
             Console.ReadLine();
