@@ -18,18 +18,18 @@ namespace SpelarDuInClient.Menu
             while (run)
             {
                 Console.Clear();
-                await Console.Out.WriteLineAsync($"Welcome {user.UserName}");
-                await Console.Out.WriteLineAsync("-----------------------------");
-                await Console.Out.WriteLineAsync("Click one of the following sub-menus:");
-                string[] options = { "User", "Genre", "Artist", "Track", "Discography", "Exit" };   //Meny options
+                await Console.Out.WriteLineAsync($" Welcome {user.UserName}");
+                await Console.Out.WriteLineAsync(" ----------------------------");
+                await Console.Out.WriteLineAsync(" Choose one of the following sub-menus:");
+                string[] options = { "[User]", "[Genre]", "[Artist]", "[Track]", "[Discography]", "[Main menu]" };   //Meny options
                 //MenuHelper mainMeny = new MenuHelper(prompt, options);
-                int selectedIndex = MenuHelper.RunMeny(options, false, true, 1, 13);     //Run method that registers arrowkeys and displays the options. 
+                int selectedIndex = MenuHelper.RunMenu(options, false, true, 0, 4);     //Run method that registers arrowkeys and displays the options. 
 
 
                 switch (selectedIndex)
                 {
                     case 0:
-                        UserMenu.UsersMenuAsync(client, userId, user);
+                        await UserMenu.UsersMenuAsync(client, userId, user);
                         break;
                     case 1:
                         GenreMenu.GenreMenuAsync(client, userId, user);
@@ -44,7 +44,8 @@ namespace SpelarDuInClient.Menu
                         DiscographyMenu.DiscographyMenuAsync(client, user);
                         break;
                     case 5:
-                        ExitProgram();
+                        run = false;
+                       // ExitProgram();
                         break;
                 }
             }
