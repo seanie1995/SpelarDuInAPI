@@ -47,8 +47,8 @@ namespace SpelarDuInAPIClient.Methods
             Console.ReadLine();
 
             await GenreMenu.GenreMenuAsync(client, userId, user);
-            
-                
+
+
         }
 
         public static async Task ListUserGenresAsync(HttpClient client, int userId, UserViewModel user)
@@ -79,13 +79,13 @@ namespace SpelarDuInAPIClient.Methods
 
             Console.ReadKey();
 
-            GenreMenu.GenreMenuAsync(client, userId, user);
+            await GenreMenu.GenreMenuAsync(client, userId, user);
 
         }
 
         public static async Task ConnectGenreAsync(HttpClient client, int userId, string name)
         {
-                 
+
             // Finding created genre within database to connect with user            
 
             HttpResponseMessage response = await client.GetAsync($"/genre");
@@ -97,7 +97,7 @@ namespace SpelarDuInAPIClient.Methods
             await Console.Out.WriteLineAsync($"{allGenres.Length}");
 
             GenreViewModel newGenre = allGenres
-                .Where(i => i.GenreName == name)               
+                .Where(i => i.GenreName == name)
                 .FirstOrDefault();
 
             int newGenreId = newGenre.Id;
@@ -127,7 +127,7 @@ namespace SpelarDuInAPIClient.Methods
 
         public static async Task ListAllGenresAsync(HttpClient client, int userId, UserViewModel user)
         {
-            Console.Clear();
+            await Task.Run(() => Console.Clear());
             HttpResponseMessage response = await client.GetAsync("/genre");
             if (!response.IsSuccessStatusCode)
             {

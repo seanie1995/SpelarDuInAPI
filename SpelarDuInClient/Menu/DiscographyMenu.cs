@@ -10,7 +10,7 @@ namespace SpelarDuInClient.Menu
 {
     internal class DiscographyMenu
     {
-        public static async Task DiscographyMenuAsync(HttpClient client, UserViewModel user)
+        public static async Task DiscographyMenuAsync(HttpClient client, int userId, UserViewModel user)
         {
             bool run = true;
             while (run)
@@ -31,15 +31,14 @@ namespace SpelarDuInClient.Menu
                     switch (choice)
                     {
                         case "1":
-                            await DiscographyMethods.ListAlbumsAsync(client);
+                            await DiscographyMethods.ListAlbumsAsync(client, userId, user);
                             break;                      
                         case "2":
-                            run = false;
+                            await UserLogInMenu.UsersLogInMenuAsync(client, userId, user);
                             break;
                     }
                 }
-                await Console.Out.WriteLineAsync("Press enter to go back to main menu!!");
-                Console.ReadKey();
+                
             }
         }
     }

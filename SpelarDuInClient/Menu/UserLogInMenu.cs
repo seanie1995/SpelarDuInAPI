@@ -23,7 +23,7 @@ namespace SpelarDuInClient.Menu
                 await Console.Out.WriteLineAsync(" Choose one of the following sub-menus:");
                 string[] options = { "[User]", "[Genre]", "[Artist]", "[Track]", "[Discography]", "[Main menu]" };   //Meny options
                 //MenuHelper mainMeny = new MenuHelper(prompt, options);
-                int selectedIndex = MenuHelper.RunMenu(options, false, true, 0, 4);     //Run method that registers arrowkeys and displays the options. 
+                int selectedIndex = MenuHelper.RunMenu(options, false, true, 0, 5);     //Run method that registers arrowkeys and displays the options. 
 
 
                 switch (selectedIndex)
@@ -41,10 +41,11 @@ namespace SpelarDuInClient.Menu
                         await TrackMenu.TrackMenuAsync(client, userId, user);
                         break;
                     case 4:
-                        await DiscographyMenu.DiscographyMenuAsync(client, user);
+                        await DiscographyMenu.DiscographyMenuAsync(client, userId, user);
                         break;
                     case 5:
-                        run = false;
+                        await MenuAction.MainMenu();
+                        //run = false;
                        // ExitProgram();
                         break;
                 }
