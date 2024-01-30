@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpelarDuInAPIClient.Models.DTO;
+using SpelarDuInClient.Menu;
 using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,7 @@ namespace SpelarDuInAPIClient.Methods
 
         public static async Task CreateNewUserAsync(HttpClient client)
         {
+            Console.CursorVisible = true;
             await Console.Out.WriteLineAsync("CREATING NEW USER");
             await Console.Out.WriteLineAsync("------------------------\n");
             await Console.Out.WriteLineAsync("Enter desired username:");
@@ -239,60 +241,69 @@ namespace SpelarDuInAPIClient.Methods
         public static async Task ConnectUserToOneGenreAsync(HttpClient client, int userId)
         {
             Console.Clear();
+            Console.CursorVisible = true;
             await Console.Out.WriteLineAsync("Adding Genre to user");
-            await Console.Out.WriteLineAsync("----------------------");
+            await MenuAesthetics.UnderLineHeaderAsync();
             Console.WriteLine($"\u001b[33mEnter genre ID\u001b[0m");
             string genreId = Console.ReadLine();
             HttpResponseMessage response = await client.PostAsync($"/user/{userId}/genre/{genreId}", null);
             if (response.IsSuccessStatusCode)
             {
                 Console.Clear();
-                Console.WriteLine($"\x1b[32mUser connected to the genre successfully!\x1b[0m");
+                await Console.Out.WriteLineAsync($"\x1b[32mUser connected to the genre successfully!\x1b[0m"); ;
+                await MenuAesthetics.EnterBackToMenuAsync();
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
+                await Console.Out.WriteLineAsync($"\x1b[31mSomething went wrong! \nStatuscode: {response.StatusCode}\x1b[0m");
+                await MenuAesthetics.EnterBackToMenuAsync();
             }
         }
 
         public static async Task ConnectUserToOneArtistAsync(HttpClient client, int userId)
         {
             Console.Clear();
+            Console.CursorVisible = true;
             await Console.Out.WriteLineAsync("Adding Artist to user");
-            await Console.Out.WriteLineAsync("----------------------");
+            await MenuAesthetics.UnderLineHeaderAsync();
             Console.WriteLine($"\u001b[33mEnter artist ID\u001b[0m");
             string artistId = Console.ReadLine();
             HttpResponseMessage response = await client.PostAsync($"/user/{userId}/artist/{artistId}", null);
             if (response.IsSuccessStatusCode)
             {
                 Console.Clear();
-                Console.WriteLine($"\x1b[32mUser connected to the artist successfully!\x1b[0m");
+                await Console.Out.WriteLineAsync($"\x1b[32mUser connected to the artist successfully!\x1b[0m");
+                await MenuAesthetics.EnterBackToMenuAsync();
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
+                await Console.Out.WriteLineAsync($"\x1b[31mSomething went wrong! \nStatuscode: {response.StatusCode}\x1b[0m");
+                await MenuAesthetics.EnterBackToMenuAsync();
             }
         }
 
         public static async Task ConnectUserToOneTrackAsync(HttpClient client, int userId)
         {
             Console.Clear();
+            Console.CursorVisible = true;
             await Console.Out.WriteLineAsync("Adding Track to user");
-            await Console.Out.WriteLineAsync("----------------------");
+            await MenuAesthetics.UnderLineHeaderAsync();
             Console.WriteLine($"\u001b[33mEnter track ID\u001b[0m");
             string trackId = Console.ReadLine();
             HttpResponseMessage response = await client.PostAsync($"/user/{userId}/track/{trackId}", null);
             if (response.IsSuccessStatusCode)
             {
                 Console.Clear();
-                Console.WriteLine($"\x1b[32mUser connected to the track successfully!\x1b[0m");
+                await Console.Out.WriteLineAsync($"\x1b[32mUser connected to the track successfully!\x1b[0m");
+                await MenuAesthetics.EnterBackToMenuAsync();
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"\x1b[31mFailed to connect. Statuscode: {response.StatusCode}\x1b[0m");
+                await Console.Out.WriteLineAsync($"\x1b[31mSomething went wrong! \nStatuscode: {response.StatusCode}\x1b[0m");
+                await MenuAesthetics.EnterBackToMenuAsync();
             }
         }
     }

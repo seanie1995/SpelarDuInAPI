@@ -18,19 +18,10 @@ namespace SpelarDuInClient.Menu
             {
                 Console.Clear();
                 await Console.Out.WriteLineAsync($" Welcome {user.UserName}");
-                await Console.Out.WriteLineAsync(" -----------------------------");
-               // await Console.Out.WriteLineAsync("Choose one of the following:\n\u001b[33m[1] Add genre to user\n[2] Add artist to user\n[3] Add track to user\n[4] Go back\u001b[0m");
-                string[] options = { "[Add genre]", "[Add Artist]", "[Add track]", "[Go back]" };
-                int choice = MenuHelper.RunMenu(options, false, true, 0, 4);//Meny options
-               // string choice = Console.ReadLine();
-                //if (choice != "1" && choice != "2" && choice != "3" && choice != "4")
-                //{
-                //    await Console.Out.WriteLineAsync($"\u001b[31mInvalid Input![{choice}]\u001b[0m");
-                //    Console.ReadKey();
-                //    continue;
-                //}
-                //else
-                {
+                await MenuAesthetics.UnderLineHeaderButtonsAsync();
+                await MenuAesthetics.ChooseOptions();
+                string[] options = { "[Add genre]", "[Add Artist]", "[Add track]", "[Back]" };
+                int choice = MenuHelper.RunMenu(options, false, true, 0, 4);
                     switch (choice)
                     {
                         case 0:
@@ -46,9 +37,6 @@ namespace SpelarDuInClient.Menu
                             run = false;
                             break;
                     }
-                }
-                //await Console.Out.WriteLineAsync("Press enter to go back!!");
-                //Console.ReadKey();
             }
         }
     }

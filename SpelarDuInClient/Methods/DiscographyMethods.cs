@@ -1,4 +1,5 @@
-﻿using SpelarDuInClient.Models.ViewModels;
+﻿using SpelarDuInClient.Menu;
+using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace SpelarDuInClient.Methods
     {
         public static async Task ListAlbumsAsync(HttpClient client, int userId, UserViewModel user)
         {
+            Console.Clear();
+            Console.CursorVisible = true;
+            await Console.Out.WriteLineAsync($"Search for artist albums:");
+            await MenuAesthetics.UnderLineHeaderAsync();
             await Console.Out.WriteLineAsync("Enter band name:");
 
             string bandName = Console.ReadLine();
@@ -34,7 +39,7 @@ namespace SpelarDuInClient.Methods
                 Console.WriteLine($"{album.Name}: {album.YearReleased}");
             }
 
-            Console.ReadKey();
+            await MenuAesthetics.EnterBackToMenuAsync();
         }
     }
 }

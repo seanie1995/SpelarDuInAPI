@@ -1,4 +1,5 @@
-﻿using SpelarDuInClient.Models.DTO;
+﻿using SpelarDuInClient.Menu;
+using SpelarDuInClient.Models.DTO;
 using SpelarDuInClient.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,12 @@ namespace SpelarDuInClient.Methods
     {
         public static async Task AddtrackAsync(HttpClient client, int userId)
         {
+            Console.Clear();
+            Console.CursorVisible = true;
+            await Console.Out.WriteLineAsync("Adding new track");
+            await MenuAesthetics.UnderLineHeaderAsync();
+            await Console.Out.WriteLineAsync("Adding new track");
+            await MenuAesthetics.UnderLineHeaderAsync();
             await Console.Out.WriteLineAsync("Enter new track name:");
             string trackName = Console.ReadLine();
 
@@ -41,7 +48,7 @@ namespace SpelarDuInClient.Methods
 
             await AutoAddingtrackToSingleUserAsync(client, userId, trackName);
 
-            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
+            await MenuAesthetics.EnterBackToMenuAsync();
 
         }
 
@@ -62,7 +69,7 @@ namespace SpelarDuInClient.Methods
 
             if (newTrackId == 0)
             {
-                await Console.Out.WriteLineAsync($"Failed to find the track with naem '{trackName}' in the database.");
+                await Console.Out.WriteLineAsync($"Failed to find the track with name '{trackName}' in the database.");
             }
             //Connecting track to user 
             HttpResponseMessage connectUserToTrack = await client.PostAsync($"/user/{userId}/track/{newTrackId}", null);
@@ -95,12 +102,13 @@ namespace SpelarDuInClient.Methods
             string content = await response.Content.ReadAsStringAsync();
 
             TrackViewModel[] alltracksLinkedToUser = JsonSerializer.Deserialize<TrackViewModel[]>(content);
+
             foreach (var tracks in alltracksLinkedToUser)
             {
                 await Console.Out.WriteLineAsync($"{tracks.Id,5}: {tracks.TrackTitle, 7}:\t {tracks.Artist,30}");
             }
 
-            Console.ReadLine();
+            await MenuAesthetics.EnterBackToMenuAsync();
         }
     }
 }
