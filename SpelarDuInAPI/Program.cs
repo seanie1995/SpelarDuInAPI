@@ -57,6 +57,8 @@ namespace SpelarDuInAPI
             app.MapGet("/artist", ArtistHandler.ListAllArtists); //List all the artists        Jing
             app.MapGet("/artist/{artistId}", ArtistHandler.ViewArtist); //Show a specific artist    Jing
             app.MapGet("/user/{userId}/track", TrackHandler.GetAllTracksFromSingleUser); // Hämta alla tracks kopplad till en specifik person        Jonny
+            app.MapGet("/genre", GenreHandler.ListAllGenres);
+         
             app.MapGet("/track", TrackHandler.ListAllTracks);
             
 

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace SpelarDuInAPIClient.Models
 {
-    internal class GenreDto
-    {                  
+    public class GenreDto
+    {
+       
         public string GenreName { get; set; }
     }
 }

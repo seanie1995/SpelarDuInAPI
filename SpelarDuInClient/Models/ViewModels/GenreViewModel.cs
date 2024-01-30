@@ -11,8 +11,8 @@ namespace SpelarDuInClient.Models.ViewModels
     {
         [JsonPropertyName("Id")]
         public int Id { get; set; }
-
-        [JsonPropertyName("genreName")]
+        
+        [JsonPropertyName("Genre")]
         public string GenreName { get; set; }
     }
 }
