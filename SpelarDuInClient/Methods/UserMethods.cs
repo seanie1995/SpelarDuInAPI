@@ -37,7 +37,7 @@ namespace SpelarDuInAPIClient.Methods
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
+                HttpResponseMessage response = await client.GetAsync("/user"); // Calling API endpoint.
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -46,8 +46,6 @@ namespace SpelarDuInAPIClient.Methods
                 }
 
                 string content = await response.Content.ReadAsStringAsync();
-
-                //UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
 
                 //Deserialize json directly to list
                 List<UserViewModel> allUsers = JsonSerializer.Deserialize<List<UserViewModel>>(content);
