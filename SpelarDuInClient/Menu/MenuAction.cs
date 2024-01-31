@@ -26,7 +26,7 @@ namespace SpelarDuInClient.Menu
                     Console.Clear();
                     Console.WriteLine("\x1b[31;5m  W\x1b[32;5me\x1b[33;5ml\x1b[34;5mc\x1b[35;5mo\x1b[36;5mm\x1b[37;5me \x1b[1;31;5mt\x1b[1;32;5mo \x1b[1;31;5mS\x1b[1;34;5mD\x1b[1;35;5mI-\x1b[1;36;5mA\x1b[1;37;5mP\x1b[1;31;5mI\x1b[0m");
                     await MenuAesthetics.UnderLineHeaderButtonsAsync();
-                    //await MenuAesthetics.ChooseOptions();
+                   
                     string[] options = { "[List all users]", "[Create new user]", "[Exit]" };                                                                                  
                     int selectedIndex = MenuHelper.RunMenu(options, false, true, 0, 4); 
 
@@ -44,7 +44,6 @@ namespace SpelarDuInClient.Menu
                                 foreach (UserViewModel user in userList)
                                 {
                                     userStrings.Add($"{user.UserName}");
-                                    //await Console.Out.WriteLineAsync($"Username: {user.UserName}");
                                 }
 
                                 string[] userOption = userStrings.ToArray();
@@ -52,9 +51,7 @@ namespace SpelarDuInClient.Menu
 
                                 if (selecteduserIndex >= 0 && selecteduserIndex < userList.Count())
                                 {
-                                    //Get the selected user 
                                     selectedUser = userList[selecteduserIndex];
-                                    //selectedUser = await UserMethods.SelectUserAsync(client, selectedUser.Id);
                                 }
                                 if (selectedUser == null)
                                 {
@@ -67,8 +64,6 @@ namespace SpelarDuInClient.Menu
                             }
                             break;
 
-                        //await UserMethods.ListAllUsersAsync(client);
-                        ////await UserMethods.ShowAllUsersAllInfo(client);
                         case 1:
                             Console.Clear();
                             await UserMethods.CreateNewUserAsync(client);
