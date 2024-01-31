@@ -4,9 +4,6 @@ namespace DiscographyViewerAPI
 {
     public class DiscographyWrapper
     {
-        // Root myDeserializedClass = JsonSerializer.Deserialize<Root>(myJsonResponse);
-
-        
         public class Album
         {
             [JsonPropertyName("strAlbum")]

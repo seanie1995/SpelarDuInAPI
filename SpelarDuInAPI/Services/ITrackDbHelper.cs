@@ -57,7 +57,6 @@ namespace SpelarDuInAPI.Services
                     Genre = genre,
                 };
                 _context.Tracks.Add(newTrack);
-                //_context.Users.Single().Tracks.Add(newTrack);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -101,7 +100,6 @@ namespace SpelarDuInAPI.Services
                     Genre = genre,
                 };
                 _context.Tracks.Add(newTrack);
-                //_context.Users.Single().Tracks.Add(newTrack);
                 _context.SaveChanges();
 
             }

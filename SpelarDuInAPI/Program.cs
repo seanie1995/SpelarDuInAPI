@@ -16,9 +16,12 @@ namespace SpelarDuInAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Connecting to DB
             string connectionString = builder.Configuration.GetConnectionString("ApplicationContext");
 
             builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+
+            //Dependency injections, to be able to inversion of control. 
             builder.Services.AddScoped<IGenreDbHelper, GenreDbHelper>();
             builder.Services.AddScoped<IArtistDbHelper, ArtistDbHelper>();
             builder.Services.AddScoped<IUserDbHelper, UserDbHelper>();
@@ -29,24 +32,6 @@ namespace SpelarDuInAPI
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
-
-
-            // Endpoints to be added here 
-
-            //The assignment is to create the methods designated to you, you will also create tests for your individual methods!
-            //If you feel that you hawe time over, the last 3 post calls are upp for grabs for the person who want to create them 
-
-            //Next checkup will be this monday where the time will be decided on slack later this week,
-
-            //Keep namestandards konsistent, Artist, Genre, Track and User. 
-
-            //Api connection vill be created after our methods are done and workload will be declared after next checkup,
-            //The Api decided on is The audio DB, more information about the api is in todo.txt
-
-            //Meny vill be created in console client where we will reuse Spelar du in bank meny functions. 
-
-            //God luck, hawe fun!!!
-
 
             // GET Calls
             app.MapGet("/user/allinfo/{userId}", UserHandler.ShowAllUsersAllInfoOneUser); // Hämta all info om en person     Mojtaba
@@ -65,7 +50,6 @@ namespace SpelarDuInAPI
             // POST Calls           
             app.MapPost("/artist", ArtistHandler.AddNewArtist); //skapa ny artist   Jing
             app.MapPost("/track", TrackHandler.AddNewTrack); //skapa ny track     jonny
-           // app.MapPost("/track/{userId}", TrackHandler.addNewTrackConnectedToSingleUser);
             app.MapPost("/genre", GenreHandler.AddNewGenre);
             app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
             app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserToOneGenre); // Kopplar person till ny genre  N/A

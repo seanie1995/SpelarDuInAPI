@@ -11,7 +11,7 @@ namespace SpelarDuInAPI.Handlers
 {
     public class UserHandler
     {
-        public static IResult ShowAllUsersAllInfoOneUser(IUserDbHelper dbHelper, int userId)
+        public static IResult ShowAllUsersAllInfoOneUser(IUserDbHelper dbHelper, int userId)   
         {
             try
             {

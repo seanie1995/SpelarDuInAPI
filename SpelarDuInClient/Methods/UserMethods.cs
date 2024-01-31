@@ -27,6 +27,7 @@ namespace SpelarDuInAPIClient.Methods
 
             UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
 
+            //Print out on client
             foreach (var user in allUsers)
             {
                 await Console.Out.WriteLineAsync($"\u001b[33mId:{user.Id}:\t{user.UserName}\u001b[0m");
