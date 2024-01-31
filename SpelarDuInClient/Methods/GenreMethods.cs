@@ -19,7 +19,9 @@ namespace SpelarDuInAPIClient.Methods
             // Adding new genre into database
 
             Console.Clear();
-
+            await Console.Out.WriteLineAsync($"Create new genre:");
+            await MenuAesthetics.UnderLineHeaderAsync();
+            Console.CursorVisible = true;
             await Console.Out.WriteLineAsync("Enter new genre name:");
 
             string name = Console.ReadLine();
@@ -42,7 +44,7 @@ namespace SpelarDuInAPIClient.Methods
 
             await ConnectGenreAsync(client, name, user);
 
-            await Console.Out.WriteLineAsync("Press enter to return to menu");
+            await MenuAesthetics.EnterBackToMenuAsync();
 
             Console.ReadLine();
 
@@ -65,15 +67,14 @@ namespace SpelarDuInAPIClient.Methods
             string content = await response.Content.ReadAsStringAsync();
 
             GenreViewModel[] allGenres = JsonSerializer.Deserialize<GenreViewModel[]>(content); // Deserialize JSON object retrieved from API
-         
+            await Console.Out.WriteLineAsync($"{user.UserName}s favorite genres:");
+            await MenuAesthetics.UnderLineHeaderAsync();
             foreach (var genre in allGenres)
             {
                 await Console.Out.WriteLineAsync($"{genre.Id}:\t{genre.GenreName}");
             }
 
-            await Console.Out.WriteLineAsync("Press enter to continue:");
-
-            Console.ReadKey();
+            await MenuAesthetics.EnterBackToMenuAsync();
 
             await GenreMenu.GenreMenuAsync(client, user);
 
@@ -133,6 +134,8 @@ namespace SpelarDuInAPIClient.Methods
             //pack up to a list of artists
             GenreViewModel[] genres = JsonSerializer.Deserialize<GenreViewModel[]>(content);
             // read through the list
+            await Console.Out.WriteLineAsync($"All the genres:");
+            await MenuAesthetics.UnderLineHeaderAsync();
             foreach (var a in genres)
             {
                 await Console.Out.WriteLineAsync($"{a.Id}:\t{a.GenreName}");
@@ -141,6 +144,8 @@ namespace SpelarDuInAPIClient.Methods
             Console.ReadLine();
 
             await GenreMenu.GenreMenuAsync(client, user);
+            await MenuAesthetics.EnterBackToMenuAsync();        
+            await GenreMenu.GenreMenuAsync(client, userId, user);
         }
     }
 }

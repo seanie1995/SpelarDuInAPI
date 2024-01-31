@@ -16,6 +16,9 @@ namespace SpelarDuInClient.Methods
         public static async Task AddNewArtistAysnc(HttpClient client, UserViewModel user)
         {
             Console.Clear();
+            Console.CursorVisible = true;
+            await Console.Out.WriteLineAsync("Adding new artist:");
+            await MenuAesthetics.UnderLineHeaderAsync();
             await Console.Out.WriteLineAsync("Enter artist name: ");
             string artistName = Console.ReadLine();
             await Console.Out.WriteLineAsync("Enter description: ");
@@ -53,13 +56,15 @@ namespace SpelarDuInClient.Methods
             //pack up to a list of artists
             ArtistListViewModel[] artists = JsonSerializer.Deserialize<ArtistListViewModel[]>(content);
             // read through the list
+            Console.CursorVisible = true;
+            await Console.Out.WriteLineAsync($"{user.UserName}s favorite artists:");
+            await MenuAesthetics.UnderLineHeaderAsync();
             foreach (var arts in artists)
             {
                 await Console.Out.WriteLineAsync($"{arts.Id}:\t{arts.ArtistName}");
             }
-            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
-            Console.ReadLine();
-            await ArtistMenu.ArtistMenuAsync(client, user);
+            await MenuAesthetics.EnterBackToMenuAsync();
+            await ArtistMenu.ArtistMenuAsync(client, userId, user);
         }
 
         public static async Task ListAllArtistsAsync(HttpClient client, UserViewModel user)
@@ -74,13 +79,15 @@ namespace SpelarDuInClient.Methods
             //pack up to a list of artists
             ArtistListViewModel[] artists = JsonSerializer.Deserialize<ArtistListViewModel[]>(content);
             // read through the list
+            Console.CursorVisible = true;
+            await Console.Out.WriteLineAsync("All artist:");
+            await MenuAesthetics.UnderLineHeaderAsync();
             foreach (var a in artists)
             {
                 await Console.Out.WriteLineAsync($"{a.Id}:\t{a.ArtistName}");
             }
-            await Console.Out.WriteLineAsync("Press enter to go back to main menu");
-            Console.ReadLine();
-            await ArtistMenu.ArtistMenuAsync(client, user);
+            await MenuAesthetics.EnterBackToMenuAsync();
+            await ArtistMenu.ArtistMenuAsync(client, userId, user);
         }
 
         public static async Task ViewAnArtistAsync(HttpClient client, string artistName, UserViewModel user)
