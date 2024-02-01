@@ -10,7 +10,7 @@ namespace SpelarDuInAPI.Services
 {
     public interface IUserDbHelper
     {
-        public List<UserViewModelAllInfo> ShowAllUsersAllInfoOneUser(int userId);
+        public List<UserViewModelAllInfo> ShowAllUsersAllInfoOneUser(int userId);    //This part is done so we can seperate interface from web 
         List<UserViewModelAllInfo> ShowAllUsersAllInfo();
         UserViewModel[] GetAllUsers();
         void CreateUser(UserDto user);
@@ -26,7 +26,6 @@ namespace SpelarDuInAPI.Services
             _context = context;
         }
 
-        //----------------------------------------Methods
         public List<UserViewModelAllInfo> ShowAllUsersAllInfoOneUser(int userId)
         {
             //fetching the user

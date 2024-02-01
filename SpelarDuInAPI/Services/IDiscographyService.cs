@@ -14,7 +14,7 @@ namespace DiscographyViewerAPI.Services
     {
         private HttpClient _client;
         public DiscographyService() : this(new HttpClient()) { }
-        public DiscographyService(HttpClient client)
+        public DiscographyService(HttpClient client) // Made in order to mock a client.
         {
             _client = client;
         }
