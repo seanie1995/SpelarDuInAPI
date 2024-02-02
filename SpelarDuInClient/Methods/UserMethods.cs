@@ -151,9 +151,9 @@ namespace SpelarDuInAPIClient.Methods
                 Console.WriteLine();
                 Console.WriteLine("-----------------------------");
             }
-        }
+        } //Works but, Not in use
 
-        public static async Task ShowAllUsersAllInfoOneUserAsync(HttpClient client, int userId)
+        public static async Task ShowOneUserAllInfoAsync(HttpClient client, int userId)
         {
             Console.Clear();
             HttpResponseMessage response = await client.GetAsync($"/user/allinfo/{userId}");
@@ -210,31 +210,6 @@ namespace SpelarDuInAPIClient.Methods
                 }
                 await MenuAesthetics.EnterBackToMenuAsync();
             }
-        }
-
-        public static async Task<UserViewModel> SelectUserAsync(HttpClient client, int userId)
-        {
-            HttpResponseMessage response = await client.GetAsync("/user"); // Anropar API endpoint som vi skapat i vår API.
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Failed to list users {response.StatusCode}");
-            }
-
-            string content = await response.Content.ReadAsStringAsync();
-
-            UserViewModel[] allUsers = JsonSerializer.Deserialize<UserViewModel[]>(content); // Deserialize JSON object retrieved from API
-
-            UserViewModel selectedUser = allUsers
-                .Where(i => i.Id == userId)
-                .FirstOrDefault();
-
-            if (selectedUser == null)
-            {
-                await Console.Out.WriteLineAsync("Requested user not found");
-            }
-
-            return selectedUser;
         }
 
         public static async Task ConnectUserToOneGenreAsync(HttpClient client, int userId)

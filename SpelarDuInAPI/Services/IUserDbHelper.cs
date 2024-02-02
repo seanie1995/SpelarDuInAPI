@@ -10,7 +10,7 @@ namespace SpelarDuInAPI.Services
 {
     public interface IUserDbHelper
     {
-        public List<UserViewModelAllInfo> ShowAllUsersAllInfoOneUser(int userId);    //This part is done so we can seperate interface from web 
+        public List<UserViewModelAllInfo> ShowOneUserAllInfo(int userId);    //This part is done so we can seperate interface from web 
         List<UserViewModelAllInfo> ShowAllUsersAllInfo();
         UserViewModel[] GetAllUsers();
         void CreateUser(UserDto user);
@@ -26,19 +26,19 @@ namespace SpelarDuInAPI.Services
             _context = context;
         }
 
-        public List<UserViewModelAllInfo> ShowAllUsersAllInfoOneUser(int userId)
+        public List<UserViewModelAllInfo> ShowOneUserAllInfo(int userId)
         {
             //fetching the user
             User[] user = _context.Users.Where(u=>u.Id == userId)
                .Include(u => u.Artists)
                .Include(u => u.Tracks)
                .Include(u => u.Genres).ToArray();
-            //using .Length because with .ToArray it'll never be null.
+            //using .Length because with .ToArray for exeception, otherwise it'll never be null.
             if (user.Length == 0)
             {
                 throw new InvalidDataException();
             }
-            //Showing the info of the user we fetched earlier with viewModel
+            //Showing the info of the user we fetched earlier with "UserViewModelAllInfo"
             var userView2 = user.Select(u => new UserViewModelAllInfo()
             {
                 UserName = u.UserName,
@@ -49,17 +49,16 @@ namespace SpelarDuInAPI.Services
             return userView2;
         }
         public List<UserViewModelAllInfo> ShowAllUsersAllInfo()
-        {   //fetching the user
+        {   
             User[] user = _context.Users
                .Include(u => u.Artists)
                .Include(u => u.Tracks)
                .Include(u => u.Genres).ToArray();
-            //using .Length because with .ToArray it'll never be null.
+
             if (user.Length == 0)
             {
                 throw new InvalidDataException();
             }
-            //Showing the info of the user we fetched earlier with viewModel
             var userView = user.Select(u => new UserViewModelAllInfo()
             {
                 UserName = u.UserName,

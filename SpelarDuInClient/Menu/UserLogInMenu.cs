@@ -20,9 +20,8 @@ namespace SpelarDuInClient.Menu
                 Console.Clear();
                 await Console.Out.WriteLineAsync($" Welcome {user.UserName}");
                 await MenuAesthetics.UnderLineHeaderButtonsAsync();
-                await MenuAesthetics.ChooseOptions();
+
                 string[] options = { "[User]", "[Genre]", "[Artist]", "[Track]", "[Discography]", "[Main menu]" };
-                //MenuHelper mainMeny = new MenuHelper(prompt, options);
                 int selectedIndex = MenuHelper.RunMenu(options, false, true, 0, 4); 
                 switch (selectedIndex)
                 {
@@ -49,7 +48,7 @@ namespace SpelarDuInClient.Menu
                 }
             }
         }
-        public static void ExitProgram() //Exit the game
+        public static void ExitProgram()
         {
             Console.WriteLine("\nPress any key to exit");
             Console.ReadKey(true);

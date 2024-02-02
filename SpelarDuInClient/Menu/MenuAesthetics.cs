@@ -25,10 +25,5 @@ namespace SpelarDuInClient.Menu
             await Console.Out.WriteLineAsync("\nPress enter to return to menu");
             Console.ReadLine();
         }
-        public static async Task ChooseOptions()
-        {
-            //await Console.Out.WriteLineAsync(" Choose one of the following options:\n");
-            await Console.Out.WriteLineAsync("");
-        }
     }
 }

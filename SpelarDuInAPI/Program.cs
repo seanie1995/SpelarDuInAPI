@@ -34,27 +34,26 @@ namespace SpelarDuInAPI
             app.MapGet("/", () => "Hello World!");
 
             // GET Calls
-            app.MapGet("/user/allinfo/{userId}", UserHandler.ShowAllUsersAllInfoOneUser); // Hämta all info om en person     Mojtaba
-            app.MapGet("/user/allinfo", UserHandler.ShowAllUsersAllInfo); // Hämta alla personer     Mojtaba
-            app.MapGet("/user", UserHandler.GetAllUsers); // Hämta alla personer     Mojtaba
-            app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres); // Hämta alla genre kopplad till en specifik person     Sean
-            app.MapGet("/user/{userId}/artist", ArtistHandler.ListUsersArtists); // Hämta alla artister kopplad till en specifik person     Jing
-            app.MapGet("/artist", ArtistHandler.ListAllArtists); //List all the artists        Jing
-            app.MapGet("/artist/{artistId}", ArtistHandler.ViewArtist); //Show a specific artist    Jing
-            app.MapGet("/user/{userId}/track", TrackHandler.GetAllTracksFromSingleUser); // Hämta alla tracks kopplad till en specifik person        Jonny
+            // app.MapGet("/user/allinfo", UserHandler.ShowAllUsersAllInfo); //-working but not in use
+            app.MapGet("/user/allinfo/{userId}", UserHandler.ShowOneUserAllInfo);
+            app.MapGet("/user", UserHandler.GetAllUsers);
+            app.MapGet("/user/{userId}/genre", GenreHandler.ListUsersGenres);
+            app.MapGet("/user/{userId}/artist", ArtistHandler.ListUsersArtists);
+            app.MapGet("/artist", ArtistHandler.ListAllArtists);
+            app.MapGet("/artist/{artistId}", ArtistHandler.ViewArtist);
+            app.MapGet("/user/{userId}/track", TrackHandler.GetAllTracksFromSingleUser);
             app.MapGet("/genre", GenreHandler.ListAllGenres);
-         
             app.MapGet("/track", TrackHandler.ListAllTracks);
             
 
             // POST Calls           
-            app.MapPost("/artist", ArtistHandler.AddNewArtist); //skapa ny artist   Jing
-            app.MapPost("/track", TrackHandler.AddNewTrack); //skapa ny track     jonny
+            app.MapPost("/artist", ArtistHandler.AddNewArtist);
+            app.MapPost("/track", TrackHandler.AddNewTrack);
             app.MapPost("/genre", GenreHandler.AddNewGenre);
-            app.MapPost("/user", UserHandler.CreateUser); //skapa ny user   Mojtaba
-            app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserToOneGenre); // Kopplar person till ny genre  N/A
-            app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist); //  Kopplar person till ny artist  N/A
-            app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack); // Kopplar person till ny track  N/A
+            app.MapPost("/user", UserHandler.CreateUser);
+            app.MapPost("/user/{userId}/genre/{genreId}", UserHandler.ConnectUserToOneGenre);
+            app.MapPost("/user/{userId}/artist/{artistId}", UserHandler.ConnectUserToOneArtist);
+            app.MapPost("/user/{userId}/track/{trackId}", UserHandler.ConnectUserToOneTrack);
 
             app.MapGet("/{name}/albums", async (string name, IDiscographyService discographyClient) =>
             {

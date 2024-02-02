@@ -11,11 +11,11 @@ namespace SpelarDuInAPI.Handlers
 {
     public class UserHandler
     {
-        public static IResult ShowAllUsersAllInfoOneUser(IUserDbHelper dbHelper, int userId)   
+        public static IResult ShowOneUserAllInfo(IUserDbHelper dbHelper, int userId)   
         {
             try
             {
-                List<UserViewModelAllInfo> users = dbHelper.ShowAllUsersAllInfoOneUser(userId);
+                List<UserViewModelAllInfo> users = dbHelper.ShowOneUserAllInfo(userId);
                 return Results.Json(users);
             }
             catch (InvalidDataException ex)

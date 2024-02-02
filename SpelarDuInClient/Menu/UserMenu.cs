@@ -19,13 +19,13 @@ namespace SpelarDuInClient.Menu
                 Console.Clear();
                 await Console.Out.WriteLineAsync($" Welcome {user.UserName}");
                 await MenuAesthetics.UnderLineHeaderButtonsAsync();
-                await MenuAesthetics.ChooseOptions();
+               
                 string[] options = { "[Favorites🤍]", "[Add genre to🤍]", "[Add Artist to🤍]", "[Add track to🤍]", "[Back]" };
                 int choice = MenuHelper.RunMenu(options, false, true, 0, 4);
                 switch (choice)
                 {
                     case 0:
-                        await UserMethods.ShowAllUsersAllInfoOneUserAsync(client, userId);
+                        await UserMethods.ShowOneUserAllInfoAsync(client, userId);
                         break;
                     case 1:
                         await UserMethods.ConnectUserToOneGenreAsync(client, userId);
