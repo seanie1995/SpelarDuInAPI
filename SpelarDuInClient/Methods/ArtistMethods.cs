@@ -90,25 +90,6 @@ namespace SpelarDuInClient.Methods
             await ArtistMenu.ArtistMenuAsync(client, userId, user);
         }
 
-        public static async Task ViewAnArtistAsync(HttpClient client, string artistName, int userId, UserViewModel user)
-        {
-            Console.Clear();
-            HttpResponseMessage response = await client.GetAsync($"/artist/{artistName}");
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Error fetching artist {response.StatusCode}");
-            }
-            string content = await response.Content.ReadAsStringAsync();
-            ArtistViewModel2 artist = JsonSerializer.Deserialize<ArtistViewModel2>(content);
-
-            await Console.Out.WriteLineAsync(artist.ArtistName);
-            await Console.Out.WriteLineAsync(artist.Description);
-
-            Console.ReadLine();
-            await ArtistMenu.ArtistMenuAsync(client, userId, user);
-            //not finish yet here
-        }
-
         public static async Task ConnectArtistAsync(HttpClient client, int userId, string artistName)
         {
 
